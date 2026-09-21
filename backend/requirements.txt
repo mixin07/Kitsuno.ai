@@ -1,0 +1,8 @@
+fastapi>=0.115,<1.0
+uvicorn>=0.34,<1.0
+sqlalchemy>=2.0,<3.0
+psycopg>=3.2,<4.0
+pydantic-settings>=2.7,<3.0
+bcrypt>=4.2,<5.0
+python-jose[cryptography]>=3.3,<4.0
+email-validator>=2.2,<3.0
