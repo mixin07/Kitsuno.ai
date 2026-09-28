@@ -24,3 +24,5 @@ npm-debug.log*
 .idea/
 .DS_Store
 Thumbs.db
+scratch/
+frontend/scratch/
