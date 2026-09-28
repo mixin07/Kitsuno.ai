@@ -163,22 +163,41 @@ def submit_attempt(
     attempt.completed_at = datetime.now(timezone.utc)
     db.commit()
     db.refresh(attempt)
+
+    # Progress integration: passing quiz marks corresponding lesson completed
+    if attempt.percentage >= 60.0 and attempt.quiz is not None:
+        try:
+            from app.services import progress_service
+            from app.schemas.learning import LessonProgressUpdate
+            progress_service.update_lesson_progress(
+                db, student_id, attempt.quiz.lesson_id, LessonProgressUpdate(completed=True)
+            )
+            db.commit()
+        except Exception:
+            pass
+
+    from app.services import gamification_service
+    gamification_service.on_quiz_completed(db, student_id, attempt)
+
     return attempt
 
 
 def build_attempt_detail(attempt: QuizAttempt) -> AttemptDetailResponse:
-    answers = [
-        AttemptAnswerView(
-            id=answer.id,
-            question_id=answer.question_id,
-            question_text=answer.question.question_text,
-            selected_option_id=answer.selected_option_id,
-            selected_option_text=answer.option.option_text if answer.option is not None else None,
-            is_correct=answer.is_correct,
-            points_earned=answer.points_earned,
+    answers = []
+    for answer in attempt.answers:
+        correct_opt = next((o for o in answer.question.options if o.is_correct), None)
+        answers.append(
+            AttemptAnswerView(
+                id=answer.id,
+                question_id=answer.question_id,
+                question_text=answer.question.question_text,
+                selected_option_id=answer.selected_option_id,
+                selected_option_text=answer.option.option_text if answer.option is not None else None,
+                correct_option_text=correct_opt.option_text if correct_opt is not None else None,
+                is_correct=answer.is_correct,
+                points_earned=answer.points_earned,
+            )
         )
-        for answer in attempt.answers
-    ]
     return AttemptDetailResponse(
         id=attempt.id,
         quiz_id=attempt.quiz_id,

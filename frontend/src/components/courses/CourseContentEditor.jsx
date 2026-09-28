@@ -38,16 +38,20 @@ export default function CourseContentEditor({ courseId }) {
     async function load() {
       setIsLoading(true)
       setLoadError('')
+
       try {
         const data = await getCourse(courseId)
         const modules = await listModules(courseId)
+
         const withLessons = await Promise.all(
           modules.map(async (mod) => ({
             module: mod,
             lessons: await listLessons(courseId, mod.id),
           })),
         )
+
         if (!active) return
+
         setCourse(data)
         setTree(withLessons)
       } catch (err) {
@@ -59,6 +63,7 @@ export default function CourseContentEditor({ courseId }) {
     }
 
     load()
+
     return () => {
       active = false
     }
@@ -66,18 +71,21 @@ export default function CourseContentEditor({ courseId }) {
 
   async function refreshTree() {
     const modules = await listModules(courseId)
+
     const withLessons = await Promise.all(
       modules.map(async (mod) => ({
         module: mod,
         lessons: await listLessons(courseId, mod.id),
       })),
     )
+
     setTree(withLessons)
   }
 
   async function handleCreateModule(values) {
     setFormBusy(true)
     setFormError('')
+
     try {
       await createModule(courseId, values)
       setModuleForm(null)
@@ -93,8 +101,14 @@ export default function CourseContentEditor({ courseId }) {
   async function handleUpdateModule(values) {
     setFormBusy(true)
     setFormError('')
+
     try {
-      const updated = await updateModule(courseId, moduleForm.module.id, values)
+      const updated = await updateModule(
+        courseId,
+        moduleForm.module.id,
+        values,
+      )
+
       setModuleForm(null)
       await refreshTree()
       setNotice(`Module "${updated.title}" updated.`)
@@ -108,8 +122,14 @@ export default function CourseContentEditor({ courseId }) {
   async function handleCreateLesson(values) {
     setFormBusy(true)
     setFormError('')
+
     try {
-      await createLesson(courseId, lessonForm.module.id, values)
+      await createLesson(
+        courseId,
+        lessonForm.module.id,
+        values,
+      )
+
       setLessonForm(null)
       await refreshTree()
       setNotice('Lesson added.')
@@ -123,6 +143,7 @@ export default function CourseContentEditor({ courseId }) {
   async function handleUpdateLesson(values) {
     setFormBusy(true)
     setFormError('')
+
     try {
       const updated = await updateLesson(
         courseId,
@@ -130,6 +151,7 @@ export default function CourseContentEditor({ courseId }) {
         lessonForm.lesson.id,
         values,
       )
+
       setLessonForm(null)
       await refreshTree()
       setNotice(`Lesson "${updated.title}" updated.`)
@@ -142,16 +164,23 @@ export default function CourseContentEditor({ courseId }) {
 
   async function handleConfirmDelete() {
     if (!confirm) return
+
     setDeleting(true)
     setDeleteError('')
+
     try {
       if (confirm.kind === 'module') {
         await deleteModule(courseId, confirm.module.id)
         setNotice('Module deleted.')
       } else {
-        await deleteLesson(courseId, confirm.module.id, confirm.lesson.id)
+        await deleteLesson(
+          courseId,
+          confirm.module.id,
+          confirm.lesson.id,
+        )
         setNotice('Lesson deleted.')
       }
+
       setConfirm(null)
       await refreshTree()
     } catch (err) {
@@ -163,17 +192,27 @@ export default function CourseContentEditor({ courseId }) {
 
   async function handleTogglePublish() {
     if (!course) return
+
     setIsPublishing(true)
     setNotice('')
+
     try {
       const updated = course.published
         ? await unpublishCourse(course.id)
         : await publishCourse(course.id)
+
       setCourse(updated)
-      setNotice(updated.published ? 'Course published.' : 'Course unpublished.')
+
+      setNotice(
+        updated.published
+          ? 'Course published.'
+          : 'Course unpublished.',
+      )
     } catch (err) {
       if (err.response?.status === 409) {
-        setNotice('Add at least one module before publishing this course.')
+        setNotice(
+          'Add at least one module before publishing this course.',
+        )
       } else {
         setNotice(getApiErrorMessage(err))
       }
@@ -183,12 +222,21 @@ export default function CourseContentEditor({ courseId }) {
   }
 
   if (isLoading) {
-    return <StateMessage variant="loading" title="Loading course content..." />
+    return (
+      <StateMessage
+        variant="loading"
+        title="Loading course content..."
+      />
+    )
   }
 
   if (loadError) {
     return (
-      <StateMessage variant="error" title="Unable to load course" onRetry={() => window.location.reload()}>
+      <StateMessage
+        variant="error"
+        title="Unable to load course"
+        onRetry={() => window.location.reload()}
+      >
         {loadError}
       </StateMessage>
     )
@@ -204,13 +252,18 @@ export default function CourseContentEditor({ courseId }) {
           >
             ← Back to my courses
           </Link>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight">{course.title}</h1>
+
+          <h1 className="ks-page-title mt-2">
+            {course.title}
+          </h1>
+
           <div className="mt-2 flex flex-wrap gap-2 text-xs font-medium">
             {course.category && (
               <span className="rounded-full border border-[var(--ks-border)] bg-[var(--ks-bg-soft)] px-3 py-1 text-[var(--ks-text-muted)]">
                 {course.category}
               </span>
             )}
+
             <span
               className={`rounded-full px-3 py-1 ${
                 course.published
@@ -222,6 +275,7 @@ export default function CourseContentEditor({ courseId }) {
             </span>
           </div>
         </div>
+
         <button
           type="button"
           onClick={handleTogglePublish}
@@ -250,39 +304,80 @@ export default function CourseContentEditor({ courseId }) {
             lessons={lessons}
             onEditModule={() => {
               setFormError('')
-              setModuleForm({ mode: 'edit', module })
+              setModuleForm({
+                mode: 'edit',
+                module,
+              })
             }}
-            onDeleteModule={() => setConfirm({ kind: 'module', module })}
+            onDeleteModule={() =>
+              setConfirm({
+                kind: 'module',
+                module,
+              })
+            }
             onAddLesson={() => {
               setFormError('')
-              setLessonForm({ mode: 'create', module })
+              setLessonForm({
+                mode: 'create',
+                module,
+              })
             }}
             onEditLesson={(lesson) => {
               setFormError('')
-              setLessonForm({ mode: 'edit', module, lesson })
+              setLessonForm({
+                mode: 'edit',
+                module,
+                lesson,
+              })
             }}
-            onDeleteLesson={(lesson) => setConfirm({ kind: 'lesson', module, lesson })}
+            onDeleteLesson={(lesson) =>
+              setConfirm({
+                kind: 'lesson',
+                module,
+                lesson,
+              })
+            }
           >
-            {moduleForm?.mode === 'edit' && moduleForm.module.id === module.id && (
-              <div className="border-b border-[var(--ks-border)] px-5 py-5">
-                <ModuleForm
-                  initialValues={moduleForm.module}
-                  submitLabel="Save Module"
-                  isSubmitting={formBusy}
-                  error={formError}
-                  onSubmit={handleUpdateModule}
-                  onCancel={() => setModuleForm(null)}
-                />
-              </div>
-            )}
+            {moduleForm?.mode === 'edit' &&
+              moduleForm.module.id === module.id && (
+                <div className="border-b border-[var(--ks-border)] px-5 py-5">
+                  <ModuleForm
+                    key={`module-${moduleForm.module.id}`}
+                    initialValues={moduleForm.module}
+                    submitLabel="Save Module"
+                    isSubmitting={formBusy}
+                    error={formError}
+                    onSubmit={handleUpdateModule}
+                    onCancel={() => setModuleForm(null)}
+                  />
+                </div>
+              )}
+
             {lessonForm?.module.id === module.id && (
               <div className="border-b border-[var(--ks-border)] px-5 py-5">
                 <LessonForm
-                  initialValues={lessonForm.mode === 'edit' ? lessonForm.lesson : undefined}
-                  submitLabel={lessonForm.mode === 'edit' ? 'Save Lesson' : 'Add Lesson'}
+                  key={
+                    lessonForm.mode === 'edit'
+                      ? `lesson-${lessonForm.lesson.id}`
+                      : `create-lesson-${module.id}`
+                  }
+                  initialValues={
+                    lessonForm.mode === 'edit'
+                      ? lessonForm.lesson
+                      : undefined
+                  }
+                  submitLabel={
+                    lessonForm.mode === 'edit'
+                      ? 'Save Lesson'
+                      : 'Add Lesson'
+                  }
                   isSubmitting={formBusy}
                   error={formError}
-                  onSubmit={lessonForm.mode === 'edit' ? handleUpdateLesson : handleCreateLesson}
+                  onSubmit={
+                    lessonForm.mode === 'edit'
+                      ? handleUpdateLesson
+                      : handleCreateLesson
+                  }
                   onCancel={() => setLessonForm(null)}
                 />
               </div>
@@ -292,15 +387,21 @@ export default function CourseContentEditor({ courseId }) {
       </div>
 
       {tree.length === 0 && (
-        <StateMessage variant="empty" title="No modules yet">
-          Add the first module to start building this course. A course needs at least one module
-          before it can be published.
+        <StateMessage
+          variant="empty"
+          title="No modules yet"
+        >
+          Add the first module to start building this course. A course
+          needs at least one module before it can be published.
         </StateMessage>
       )}
 
       {moduleForm?.mode === 'create' ? (
         <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 shadow-xs">
-          <h3 className="mb-4 text-lg font-semibold">New Module</h3>
+          <h3 className="ks-panel-title mb-4">
+            New Module
+          </h3>
+
           <ModuleForm
             submitLabel="Add Module"
             isSubmitting={formBusy}
@@ -314,7 +415,9 @@ export default function CourseContentEditor({ courseId }) {
           type="button"
           onClick={() => {
             setFormError('')
-            setModuleForm({ mode: 'create' })
+            setModuleForm({
+              mode: 'create',
+            })
           }}
           className="w-full rounded-xl border border-dashed border-[var(--ks-border)] px-5 py-4 font-semibold text-[var(--ks-text-muted)] transition hover:border-[var(--ks-orange)]/60 hover:text-[var(--ks-orange)]"
         >
@@ -324,11 +427,17 @@ export default function CourseContentEditor({ courseId }) {
 
       <ConfirmDialog
         open={Boolean(confirm)}
-        title={confirm?.kind === 'module' ? 'Delete module?' : 'Delete lesson?'}
+        title={
+          confirm?.kind === 'module'
+            ? 'Delete module?'
+            : 'Delete lesson?'
+        }
         message={
           confirm?.kind === 'module'
-            ? `Delete module "${confirm.module.title}"? All lessons inside it will also be deleted. This cannot be undone.`
-            : `Delete lesson "${confirm.lesson.title}"? This cannot be undone.`
+            ? `Delete module "${confirm?.module?.title ?? ''}"? All lessons inside it will also be deleted. This cannot be undone.`
+            : confirm?.kind === 'lesson'
+              ? `Delete lesson "${confirm?.lesson?.title ?? ''}"? This cannot be undone.`
+              : ''
         }
         error={deleteError}
         isSubmitting={deleting}

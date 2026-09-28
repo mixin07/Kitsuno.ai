@@ -1,0 +1,370 @@
+[
+  {
+    "video_id": "2ciUcosJFBc",
+    "title": "Start C programming in 15 minutes! ⚙️",
+    "video_url": "https://www.youtube.com/watch?v=2ciUcosJFBc",
+    "length_text": "15 minutes, 5 seconds",
+    "duration_minutes": 15,
+    "order_number": 1
+  },
+  {
+    "video_id": "WrFEtUzVcnw",
+    "title": "Learn C programming variables easy! ❎",
+    "video_url": "https://www.youtube.com/watch?v=WrFEtUzVcnw",
+    "length_text": "20 minutes, 3 seconds",
+    "duration_minutes": 20,
+    "order_number": 2
+  },
+  {
+    "video_id": "oz5xT5Pej8A",
+    "title": "Format specifiers are easy! 🛠️",
+    "video_url": "https://www.youtube.com/watch?v=oz5xT5Pej8A",
+    "length_text": "9 minutes, 9 seconds",
+    "duration_minutes": 9,
+    "order_number": 3
+  },
+  {
+    "video_id": "4WMRnTfhQfU",
+    "title": "Learn C arithmetic operators in 6 minutes! ➗",
+    "video_url": "https://www.youtube.com/watch?v=4WMRnTfhQfU",
+    "length_text": "6 minutes, 25 seconds",
+    "duration_minutes": 6,
+    "order_number": 4
+  },
+  {
+    "video_id": "rknoBwLDzAI",
+    "title": "Learn how to enter user input in C! ⌨️",
+    "video_url": "https://www.youtube.com/watch?v=rknoBwLDzAI",
+    "length_text": "16 minutes, 15 seconds",
+    "duration_minutes": 16,
+    "order_number": 5
+  },
+  {
+    "video_id": "-xDAFNXAkRA",
+    "title": "Let's code a shopping cart program with C programming 🛒",
+    "video_url": "https://www.youtube.com/watch?v=-xDAFNXAkRA",
+    "length_text": "8 minutes, 44 seconds",
+    "duration_minutes": 9,
+    "order_number": 6
+  },
+  {
+    "video_id": "wt194lO5kKE",
+    "title": "Let's code a mad libs game with C programming! 📖",
+    "video_url": "https://www.youtube.com/watch?v=wt194lO5kKE",
+    "length_text": "9 minutes, 48 seconds",
+    "duration_minutes": 10,
+    "order_number": 7
+  },
+  {
+    "video_id": "uKjMsrCceXY",
+    "title": "Learn C math functions in 5 minutes! 🧮",
+    "video_url": "https://www.youtube.com/watch?v=uKjMsrCceXY",
+    "length_text": "5 minutes, 15 seconds",
+    "duration_minutes": 5,
+    "order_number": 8
+  },
+  {
+    "video_id": "M7PU_q6jp5o",
+    "title": "Let's code a circle calculator program with C ⚪",
+    "video_url": "https://www.youtube.com/watch?v=M7PU_q6jp5o",
+    "length_text": "6 minutes, 5 seconds",
+    "duration_minutes": 6,
+    "order_number": 9
+  },
+  {
+    "video_id": "u0YOwArfO2w",
+    "title": "Let's code an interest calculator with C programming! 💰",
+    "video_url": "https://www.youtube.com/watch?v=u0YOwArfO2w",
+    "length_text": "7 minutes, 44 seconds",
+    "duration_minutes": 8,
+    "order_number": 10
+  },
+  {
+    "video_id": "LFE0yibJTDk",
+    "title": "If statements are easy! 🤔",
+    "video_url": "https://www.youtube.com/watch?v=LFE0yibJTDk",
+    "length_text": "10 minutes, 55 seconds",
+    "duration_minutes": 11,
+    "order_number": 11
+  },
+  {
+    "video_id": "mKfOZ7Fq9o4",
+    "title": "Let's code a weight converter with C programming! 🏋️",
+    "video_url": "https://www.youtube.com/watch?v=mKfOZ7Fq9o4",
+    "length_text": "7 minutes, 11 seconds",
+    "duration_minutes": 7,
+    "order_number": 12
+  },
+  {
+    "video_id": "C0Fgs5zgcK4",
+    "title": "Let's code a temperature program with C programming! 🌡️",
+    "video_url": "https://www.youtube.com/watch?v=C0Fgs5zgcK4",
+    "length_text": "7 minutes, 51 seconds",
+    "duration_minutes": 8,
+    "order_number": 13
+  },
+  {
+    "video_id": "NtlSzRWhaOc",
+    "title": "Switches in C are easy! 💡",
+    "video_url": "https://www.youtube.com/watch?v=NtlSzRWhaOc",
+    "length_text": "8 minutes, 8 seconds",
+    "duration_minutes": 8,
+    "order_number": 14
+  },
+  {
+    "video_id": "r4VxxABeECg",
+    "title": "Nested if statements are easy! 🎟️",
+    "video_url": "https://www.youtube.com/watch?v=r4VxxABeECg",
+    "length_text": "8 minutes, 2 seconds",
+    "duration_minutes": 8,
+    "order_number": 15
+  },
+  {
+    "video_id": "pMHLTiSZaT0",
+    "title": "Let's code a calculator with C programming! 🖩",
+    "video_url": "https://www.youtube.com/watch?v=pMHLTiSZaT0",
+    "length_text": "7 minutes, 48 seconds",
+    "duration_minutes": 8,
+    "order_number": 16
+  },
+  {
+    "video_id": "S1D6iDV7hBs",
+    "title": "Logical operators are ❗easy",
+    "video_url": "https://www.youtube.com/watch?v=S1D6iDV7hBs",
+    "length_text": "7 minutes, 27 seconds",
+    "duration_minutes": 7,
+    "order_number": 17
+  },
+  {
+    "video_id": "7Bq87y7eJEg",
+    "title": "Functions in C are easy! 📞",
+    "video_url": "https://www.youtube.com/watch?v=7Bq87y7eJEg",
+    "length_text": "9 minutes, 57 seconds",
+    "duration_minutes": 10,
+    "order_number": 18
+  },
+  {
+    "video_id": "geL9zwSJ9AM",
+    "title": "Return statements in C are easy! 🔙",
+    "video_url": "https://www.youtube.com/watch?v=geL9zwSJ9AM",
+    "length_text": "8 minutes, 21 seconds",
+    "duration_minutes": 8,
+    "order_number": 19
+  },
+  {
+    "video_id": "Nrbm22wPU9k",
+    "title": "Learn variable scope in 5 minutes! 🏠",
+    "video_url": "https://www.youtube.com/watch?v=Nrbm22wPU9k",
+    "length_text": "5 minutes, 22 seconds",
+    "duration_minutes": 5,
+    "order_number": 20
+  },
+  {
+    "video_id": "NEj2H7SoTzQ",
+    "title": "Learn function prototypes in 5 minutes! 📌",
+    "video_url": "https://www.youtube.com/watch?v=NEj2H7SoTzQ",
+    "length_text": "5 minutes, 5 seconds",
+    "duration_minutes": 5,
+    "order_number": 21
+  },
+  {
+    "video_id": "6YNYuJ_jiu0",
+    "title": "While loops in C are easy! ♾️",
+    "video_url": "https://www.youtube.com/watch?v=6YNYuJ_jiu0",
+    "length_text": "11 minutes, 27 seconds",
+    "duration_minutes": 11,
+    "order_number": 22
+  },
+  {
+    "video_id": "zdAggA1q0eo",
+    "title": "Learn C for loops in 6 minutes! 🔂",
+    "video_url": "https://www.youtube.com/watch?v=zdAggA1q0eo",
+    "length_text": "6 minutes",
+    "duration_minutes": 6,
+    "order_number": 23
+  },
+  {
+    "video_id": "wVSekrbPcuk",
+    "title": "Learn break & continue in 2 minutes! 🛑",
+    "video_url": "https://www.youtube.com/watch?v=wVSekrbPcuk",
+    "length_text": "2 minutes, 21 seconds",
+    "duration_minutes": 2,
+    "order_number": 24
+  },
+  {
+    "video_id": "A36pfuw33oQ",
+    "title": "Learn nested loops in 9 minutes! ➿",
+    "video_url": "https://www.youtube.com/watch?v=A36pfuw33oQ",
+    "length_text": "9 minutes, 44 seconds",
+    "duration_minutes": 10,
+    "order_number": 25
+  },
+  {
+    "video_id": "_wWfHRbzdX4",
+    "title": "Generate random numbers in C! 🎲",
+    "video_url": "https://www.youtube.com/watch?v=_wWfHRbzdX4",
+    "length_text": "6 minutes, 2 seconds",
+    "duration_minutes": 6,
+    "order_number": 26
+  },
+  {
+    "video_id": "F6OrJaiNGJM",
+    "title": "Let's code a NUMBER GUESSING GAME in C! ↕️",
+    "video_url": "https://www.youtube.com/watch?v=F6OrJaiNGJM",
+    "length_text": "7 minutes, 29 seconds",
+    "duration_minutes": 7,
+    "order_number": 27
+  },
+  {
+    "video_id": "cUKD_AHpjNw",
+    "title": "Let's code ROCK PAPER SCISSORS with C programming! 🗿 📄 ✂️",
+    "video_url": "https://www.youtube.com/watch?v=cUKD_AHpjNw",
+    "length_text": "12 minutes, 11 seconds",
+    "duration_minutes": 12,
+    "order_number": 28
+  },
+  {
+    "video_id": "Z5smVeUVNFU",
+    "title": "Let's code a BANK PROGRAM with C programming! 💵",
+    "video_url": "https://www.youtube.com/watch?v=Z5smVeUVNFU",
+    "length_text": "15 minutes, 32 seconds",
+    "duration_minutes": 16,
+    "order_number": 29
+  },
+  {
+    "video_id": "6Hk2aE_SRzY",
+    "title": "Arrays in C are easy! 🗃️",
+    "video_url": "https://www.youtube.com/watch?v=6Hk2aE_SRzY",
+    "length_text": "11 minutes, 6 seconds",
+    "duration_minutes": 11,
+    "order_number": 30
+  },
+  {
+    "video_id": "y4siEcxgOpM",
+    "title": "Initialize an array with user input in C ➡️",
+    "video_url": "https://www.youtube.com/watch?v=y4siEcxgOpM",
+    "length_text": "5 minutes, 39 seconds",
+    "duration_minutes": 6,
+    "order_number": 31
+  },
+  {
+    "video_id": "vpu09OPR61M",
+    "title": "Learn 2D arrays in 8 minutes! ⬜",
+    "video_url": "https://www.youtube.com/watch?v=vpu09OPR61M",
+    "length_text": "8 minutes, 8 seconds",
+    "duration_minutes": 8,
+    "order_number": 32
+  },
+  {
+    "video_id": "e7SACGE9hKw",
+    "title": "Arrays of strings in C explained! 🧵",
+    "video_url": "https://www.youtube.com/watch?v=e7SACGE9hKw",
+    "length_text": "12 minutes, 41 seconds",
+    "duration_minutes": 13,
+    "order_number": 33
+  },
+  {
+    "video_id": "HDlm1imM7mU",
+    "title": "Let's code a QUIZ GAME with C programming! 💯",
+    "video_url": "https://www.youtube.com/watch?v=HDlm1imM7mU",
+    "length_text": "15 minutes, 7 seconds",
+    "duration_minutes": 15,
+    "order_number": 34
+  },
+  {
+    "video_id": "Jx12Vf0VxmY",
+    "title": "The ternary operator is easy! ❓",
+    "video_url": "https://www.youtube.com/watch?v=Jx12Vf0VxmY",
+    "length_text": "8 minutes, 8 seconds",
+    "duration_minutes": 8,
+    "order_number": 35
+  },
+  {
+    "video_id": "pNNC6WAJfdk",
+    "title": "Learn typedef in 5 minutes! 📛",
+    "video_url": "https://www.youtube.com/watch?v=pNNC6WAJfdk",
+    "length_text": "5 minutes, 3 seconds",
+    "duration_minutes": 5,
+    "order_number": 36
+  },
+  {
+    "video_id": "sU0XQ3jSsu8",
+    "title": "Learn enums in 8 minutes! 📅",
+    "video_url": "https://www.youtube.com/watch?v=sU0XQ3jSsu8",
+    "length_text": "8 minutes, 52 seconds",
+    "duration_minutes": 9,
+    "order_number": 37
+  },
+  {
+    "video_id": "e9OXqEPF-5M",
+    "title": "Structs in C are easy! 📦",
+    "video_url": "https://www.youtube.com/watch?v=e9OXqEPF-5M",
+    "length_text": "12 minutes, 15 seconds",
+    "duration_minutes": 12,
+    "order_number": 38
+  },
+  {
+    "video_id": "ZwSyuqbeN0c",
+    "title": "Arrays of structs are easy! 🗄️",
+    "video_url": "https://www.youtube.com/watch?v=ZwSyuqbeN0c",
+    "length_text": "6 minutes, 41 seconds",
+    "duration_minutes": 7,
+    "order_number": 39
+  },
+  {
+    "video_id": "Hi-Ul47t3nQ",
+    "title": "Pointers are easy! 👈",
+    "video_url": "https://www.youtube.com/watch?v=Hi-Ul47t3nQ",
+    "length_text": "8 minutes, 7 seconds",
+    "duration_minutes": 8,
+    "order_number": 40
+  },
+  {
+    "video_id": "d29sVpbM0kc",
+    "title": "Write files using C programming in 5 minutes! ✍️",
+    "video_url": "https://www.youtube.com/watch?v=d29sVpbM0kc",
+    "length_text": "5 minutes, 56 seconds",
+    "duration_minutes": 6,
+    "order_number": 41
+  },
+  {
+    "video_id": "eIlcl-mt3tg",
+    "title": "Read files using C programming in 6 minutes! 📖",
+    "video_url": "https://www.youtube.com/watch?v=eIlcl-mt3tg",
+    "length_text": "6 minutes, 24 seconds",
+    "duration_minutes": 6,
+    "order_number": 42
+  },
+  {
+    "video_id": "n_Se6bt8jM0",
+    "title": "Malloc in C is easy! 🏢",
+    "video_url": "https://www.youtube.com/watch?v=n_Se6bt8jM0",
+    "length_text": "9 minutes, 32 seconds",
+    "duration_minutes": 10,
+    "order_number": 43
+  },
+  {
+    "video_id": "l8DU9ZeT3o8",
+    "title": "Calloc in C is easy! 🧹",
+    "video_url": "https://www.youtube.com/watch?v=l8DU9ZeT3o8",
+    "length_text": "6 minutes, 48 seconds",
+    "duration_minutes": 7,
+    "order_number": 44
+  },
+  {
+    "video_id": "rUXjvybSPWc",
+    "title": "Realloc in C explained easy! 🚢",
+    "video_url": "https://www.youtube.com/watch?v=rUXjvybSPWc",
+    "length_text": "11 minutes, 51 seconds",
+    "duration_minutes": 12,
+    "order_number": 45
+  },
+  {
+    "video_id": "s3QMbp7TlFg",
+    "title": "Code a C digital clock in 10 minutes! ⌚",
+    "video_url": "https://www.youtube.com/watch?v=s3QMbp7TlFg",
+    "length_text": "10 minutes, 11 seconds",
+    "duration_minutes": 10,
+    "order_number": 46
+  }
+]

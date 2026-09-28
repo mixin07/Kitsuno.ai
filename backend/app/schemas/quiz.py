@@ -65,6 +65,7 @@ class AttemptAnswerView(BaseModel):
     question_text: str | None = None
     selected_option_id: int | None
     selected_option_text: str | None = None
+    correct_option_text: str | None = None
     is_correct: bool
     points_earned: float
 

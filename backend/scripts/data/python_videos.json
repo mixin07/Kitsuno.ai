@@ -1,0 +1,746 @@
+[
+  {
+    "video_id": "Sg4GMVMdOPo",
+    "title": "Start coding with PYTHON in 5 minutes! 🐍",
+    "video_url": "https://www.youtube.com/watch?v=Sg4GMVMdOPo",
+    "length_text": "5 minutes, 50 seconds",
+    "duration_minutes": 6,
+    "order_number": 1
+  },
+  {
+    "video_id": "7IoQ5BGkTJo",
+    "title": "Learn Python VARIABLES in 10 minutes! ❎",
+    "video_url": "https://www.youtube.com/watch?v=7IoQ5BGkTJo",
+    "length_text": "10 minutes, 16 seconds",
+    "duration_minutes": 10,
+    "order_number": 2
+  },
+  {
+    "video_id": "Qtq83lAoogM",
+    "title": "Learn type casting in 7 minutes! 💱",
+    "video_url": "https://www.youtube.com/watch?v=Qtq83lAoogM",
+    "length_text": "7 minutes, 37 seconds",
+    "duration_minutes": 8,
+    "order_number": 3
+  },
+  {
+    "video_id": "nMCOB8KElwo",
+    "title": "User input in Python is easy + exercises ⌨️",
+    "video_url": "https://www.youtube.com/watch?v=nMCOB8KElwo",
+    "length_text": "13 minutes, 4 seconds",
+    "duration_minutes": 13,
+    "order_number": 4
+  },
+  {
+    "video_id": "jc7TBgMS_kw",
+    "title": "Math in Python is easy! 📐",
+    "video_url": "https://www.youtube.com/watch?v=jc7TBgMS_kw",
+    "length_text": "13 minutes, 51 seconds",
+    "duration_minutes": 14,
+    "order_number": 5
+  },
+  {
+    "video_id": "FvMPfrgGeKs",
+    "title": "If statements in Python are easy (if, elif, else) 🤔",
+    "video_url": "https://www.youtube.com/watch?v=FvMPfrgGeKs",
+    "length_text": "8 minutes, 21 seconds",
+    "duration_minutes": 8,
+    "order_number": 6
+  },
+  {
+    "video_id": "yUrYouDQZL8",
+    "title": "Let's code a simple python calculator! 🧮",
+    "video_url": "https://www.youtube.com/watch?v=yUrYouDQZL8",
+    "length_text": "5 minutes, 52 seconds",
+    "duration_minutes": 6,
+    "order_number": 7
+  },
+  {
+    "video_id": "80kjCBRjkmU",
+    "title": "Python weight conversion exercise 🏋️",
+    "video_url": "https://www.youtube.com/watch?v=80kjCBRjkmU",
+    "length_text": "4 minutes, 1 second",
+    "duration_minutes": 4,
+    "order_number": 8
+  },
+  {
+    "video_id": "fy5QsDJmctQ",
+    "title": "Python temperature conversion program 🌡️",
+    "video_url": "https://www.youtube.com/watch?v=fy5QsDJmctQ",
+    "length_text": "3 minutes, 59 seconds",
+    "duration_minutes": 4,
+    "order_number": 9
+  },
+  {
+    "video_id": "W7luvtXeQTA",
+    "title": "Logical operators in Python are easy 🔣",
+    "video_url": "https://www.youtube.com/watch?v=W7luvtXeQTA",
+    "length_text": "5 minutes, 4 seconds",
+    "duration_minutes": 5,
+    "order_number": 10
+  },
+  {
+    "video_id": "TYyKQBC4bwE",
+    "title": "Learn conditional expressions in 5 minutes! ❓",
+    "video_url": "https://www.youtube.com/watch?v=TYyKQBC4bwE",
+    "length_text": "5 minutes, 33 seconds",
+    "duration_minutes": 6,
+    "order_number": 11
+  },
+  {
+    "video_id": "tb6EYiHtcXU",
+    "title": "String methods in Python are easy! 〰️",
+    "video_url": "https://www.youtube.com/watch?v=tb6EYiHtcXU",
+    "length_text": "12 minutes, 6 seconds",
+    "duration_minutes": 12,
+    "order_number": 12
+  },
+  {
+    "video_id": "7pXf1DUuaIo",
+    "title": "String indexing in Python is easy ✂️",
+    "video_url": "https://www.youtube.com/watch?v=7pXf1DUuaIo",
+    "length_text": "7 minutes, 28 seconds",
+    "duration_minutes": 7,
+    "order_number": 13
+  },
+  {
+    "video_id": "6MAufQ6vGtI",
+    "title": "Python email slicer program 📧",
+    "video_url": "https://www.youtube.com/watch?v=6MAufQ6vGtI",
+    "length_text": "3 minutes, 46 seconds",
+    "duration_minutes": 4,
+    "order_number": 14
+  },
+  {
+    "video_id": "FrvBwdAU2dQ",
+    "title": "Learn Python format specifiers in 5 minutes! 💬",
+    "video_url": "https://www.youtube.com/watch?v=FrvBwdAU2dQ",
+    "length_text": "5 minutes, 21 seconds",
+    "duration_minutes": 5,
+    "order_number": 15
+  },
+  {
+    "video_id": "rRTjPnVooxE",
+    "title": "While loops in Python are easy! ♾️",
+    "video_url": "https://www.youtube.com/watch?v=rRTjPnVooxE",
+    "length_text": "6 minutes, 58 seconds",
+    "duration_minutes": 7,
+    "order_number": 16
+  },
+  {
+    "video_id": "aM5dttidg4Q",
+    "title": "Code an interest calculator in 7 minutes! 💵",
+    "video_url": "https://www.youtube.com/watch?v=aM5dttidg4Q",
+    "length_text": "7 minutes, 36 seconds",
+    "duration_minutes": 8,
+    "order_number": 17
+  },
+  {
+    "video_id": "KWgYha0clzw",
+    "title": "Learn Python for loops in 5 minutes! 🔁",
+    "video_url": "https://www.youtube.com/watch?v=KWgYha0clzw",
+    "length_text": "5 minutes, 6 seconds",
+    "duration_minutes": 5,
+    "order_number": 18
+  },
+  {
+    "video_id": "APWy6Pc83gE",
+    "title": "Nested loops in Python are easy ➿",
+    "video_url": "https://www.youtube.com/watch?v=APWy6Pc83gE",
+    "length_text": "5 minutes, 35 seconds",
+    "duration_minutes": 6,
+    "order_number": 19
+  },
+  {
+    "video_id": "KseiSR0MCTI",
+    "title": "Countdown timer program in Python ⌛",
+    "video_url": "https://www.youtube.com/watch?v=KseiSR0MCTI",
+    "length_text": "5 minutes, 56 seconds",
+    "duration_minutes": 6,
+    "order_number": 20
+  },
+  {
+    "video_id": "gOMW_n2-2Mw",
+    "title": "Python lists, sets, and tuples explained 🍍",
+    "video_url": "https://www.youtube.com/watch?v=gOMW_n2-2Mw",
+    "length_text": "15 minutes, 6 seconds",
+    "duration_minutes": 15,
+    "order_number": 21
+  },
+  {
+    "video_id": "kbyHLU9JqjE",
+    "title": "Python shopping cart program 🛒",
+    "video_url": "https://www.youtube.com/watch?v=kbyHLU9JqjE",
+    "length_text": "7 minutes, 14 seconds",
+    "duration_minutes": 7,
+    "order_number": 22
+  },
+  {
+    "video_id": "Xy6qeQWQwFw",
+    "title": "Python 2D collections are easy! ⬜",
+    "video_url": "https://www.youtube.com/watch?v=Xy6qeQWQwFw",
+    "length_text": "8 minutes, 39 seconds",
+    "duration_minutes": 9,
+    "order_number": 23
+  },
+  {
+    "video_id": "zehwgTB0vV8",
+    "title": "Create a QUIZ GAME with Python 💯",
+    "video_url": "https://www.youtube.com/watch?v=zehwgTB0vV8",
+    "length_text": "9 minutes, 29 seconds",
+    "duration_minutes": 9,
+    "order_number": 24
+  },
+  {
+    "video_id": "MZZSMaEAC2g",
+    "title": "Python dictionaries are easy 📙",
+    "video_url": "https://www.youtube.com/watch?v=MZZSMaEAC2g",
+    "length_text": "8 minutes, 6 seconds",
+    "duration_minutes": 8,
+    "order_number": 25
+  },
+  {
+    "video_id": "PbkIzW_70EI",
+    "title": "Python concession stand program 🍿",
+    "video_url": "https://www.youtube.com/watch?v=PbkIzW_70EI",
+    "length_text": "8 minutes, 10 seconds",
+    "duration_minutes": 8,
+    "order_number": 26
+  },
+  {
+    "video_id": "piJc18hcH0Y",
+    "title": "Generate random numbers in Python 🎲",
+    "video_url": "https://www.youtube.com/watch?v=piJc18hcH0Y",
+    "length_text": "8 minutes, 3 seconds",
+    "duration_minutes": 8,
+    "order_number": 27
+  },
+  {
+    "video_id": "jcKe13D6bao",
+    "title": "Let's code a Python NUMBER GUESSING GAME! 🔢",
+    "video_url": "https://www.youtube.com/watch?v=jcKe13D6bao",
+    "length_text": "8 minutes, 20 seconds",
+    "duration_minutes": 8,
+    "order_number": 28
+  },
+  {
+    "video_id": "fn68QNcatfo",
+    "title": "ROCK PAPER SCISSORS game in Python 🗿",
+    "video_url": "https://www.youtube.com/watch?v=fn68QNcatfo",
+    "length_text": "9 minutes, 29 seconds",
+    "duration_minutes": 9,
+    "order_number": 29
+  },
+  {
+    "video_id": "x-Ag2_bJ40Y",
+    "title": "Code a dice roller program in 10 minutes! 🎲",
+    "video_url": "https://www.youtube.com/watch?v=x-Ag2_bJ40Y",
+    "length_text": "10 minutes, 6 seconds",
+    "duration_minutes": 10,
+    "order_number": 30
+  },
+  {
+    "video_id": "vsLBErLWBhA",
+    "title": "Encryption program in Python 🔐",
+    "video_url": "https://www.youtube.com/watch?v=vsLBErLWBhA",
+    "length_text": "8 minutes, 41 seconds",
+    "duration_minutes": 9,
+    "order_number": 31
+  },
+  {
+    "video_id": "89cGQjB5R4M",
+    "title": "Functions in Python are easy 📞",
+    "video_url": "https://www.youtube.com/watch?v=89cGQjB5R4M",
+    "length_text": "10 minutes, 38 seconds",
+    "duration_minutes": 11,
+    "order_number": 32
+  },
+  {
+    "video_id": "m2uURZxex3c",
+    "title": "Python default arguments are awesome! 👍",
+    "video_url": "https://www.youtube.com/watch?v=m2uURZxex3c",
+    "length_text": "6 minutes, 7 seconds",
+    "duration_minutes": 6,
+    "order_number": 33
+  },
+  {
+    "video_id": "7QCHpAtlSMo",
+    "title": "Python keyword arguments are awesome! 🗝️",
+    "video_url": "https://www.youtube.com/watch?v=7QCHpAtlSMo",
+    "length_text": "6 minutes, 44 seconds",
+    "duration_minutes": 7,
+    "order_number": 34
+  },
+  {
+    "video_id": "Vh__2V2tXUM",
+    "title": "Python *ARGS & **KWARGS are awesome! 📦",
+    "video_url": "https://www.youtube.com/watch?v=Vh__2V2tXUM",
+    "length_text": "14 minutes, 54 seconds",
+    "duration_minutes": 15,
+    "order_number": 35
+  },
+  {
+    "video_id": "VL_g3LjsFqs",
+    "title": "Learn Python iterables in 6 minutes! 🔂",
+    "video_url": "https://www.youtube.com/watch?v=VL_g3LjsFqs",
+    "length_text": "6 minutes, 30 seconds",
+    "duration_minutes": 7,
+    "order_number": 36
+  },
+  {
+    "video_id": "OJ5E7VLsZQM",
+    "title": "Learn Python MEMBERSHIP OPERATORS in 8 minutes! 🔎",
+    "video_url": "https://www.youtube.com/watch?v=OJ5E7VLsZQM",
+    "length_text": "8 minutes, 50 seconds",
+    "duration_minutes": 9,
+    "order_number": 37
+  },
+  {
+    "video_id": "YlY2g2xrl6Q",
+    "title": "Learn Python LIST COMPREHENSIONS in 10 minutes! 📃",
+    "video_url": "https://www.youtube.com/watch?v=YlY2g2xrl6Q",
+    "length_text": "10 minutes, 20 seconds",
+    "duration_minutes": 10,
+    "order_number": 38
+  },
+  {
+    "video_id": "L7tT0NZF-Ag",
+    "title": "Learn Python MATCH-CASE STATEMENTS in 5 minutes! 📆",
+    "video_url": "https://www.youtube.com/watch?v=L7tT0NZF-Ag",
+    "length_text": "5 minutes, 55 seconds",
+    "duration_minutes": 6,
+    "order_number": 39
+  },
+  {
+    "video_id": "XcfxkHrHTVE",
+    "title": "What are Python modules? 📨",
+    "video_url": "https://www.youtube.com/watch?v=XcfxkHrHTVE",
+    "length_text": "6 minutes, 36 seconds",
+    "duration_minutes": 7,
+    "order_number": 40
+  },
+  {
+    "video_id": "XN83IECAscM",
+    "title": "What is Python scope resolution? 🔬",
+    "video_url": "https://www.youtube.com/watch?v=XN83IECAscM",
+    "length_text": "5 minutes, 34 seconds",
+    "duration_minutes": 6,
+    "order_number": 41
+  },
+  {
+    "video_id": "8A0E1dSyjFM",
+    "title": "if __name__ == '__main__' for Python beginners 📥",
+    "video_url": "https://www.youtube.com/watch?v=8A0E1dSyjFM",
+    "length_text": "9 minutes, 13 seconds",
+    "duration_minutes": 9,
+    "order_number": 42
+  },
+  {
+    "video_id": "LqXIJjcRmGI",
+    "title": "Credit card validator in Python 💳",
+    "video_url": "https://www.youtube.com/watch?v=LqXIJjcRmGI",
+    "length_text": "8 minutes, 54 seconds",
+    "duration_minutes": 9,
+    "order_number": 43
+  },
+  {
+    "video_id": "8aW3tkIul-8",
+    "title": "Let's code a beginners Python BANKING PROGRAM 💰",
+    "video_url": "https://www.youtube.com/watch?v=8aW3tkIul-8",
+    "length_text": "15 minutes, 1 second",
+    "duration_minutes": 15,
+    "order_number": 44
+  },
+  {
+    "video_id": "f5J3YiZ3XX8",
+    "title": "Let's code a beginners Python SLOT MACHINE 🎰",
+    "video_url": "https://www.youtube.com/watch?v=f5J3YiZ3XX8",
+    "length_text": "20 minutes, 11 seconds",
+    "duration_minutes": 20,
+    "order_number": 45
+  },
+  {
+    "video_id": "ag8NtD1e0Kc",
+    "title": "Let's code a HANGMAN GAME in Python! 🕺",
+    "video_url": "https://www.youtube.com/watch?v=ag8NtD1e0Kc",
+    "length_text": "25 minutes, 7 seconds",
+    "duration_minutes": 25,
+    "order_number": 46
+  },
+  {
+    "video_id": "1XE-_s4ZBT8",
+    "title": "Learn Python Object Oriented Programming! 🚗",
+    "video_url": "https://www.youtube.com/watch?v=1XE-_s4ZBT8",
+    "length_text": "12 minutes, 18 seconds",
+    "duration_minutes": 12,
+    "order_number": 47
+  },
+  {
+    "video_id": "bytvWg4fPB0",
+    "title": "Learn class variables in 8 minutes! 🎓",
+    "video_url": "https://www.youtube.com/watch?v=bytvWg4fPB0",
+    "length_text": "8 minutes, 16 seconds",
+    "duration_minutes": 8,
+    "order_number": 48
+  },
+  {
+    "video_id": "u1be7Vele5o",
+    "title": "Python INHERITANCE in 6 minutes! 👨‍👦‍👦",
+    "video_url": "https://www.youtube.com/watch?v=u1be7Vele5o",
+    "length_text": "6 minutes, 57 seconds",
+    "duration_minutes": 7,
+    "order_number": 49
+  },
+  {
+    "video_id": "Q8YlYHjksLo",
+    "title": "Learn Python multiple inheritance in 8 minutes! 🐟",
+    "video_url": "https://www.youtube.com/watch?v=Q8YlYHjksLo",
+    "length_text": "8 minutes, 3 seconds",
+    "duration_minutes": 8,
+    "order_number": 50
+  },
+  {
+    "video_id": "97V7ICVeTJc",
+    "title": "Learn Python ABSTRACT CLASSES in 7 minutes! 👻",
+    "video_url": "https://www.youtube.com/watch?v=97V7ICVeTJc",
+    "length_text": "7 minutes, 2 seconds",
+    "duration_minutes": 7,
+    "order_number": 51
+  },
+  {
+    "video_id": "HzyhmZqiaE8",
+    "title": "SUPER() in Python explained! 🔴",
+    "video_url": "https://www.youtube.com/watch?v=HzyhmZqiaE8",
+    "length_text": "13 minutes, 6 seconds",
+    "duration_minutes": 13,
+    "order_number": 52
+  },
+  {
+    "video_id": "tHN8I_4FIt8",
+    "title": "Learn polymorphism in 8 minutes! 🎭",
+    "video_url": "https://www.youtube.com/watch?v=tHN8I_4FIt8",
+    "length_text": "8 minutes, 6 seconds",
+    "duration_minutes": 8,
+    "order_number": 53
+  },
+  {
+    "video_id": "Qe03kCuTMoU",
+    "title": "Learn Python DUCK TYPING in 4 minutes! 🦆",
+    "video_url": "https://www.youtube.com/watch?v=Qe03kCuTMoU",
+    "length_text": "4 minutes, 20 seconds",
+    "duration_minutes": 4,
+    "order_number": 54
+  },
+  {
+    "video_id": "caXOUnQkD1o",
+    "title": "Learn Python AGGREGATION in 6 minutes! 📚",
+    "video_url": "https://www.youtube.com/watch?v=caXOUnQkD1o",
+    "length_text": "6 minutes, 38 seconds",
+    "duration_minutes": 7,
+    "order_number": 55
+  },
+  {
+    "video_id": "TPUdUkFHD5I",
+    "title": "Learn Python COMPOSITION in 7 minutes! 🚘",
+    "video_url": "https://www.youtube.com/watch?v=TPUdUkFHD5I",
+    "length_text": "7 minutes, 22 seconds",
+    "duration_minutes": 7,
+    "order_number": 56
+  },
+  {
+    "video_id": "zxPODCF4KEw",
+    "title": "Learn Python NESTED CLASSES in 9 minutes! 📛",
+    "video_url": "https://www.youtube.com/watch?v=zxPODCF4KEw",
+    "length_text": "9 minutes, 49 seconds",
+    "duration_minutes": 10,
+    "order_number": 57
+  },
+  {
+    "video_id": "GZYWTm7JoWs",
+    "title": "Learn Python STATIC METHODS in 5 minutes! ⚡",
+    "video_url": "https://www.youtube.com/watch?v=GZYWTm7JoWs",
+    "length_text": "5 minutes, 57 seconds",
+    "duration_minutes": 6,
+    "order_number": 58
+  },
+  {
+    "video_id": "g-qRKZD3FgE",
+    "title": "Learn Python CLASS METHODS in 6 minutes! 🏫",
+    "video_url": "https://www.youtube.com/watch?v=g-qRKZD3FgE",
+    "length_text": "6 minutes, 46 seconds",
+    "duration_minutes": 7,
+    "order_number": 59
+  },
+  {
+    "video_id": "NwjSP1_WEfE",
+    "title": "Python MAGIC METHODS are easy! 🌟",
+    "video_url": "https://www.youtube.com/watch?v=NwjSP1_WEfE",
+    "length_text": "13 minutes, 36 seconds",
+    "duration_minutes": 14,
+    "order_number": 60
+  },
+  {
+    "video_id": "U-G-mSd4KAE",
+    "title": "Learn Python DECORATORS in 7 minutes! 🎊",
+    "video_url": "https://www.youtube.com/watch?v=U-G-mSd4KAE",
+    "length_text": "7 minutes, 22 seconds",
+    "duration_minutes": 7,
+    "order_number": 61
+  },
+  {
+    "video_id": "HkbQ_NaH0Lc",
+    "title": "Learn Python @property in 7 minutes! ⚙️",
+    "video_url": "https://www.youtube.com/watch?v=HkbQ_NaH0Lc",
+    "length_text": "7 minutes, 43 seconds",
+    "duration_minutes": 8,
+    "order_number": 62
+  },
+  {
+    "video_id": "IljPHDyBRog",
+    "title": "Learn Python LAMBDA in 6 minutes! 🚮",
+    "video_url": "https://www.youtube.com/watch?v=IljPHDyBRog",
+    "length_text": "6 minutes, 50 seconds",
+    "duration_minutes": 7,
+    "order_number": 63
+  },
+  {
+    "video_id": "cd-vtiO5chk",
+    "title": "Python SORTING is easy (sort of) 🔀",
+    "video_url": "https://www.youtube.com/watch?v=cd-vtiO5chk",
+    "length_text": "12 minutes, 28 seconds",
+    "duration_minutes": 12,
+    "order_number": 64
+  },
+  {
+    "video_id": "5WK3j2erJW4",
+    "title": "Learn Python zip() in 3 minutes! 🤐",
+    "video_url": "https://www.youtube.com/watch?v=5WK3j2erJW4",
+    "length_text": "3 minutes, 21 seconds",
+    "duration_minutes": 3,
+    "order_number": 65
+  },
+  {
+    "video_id": "ivl5-snqul8",
+    "title": "Learn RECURSION in 5 minutes! 😵",
+    "video_url": "https://www.youtube.com/watch?v=ivl5-snqul8",
+    "length_text": "5 minutes, 59 seconds",
+    "duration_minutes": 6,
+    "order_number": 66
+  },
+  {
+    "video_id": "V_NXT2-QIlE",
+    "title": "Learn Python EXCEPTION HANDLING in 5 minutes! 🚦",
+    "video_url": "https://www.youtube.com/watch?v=V_NXT2-QIlE",
+    "length_text": "5 minutes, 49 seconds",
+    "duration_minutes": 6,
+    "order_number": 67
+  },
+  {
+    "video_id": "EReeJSaU0Og",
+    "title": "File detection in Python is easy! 🕵️‍♂️",
+    "video_url": "https://www.youtube.com/watch?v=EReeJSaU0Og",
+    "length_text": "7 minutes, 2 seconds",
+    "duration_minutes": 7,
+    "order_number": 68
+  },
+  {
+    "video_id": "1IYrmTTKOoI",
+    "title": "Write files using Python! ✍",
+    "video_url": "https://www.youtube.com/watch?v=1IYrmTTKOoI",
+    "length_text": "13 minutes, 47 seconds",
+    "duration_minutes": 14,
+    "order_number": 69
+  },
+  {
+    "video_id": "GWBWQnWNWBI",
+    "title": "Read files using Python! 🔍",
+    "video_url": "https://www.youtube.com/watch?v=GWBWQnWNWBI",
+    "length_text": "6 minutes, 56 seconds",
+    "duration_minutes": 7,
+    "order_number": 70
+  },
+  {
+    "video_id": "FblABqaKz_U",
+    "title": "How to measure EXECUTION TIME in Python ⌚",
+    "video_url": "https://www.youtube.com/watch?v=FblABqaKz_U",
+    "length_text": "3 minutes, 1 second",
+    "duration_minutes": 3,
+    "order_number": 71
+  },
+  {
+    "video_id": "DwBDHsdX6XQ",
+    "title": "Learn Python DATES & TIMES in 6 minutes! 📅",
+    "video_url": "https://www.youtube.com/watch?v=DwBDHsdX6XQ",
+    "length_text": "6 minutes, 18 seconds",
+    "duration_minutes": 6,
+    "order_number": 72
+  },
+  {
+    "video_id": "uf8DvQlWm7M",
+    "title": "Code an alarm clock using Python! ⏰",
+    "video_url": "https://www.youtube.com/watch?v=uf8DvQlWm7M",
+    "length_text": "10 minutes, 33 seconds",
+    "duration_minutes": 11,
+    "order_number": 73
+  },
+  {
+    "video_id": "k0D3MQwLn7A",
+    "title": "Learn Python iterators in 7 minutes! ➡️",
+    "video_url": "https://www.youtube.com/watch?v=k0D3MQwLn7A",
+    "length_text": "7 minutes, 12 seconds",
+    "duration_minutes": 7,
+    "order_number": 74
+  },
+  {
+    "video_id": "G1lJeEIl05o",
+    "title": "Learn Python generators in 8 minutes! 🚰",
+    "video_url": "https://www.youtube.com/watch?v=G1lJeEIl05o",
+    "length_text": "8 minutes, 2 seconds",
+    "duration_minutes": 8,
+    "order_number": 75
+  },
+  {
+    "video_id": "ZBlxaXMN_hU",
+    "title": "Learn Python generator expressions in 9 minutes! ♻️",
+    "video_url": "https://www.youtube.com/watch?v=ZBlxaXMN_hU",
+    "length_text": "9 minutes, 8 seconds",
+    "duration_minutes": 9,
+    "order_number": 76
+  },
+  {
+    "video_id": "Gsfsq2epdr8",
+    "title": "You'll love Python data classes! 📋",
+    "video_url": "https://www.youtube.com/watch?v=Gsfsq2epdr8",
+    "length_text": "7 minutes, 29 seconds",
+    "duration_minutes": 7,
+    "order_number": 77
+  },
+  {
+    "video_id": "STEOavXqXkQ",
+    "title": "Learn Python multithreading in 8 minutes! 🧵",
+    "video_url": "https://www.youtube.com/watch?v=STEOavXqXkQ",
+    "length_text": "8 minutes, 43 seconds",
+    "duration_minutes": 9,
+    "order_number": 78
+  },
+  {
+    "video_id": "JVQNywo4AbU",
+    "title": "Request API data using Python in 8 minutes! ↩️",
+    "video_url": "https://www.youtube.com/watch?v=JVQNywo4AbU",
+    "length_text": "8 minutes, 34 seconds",
+    "duration_minutes": 9,
+    "order_number": 79
+  },
+  {
+    "video_id": "Uvqmv3PGiXM",
+    "title": "Python PyQt5 setup a basic GUI Application! 🖥️",
+    "video_url": "https://www.youtube.com/watch?v=Uvqmv3PGiXM",
+    "length_text": "9 minutes, 9 seconds",
+    "duration_minutes": 9,
+    "order_number": 80
+  },
+  {
+    "video_id": "nFLADhwXjW4",
+    "title": "Create LABELS with Python in 8 minutes! 🏷️",
+    "video_url": "https://www.youtube.com/watch?v=nFLADhwXjW4",
+    "length_text": "8 minutes, 56 seconds",
+    "duration_minutes": 9,
+    "order_number": 81
+  },
+  {
+    "video_id": "7v5NQeIBYes",
+    "title": "Python PyQt5 IMAGES are easy! 📷",
+    "video_url": "https://www.youtube.com/watch?v=7v5NQeIBYes",
+    "length_text": "6 minutes, 6 seconds",
+    "duration_minutes": 6,
+    "order_number": 82
+  },
+  {
+    "video_id": "ml-mBl77h6Q",
+    "title": "Layout managers in Python are easy! 🧲",
+    "video_url": "https://www.youtube.com/watch?v=ml-mBl77h6Q",
+    "length_text": "6 minutes, 40 seconds",
+    "duration_minutes": 7,
+    "order_number": 83
+  },
+  {
+    "video_id": "9pl55MxZlG4",
+    "title": "Create Python buttons in 7 minutes! 🛎️",
+    "video_url": "https://www.youtube.com/watch?v=9pl55MxZlG4",
+    "length_text": "7 minutes, 5 seconds",
+    "duration_minutes": 7,
+    "order_number": 84
+  },
+  {
+    "video_id": "VgnUB_vzR9I",
+    "title": "Create Python checkboxes in 5 minutes! ✅",
+    "video_url": "https://www.youtube.com/watch?v=VgnUB_vzR9I",
+    "length_text": "6 minutes, 31 seconds",
+    "duration_minutes": 7,
+    "order_number": 85
+  },
+  {
+    "video_id": "DZ3-ij_JHE0",
+    "title": "Python PyQt5 RADIO BUTTONS are easy! 🔘",
+    "video_url": "https://www.youtube.com/watch?v=DZ3-ij_JHE0",
+    "length_text": "9 minutes, 13 seconds",
+    "duration_minutes": 9,
+    "order_number": 86
+  },
+  {
+    "video_id": "4IUWg_wQNSc",
+    "title": "Python PyQt5 LINE EDITS are easy! 💬",
+    "video_url": "https://www.youtube.com/watch?v=4IUWg_wQNSc",
+    "length_text": "6 minutes, 1 second",
+    "duration_minutes": 6,
+    "order_number": 87
+  },
+  {
+    "video_id": "YJM9d0F3n-o",
+    "title": "Add CSS to Python in 10 minutes! 🎨",
+    "video_url": "https://www.youtube.com/watch?v=YJM9d0F3n-o",
+    "length_text": "10 minutes, 53 seconds",
+    "duration_minutes": 11,
+    "order_number": 88
+  },
+  {
+    "video_id": "543g1CurFFo",
+    "title": "Let's code a digital clock with Python! 🕒",
+    "video_url": "https://www.youtube.com/watch?v=543g1CurFFo",
+    "length_text": "16 minutes, 25 seconds",
+    "duration_minutes": 16,
+    "order_number": 89
+  },
+  {
+    "video_id": "UKs0xhxSOg0",
+    "title": "Code a stopwatch using Python! ⏱",
+    "video_url": "https://www.youtube.com/watch?v=UKs0xhxSOg0",
+    "length_text": "17 minutes, 58 seconds",
+    "duration_minutes": 18,
+    "order_number": 90
+  },
+  {
+    "video_id": "Q4377DH5Jso",
+    "title": "Create a weather app with Python! ☀️",
+    "video_url": "https://www.youtube.com/watch?v=Q4377DH5Jso",
+    "length_text": "54 minutes, 28 seconds",
+    "duration_minutes": 54,
+    "order_number": 91
+  },
+  {
+    "video_id": "pJdTyvufOdg",
+    "title": "Create QR codes with Python in 4 minutes! 📱",
+    "video_url": "https://www.youtube.com/watch?v=pJdTyvufOdg",
+    "length_text": "4 minutes, 11 seconds",
+    "duration_minutes": 4,
+    "order_number": 92
+  },
+  {
+    "video_id": "xf71dRBRP6o",
+    "title": "Build a music player with Python! 🎶",
+    "video_url": "https://www.youtube.com/watch?v=xf71dRBRP6o",
+    "length_text": "21 minutes, 56 seconds",
+    "duration_minutes": 22,
+    "order_number": 93
+  }
+]

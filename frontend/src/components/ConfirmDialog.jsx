@@ -1,19 +1,24 @@
 export default function ConfirmDialog({
   open,
+  isOpen,
   title,
   message,
-  confirmLabel = 'Delete',
+  confirmLabel,
+  confirmText,
   error = '',
   isSubmitting = false,
   onConfirm,
   onCancel,
 }) {
-  if (!open) return null
+  const isVisible = open ?? isOpen ?? false
+  if (!isVisible) return null
+
+  const label = confirmLabel || confirmText || 'Delete'
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4">
       <div className="w-full max-w-md rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 shadow-2xl">
-        <h2 className="text-lg font-semibold text-[var(--ks-text)]">{title}</h2>
+        <h2 className="ks-panel-title">{title}</h2>
         <p className="mt-2 text-sm text-[var(--ks-text-muted)]">{message}</p>
         {error && (
           <p
@@ -38,7 +43,7 @@ export default function ConfirmDialog({
             disabled={isSubmitting}
             className="rounded-lg bg-rose-600 px-4 py-2 font-semibold text-white transition hover:bg-rose-500 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {isSubmitting ? 'Deleting...' : confirmLabel}
+            {isSubmitting ? 'Processing...' : label}
           </button>
         </div>
       </div>

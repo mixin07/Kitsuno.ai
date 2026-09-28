@@ -61,8 +61,99 @@ export default function LessonForm({
     onSubmit(payload)
   }
 
+  const [showPreview, setShowPreview] = useState(false)
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--ks-border)] pb-3">
+        <div>
+          <span className="ks-eyebrow">Lesson Content</span>
+          <h4 className="ks-panel-title mt-1">
+            {initialValues ? 'Edit Lesson' : 'New Lesson'}
+          </h4>
+        </div>
+        <div className="flex items-center gap-2">
+          {onCancel && (
+            <button
+              type="button"
+              onClick={onCancel}
+              className="text-xs font-medium text-[var(--ks-text-muted)] hover:text-[var(--ks-text)]"
+            >
+              ← Back to module
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={() => setShowPreview((v) => !v)}
+            className={`rounded-md px-3 py-1.5 text-xs font-medium transition ${
+              showPreview
+                ? 'border border-[var(--ks-border)] bg-[var(--ks-surface)] text-[var(--ks-text)]'
+                : 'border border-[var(--ks-orange)]/30 bg-[var(--ks-orange)]/10 text-[var(--ks-orange)]'
+            }`}
+          >
+            {showPreview ? 'Back to Edit' : 'Preview'}
+          </button>
+        </div>
+      </div>
+
+      {showPreview ? (
+        <div className="space-y-4 rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-5">
+          <div>
+            <span className="ks-eyebrow">Preview — Student View</span>
+            <h3 className="ks-card-title mt-1">
+              {form.title.trim() || 'Untitled lesson'}
+            </h3>
+            {form.description.trim() ? (
+              <p className="mt-2 text-sm leading-relaxed text-[var(--ks-text-muted)]">
+                {form.description.trim()}
+              </p>
+            ) : (
+              <p className="mt-2 text-sm italic text-[var(--ks-text-muted)]">No description</p>
+            )}
+          </div>
+
+          {form.video_url.trim() ? (
+            <div className="rounded-lg border border-[var(--ks-border)] bg-black p-2 text-center text-xs text-white">
+              Video: {form.video_url.trim()}
+            </div>
+          ) : (
+            <p className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 py-3 text-sm text-[var(--ks-text-muted)]">
+              No video — student will see “This lesson has no video.”
+            </p>
+          )}
+
+          {form.content.trim() ? (
+            <div className="whitespace-pre-wrap rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 text-sm leading-relaxed text-[var(--ks-text)]">
+              {form.content.trim()}
+            </div>
+          ) : (
+            <p className="rounded-lg border border-dashed border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 py-6 text-center text-sm text-[var(--ks-text-muted)]">
+              No lesson content yet. Write content above to see preview.
+            </p>
+          )}
+
+          {form.resource_url.trim() && (
+            <a
+              href={form.resource_url.trim()}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block text-sm font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]"
+            >
+              Open resource ↗
+            </a>
+          )}
+
+          <div className="flex flex-wrap gap-2 border-t border-[var(--ks-border)] pt-3 text-xs text-[var(--ks-text-muted)]">
+            {form.duration_minutes && <span>{form.duration_minutes} min</span>}
+            {form.order_number && <span>Order {form.order_number}</span>}
+          </div>
+
+          <p className="text-xs text-[var(--ks-text-muted)]">
+            Preview uses the same plain-text content format rendered on the student lesson page.
+          </p>
+        </div>
+      ) : null}
+
       {error && (
         <p
           role="alert"
@@ -72,7 +163,9 @@ export default function LessonForm({
         </p>
       )}
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      {!showPreview && (
+        <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+          <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="lesson-title" className={LABEL_CLASS}>
             Title *
@@ -131,13 +224,16 @@ export default function LessonForm({
         </label>
         <textarea
           id="lesson-content"
-          rows={6}
+          rows={12}
           value={form.content}
           onChange={(event) => setField('content', event.target.value)}
           disabled={isSubmitting}
-          className={INPUT_CLASS}
-          placeholder="Lesson body text"
+          className={`${INPUT_CLASS} min-h-[220px] leading-relaxed`}
+          placeholder="Write the full lesson content here. Supports plain text with line breaks as rendered on the student lesson page."
         />
+        <p className="mt-1 text-xs text-[var(--ks-text-muted)]">
+          Content is rendered as written on the student lesson page.
+        </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
@@ -215,6 +311,8 @@ export default function LessonForm({
           {isSubmitting ? 'Saving...' : submitLabel}
         </button>
       </div>
-    </form>
+      </form>
+      )}
+    </div>
   )
 }

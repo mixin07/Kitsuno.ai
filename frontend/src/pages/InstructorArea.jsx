@@ -88,10 +88,10 @@ export default function InstructorArea() {
       {/* 1. Header with Quick Actions Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--ks-orange)]">
+          <span className="ks-eyebrow text-[var(--ks-orange)]">
             Instructor Studio
           </span>
-          <h2 className="font-display text-2xl sm:text-3xl font-normal tracking-tight text-[var(--ks-text)] mt-0.5">
+          <h2 className="ks-page-title text-2xl sm:text-3xl mt-0.5">
             Course Management & Studio
           </h2>
           <p className="mt-1 text-xs text-[var(--ks-text-muted)]">
@@ -258,7 +258,7 @@ export default function InstructorArea() {
                           {course.category || 'General'}
                         </span>
                       </div>
-                      <h4 className="font-semibold text-sm text-[var(--ks-text)]">
+                      <h4 className="ks-card-title text-sm">
                         {course.title}
                       </h4>
                       <div className="flex items-center gap-3 text-xs text-[var(--ks-text-muted)]">

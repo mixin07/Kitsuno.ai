@@ -32,6 +32,7 @@ class CourseProgressResponse(BaseModel):
     progress: int
     completed: bool
     next_lesson: LessonResponse | None
+    completed_lesson_ids: list[int] = Field(default_factory=list)
 
 
 class LessonProgressUpdate(BaseModel):

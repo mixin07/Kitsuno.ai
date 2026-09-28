@@ -1,0 +1,98 @@
+[
+  {
+    "video_id": "6DoLxeMlVTI",
+    "title": "MongoDB tutorial for beginners 🍃",
+    "video_url": "https://www.youtube.com/watch?v=6DoLxeMlVTI",
+    "length_text": "7 minutes",
+    "duration_minutes": 7,
+    "order_number": 1
+  },
+  {
+    "video_id": "dgyKo2McNhM",
+    "title": "MongoDB databases explained",
+    "video_url": "https://www.youtube.com/watch?v=dgyKo2McNhM",
+    "length_text": "2 minutes, 45 seconds",
+    "duration_minutes": 3,
+    "order_number": 2
+  },
+  {
+    "video_id": "N_BrirrY1Mk",
+    "title": "MongoDB How to insert documents",
+    "video_url": "https://www.youtube.com/watch?v=N_BrirrY1Mk",
+    "length_text": "5 minutes, 58 seconds",
+    "duration_minutes": 6,
+    "order_number": 3
+  },
+  {
+    "video_id": "SVYMUo0uork",
+    "title": "MongoDB data types explained",
+    "video_url": "https://www.youtube.com/watch?v=SVYMUo0uork",
+    "length_text": "5 minutes, 4 seconds",
+    "duration_minutes": 5,
+    "order_number": 4
+  },
+  {
+    "video_id": "3mV2KMzNxLE",
+    "title": "MongoDB sorting and limiting explained",
+    "video_url": "https://www.youtube.com/watch?v=3mV2KMzNxLE",
+    "length_text": "4 minutes, 7 seconds",
+    "duration_minutes": 4,
+    "order_number": 5
+  },
+  {
+    "video_id": "3YagE3r-KGY",
+    "title": "MongoDB how to find documents",
+    "video_url": "https://www.youtube.com/watch?v=3YagE3r-KGY",
+    "length_text": "4 minutes, 36 seconds",
+    "duration_minutes": 5,
+    "order_number": 6
+  },
+  {
+    "video_id": "jS3vcRjY4Y8",
+    "title": "MongoDB how to update documents",
+    "video_url": "https://www.youtube.com/watch?v=jS3vcRjY4Y8",
+    "length_text": "8 minutes, 41 seconds",
+    "duration_minutes": 9,
+    "order_number": 7
+  },
+  {
+    "video_id": "Pg-slqJ59Vo",
+    "title": "MongoDB how to delete documents",
+    "video_url": "https://www.youtube.com/watch?v=Pg-slqJ59Vo",
+    "length_text": "3 minutes, 19 seconds",
+    "duration_minutes": 3,
+    "order_number": 8
+  },
+  {
+    "video_id": "MHGKFvNLwfU",
+    "title": "MongoDB comparison operators explained",
+    "video_url": "https://www.youtube.com/watch?v=MHGKFvNLwfU",
+    "length_text": "5 minutes, 24 seconds",
+    "duration_minutes": 5,
+    "order_number": 9
+  },
+  {
+    "video_id": "Tnjtj8cCJPY",
+    "title": "MongoDB logical operators explained",
+    "video_url": "https://www.youtube.com/watch?v=Tnjtj8cCJPY",
+    "length_text": "5 minutes, 11 seconds",
+    "duration_minutes": 5,
+    "order_number": 10
+  },
+  {
+    "video_id": "ZoxmVjc4Xdg",
+    "title": "MongoDB indexes explained",
+    "video_url": "https://www.youtube.com/watch?v=ZoxmVjc4Xdg",
+    "length_text": "4 minutes, 16 seconds",
+    "duration_minutes": 4,
+    "order_number": 11
+  },
+  {
+    "video_id": "yizaMVDNCnI",
+    "title": "MongoDB collections explained",
+    "video_url": "https://www.youtube.com/watch?v=yizaMVDNCnI",
+    "length_text": "3 minutes, 46 seconds",
+    "duration_minutes": 4,
+    "order_number": 12
+  }
+]

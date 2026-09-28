@@ -1,0 +1,162 @@
+[
+  {
+    "video_id": "hn80mWvP-9g",
+    "title": "React tutorial for beginners ⚛️",
+    "video_url": "https://www.youtube.com/watch?v=hn80mWvP-9g",
+    "length_text": "20 minutes, 27 seconds",
+    "duration_minutes": 20,
+    "order_number": 1
+  },
+  {
+    "video_id": "yYiwxYqQ9vg",
+    "title": "React CARD components 🃏",
+    "video_url": "https://www.youtube.com/watch?v=yYiwxYqQ9vg",
+    "length_text": "11 minutes, 59 seconds",
+    "duration_minutes": 12,
+    "order_number": 2
+  },
+  {
+    "video_id": "r3SMd0YTSZs",
+    "title": "React js how to add CSS styles 🎨",
+    "video_url": "https://www.youtube.com/watch?v=r3SMd0YTSZs",
+    "length_text": "8 minutes, 16 seconds",
+    "duration_minutes": 8,
+    "order_number": 3
+  },
+  {
+    "video_id": "uvEAvxWvwOs",
+    "title": "PROPS in React explained 📧",
+    "video_url": "https://www.youtube.com/watch?v=uvEAvxWvwOs",
+    "length_text": "12 minutes, 9 seconds",
+    "duration_minutes": 12,
+    "order_number": 4
+  },
+  {
+    "video_id": "XvURBpFxdGw",
+    "title": "How to CONDITIONAL RENDER in React ❓",
+    "video_url": "https://www.youtube.com/watch?v=XvURBpFxdGw",
+    "length_text": "10 minutes, 15 seconds",
+    "duration_minutes": 10,
+    "order_number": 5
+  },
+  {
+    "video_id": "fkl1Kn_QWCI",
+    "title": "How to render LISTS in React 📃",
+    "video_url": "https://www.youtube.com/watch?v=fkl1Kn_QWCI",
+    "length_text": "26 minutes, 40 seconds",
+    "duration_minutes": 27,
+    "order_number": 6
+  },
+  {
+    "video_id": "KpiiKuqNlYw",
+    "title": "Learn React Click Events 👆",
+    "video_url": "https://www.youtube.com/watch?v=KpiiKuqNlYw",
+    "length_text": "12 minutes, 21 seconds",
+    "duration_minutes": 12,
+    "order_number": 7
+  },
+  {
+    "video_id": "SpDG283b4bw",
+    "title": "React useState() hook introduction 🎣",
+    "video_url": "https://www.youtube.com/watch?v=SpDG283b4bw",
+    "length_text": "16 minutes, 33 seconds",
+    "duration_minutes": 17,
+    "order_number": 8
+  },
+  {
+    "video_id": "JhIbXor84Wc",
+    "title": "Learn the React onChange event handler 🚦",
+    "video_url": "https://www.youtube.com/watch?v=JhIbXor84Wc",
+    "length_text": "14 minutes, 40 seconds",
+    "duration_minutes": 15,
+    "order_number": 9
+  },
+  {
+    "video_id": "3hCN3dLHV24",
+    "title": "Build this color picker app with React! 🖌",
+    "video_url": "https://www.youtube.com/watch?v=3hCN3dLHV24",
+    "length_text": "10 minutes, 16 seconds",
+    "duration_minutes": 10,
+    "order_number": 10
+  },
+  {
+    "video_id": "nbAaUpNDhRY",
+    "title": "What are React updater functions? 🔄",
+    "video_url": "https://www.youtube.com/watch?v=nbAaUpNDhRY",
+    "length_text": "7 minutes, 15 seconds",
+    "duration_minutes": 7,
+    "order_number": 11
+  },
+  {
+    "video_id": "YxQlt3n1ZPA",
+    "title": "React JS how to update OBJECTS in state 🚗",
+    "video_url": "https://www.youtube.com/watch?v=YxQlt3n1ZPA",
+    "length_text": "9 minutes, 10 seconds",
+    "duration_minutes": 9,
+    "order_number": 12
+  },
+  {
+    "video_id": "A9Bz2YxhAQk",
+    "title": "React JS how to update ARRAYS in state 🍎",
+    "video_url": "https://www.youtube.com/watch?v=A9Bz2YxhAQk",
+    "length_text": "9 minutes, 1 second",
+    "duration_minutes": 9,
+    "order_number": 13
+  },
+  {
+    "video_id": "Y62mbztjmus",
+    "title": "React JS update ARRAY of OBJECTS in state 🚘",
+    "video_url": "https://www.youtube.com/watch?v=Y62mbztjmus",
+    "length_text": "12 minutes, 48 seconds",
+    "duration_minutes": 13,
+    "order_number": 14
+  },
+  {
+    "video_id": "9wiWzu_tRB0",
+    "title": "Build this to-do-list app with React! ☝",
+    "video_url": "https://www.youtube.com/watch?v=9wiWzu_tRB0",
+    "length_text": "22 minutes, 35 seconds",
+    "duration_minutes": 23,
+    "order_number": 15
+  },
+  {
+    "video_id": "L-1sP3Ljhsg",
+    "title": "React useEffect() hook introduction 🌟",
+    "video_url": "https://www.youtube.com/watch?v=L-1sP3Ljhsg",
+    "length_text": "19 minutes, 52 seconds",
+    "duration_minutes": 20,
+    "order_number": 16
+  },
+  {
+    "video_id": "AiQ-V_0qvRI",
+    "title": "Build this digital clock with React! 🕒",
+    "video_url": "https://www.youtube.com/watch?v=AiQ-V_0qvRI",
+    "length_text": "16 minutes",
+    "duration_minutes": 16,
+    "order_number": 17
+  },
+  {
+    "video_id": "FpNfvbNYPsg",
+    "title": "React useContext() hook introduction 🧗‍♂️",
+    "video_url": "https://www.youtube.com/watch?v=FpNfvbNYPsg",
+    "length_text": "11 minutes, 37 seconds",
+    "duration_minutes": 12,
+    "order_number": 18
+  },
+  {
+    "video_id": "AltU-XcGvuo",
+    "title": "React useRef() hook introduction 🗳️",
+    "video_url": "https://www.youtube.com/watch?v=AltU-XcGvuo",
+    "length_text": "11 minutes, 18 seconds",
+    "duration_minutes": 11,
+    "order_number": 19
+  },
+  {
+    "video_id": "jPo0mIcNZfM",
+    "title": "Build this stopwatch with React! ⏱",
+    "video_url": "https://www.youtube.com/watch?v=jPo0mIcNZfM",
+    "length_text": "20 minutes, 1 second",
+    "duration_minutes": 20,
+    "order_number": 20
+  }
+]

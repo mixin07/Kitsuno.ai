@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import AppLayout from './components/AppLayout.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import RequireRole from './components/RequireRole.jsx'
@@ -14,6 +14,7 @@ import InstructorCoursesPage from './pages/instructor/InstructorCoursesPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 import StudentLearningDashboard from './pages/student/StudentLearningDashboard.jsx'
+import MyLearningPage from './pages/student/MyLearningPage.jsx'
 import LessonLearningPage from './pages/student/LessonLearningPage.jsx'
 import CourseDetailPage from './pages/student/CourseDetailPage.jsx'
 import CourseListPage from './pages/student/CourseListPage.jsx'
@@ -23,6 +24,9 @@ import StudentAnalyticsPage from './pages/student/StudentAnalyticsPage.jsx'
 import InstructorAnalyticsPage from './pages/instructor/InstructorAnalyticsPage.jsx'
 import AdminAnalyticsPage from './pages/admin/AdminAnalyticsPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
+import AIChatPage from './pages/student/AIChatPage.jsx'
+import PlayAndLearnHubPage from './pages/student/PlayAndLearnHubPage.jsx'
+import GameRouterPage from './pages/student/games/GameRouterPage.jsx'
 
 function App() {
   return (
@@ -154,6 +158,9 @@ function App() {
         }
       />
 
+      <Route path="/dashboard" element={<Navigate to="/student" replace />} />
+      <Route path="/my-learning" element={<Navigate to="/student/learning" replace />} />
+
       <Route
         path="/student"
         element={
@@ -167,12 +174,72 @@ function App() {
         }
       />
       <Route
+        path="/student/learning"
+        element={
+          <ProtectedRoute>
+            <RequireRole roles={[ROLES.STUDENT]}>
+              <AppLayout>
+                <MyLearningPage />
+              </AppLayout>
+            </RequireRole>
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/student/analytics"
         element={
           <ProtectedRoute>
             <RequireRole roles={[ROLES.STUDENT]}>
               <AppLayout>
                 <StudentAnalyticsPage />
+              </AppLayout>
+            </RequireRole>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ai-chat"
+        element={
+          <ProtectedRoute>
+            <RequireRole roles={[ROLES.STUDENT]}>
+              <AppLayout>
+                <AIChatPage />
+              </AppLayout>
+            </RequireRole>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ai/chat"
+        element={
+          <ProtectedRoute>
+            <RequireRole roles={[ROLES.STUDENT]}>
+              <AppLayout>
+                <AIChatPage />
+              </AppLayout>
+            </RequireRole>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/play"
+        element={
+          <ProtectedRoute>
+            <RequireRole roles={[ROLES.STUDENT]}>
+              <AppLayout>
+                <PlayAndLearnHubPage />
+              </AppLayout>
+            </RequireRole>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/play/:gameId"
+        element={
+          <ProtectedRoute>
+            <RequireRole roles={[ROLES.STUDENT]}>
+              <AppLayout>
+                <GameRouterPage />
               </AppLayout>
             </RequireRole>
           </ProtectedRoute>
@@ -229,6 +296,18 @@ function App() {
 
       <Route
         path="/profile"
+        element={
+          <ProtectedRoute>
+            <RequireRole roles={[ROLES.STUDENT, ROLES.INSTRUCTOR, ROLES.ADMIN]}>
+              <AppLayout>
+                <ProfilePage />
+              </AppLayout>
+            </RequireRole>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/settings"
         element={
           <ProtectedRoute>
             <RequireRole roles={[ROLES.STUDENT, ROLES.INSTRUCTOR, ROLES.ADMIN]}>

@@ -3,6 +3,7 @@
 @theme {
   /* Brand Orange & Peach Palette */
   --color-ks-orange: #F16524;
+  --color-ks-orange-hover: #D9531E;
   --color-ks-orange-light: #FF8A4C;
   --color-ks-peach: #F8D9C2;
   --color-ks-deep: #8F3215;
@@ -13,7 +14,7 @@
   --color-fox-deep: #8F3215;
 
   /* Backgrounds & Surfaces */
-  --color-ks-bg: #FFF9F2;
+  --color-ks-bg: #FFF8F1;
   --color-ks-section-bg: #FDF1E6;
   --color-ks-surface: #FFFFFF;
   --color-ks-surface-soft: #FFFAF4;
@@ -56,7 +57,7 @@
 }
 
 :root {
-  --ks-bg: #FFF9F2;
+  --ks-bg: #FFF8F1;
   --ks-section-bg: #FDF1E6;
   --ks-bg-soft: #FFF2E6;
   --ks-bg-warm: #FFE8D2;
@@ -70,6 +71,7 @@
   --ks-border-subtle: rgba(90, 55, 30, 0.08);
   --ks-border-focus: #F16524;
   --ks-orange: #F16524;
+  --ks-orange-hover: #D9531E;
   --ks-orange-light: #FF8A4C;
   --ks-peach: #F8D9C2;
   --ks-deep: #8F3215;
@@ -97,6 +99,69 @@
   --ks-section-space-sm: var(--section-space-sm);
   --ks-section-space: var(--section-space);
   --ks-section-space-lg: var(--section-space-lg);
+}
+
+/* ============================================================
+   Kitsuno.ai — Editorial Typography System
+   Uses existing --font-display (Instrument Serif) for page/section
+   headings, matching Student Dashboard. Sans (Inter / Plus Jakarta Sans)
+   remains for nav, buttons, body, metadata.
+   ============================================================ */
+
+.ks-page-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(28px, 3vw, 32px);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--ks-text);
+}
+
+.ks-section-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(20px, 2.2vw, 24px);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: var(--ks-text);
+}
+
+.ks-panel-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(18px, 1.8vw, 20px);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--ks-text);
+}
+
+.ks-card-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(22px, 2vw, 26px);
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--ks-text);
+}
+
+/* ============================================================
+   Kitsuno.ai — Premium Warm Peach / Ivory Subtle Sidebar
+   ============================================================ */
+
+.ks-sidebar-grain {
+  background: linear-gradient(180deg, #FFF4E8 0%, #FFEEDF 45%, #FFE7D2 100%);
+  overflow: hidden;
+}
+
+.ks-sidebar-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: multiply;
+  z-index: 1;
 }
 
 /* ============================================================

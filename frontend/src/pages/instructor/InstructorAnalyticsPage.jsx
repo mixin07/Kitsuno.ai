@@ -82,7 +82,7 @@ function SectionCard({ children, className = '' }) {
 function SectionHeading({ title, subtitle }) {
   return (
     <div>
-      <h2 className="text-xl font-semibold text-[var(--ks-text)]">{title}</h2>
+      <h2 className="ks-section-title">{title}</h2>
       {subtitle && <p className="mt-1 text-sm text-[var(--ks-text-muted)]">{subtitle}</p>}
     </div>
   )
@@ -521,10 +521,10 @@ export default function InstructorAnalyticsPage() {
   return (
     <section className="space-y-8">
       <div>
-        <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--ks-orange)]">
+        <p className="ks-eyebrow mb-2 text-[var(--ks-orange)]">
           Instructor
         </p>
-        <h1 className="text-3xl font-bold tracking-tight">Instructor Analytics</h1>
+        <h1 className="ks-page-title">Instructor Analytics</h1>
         <p className="mt-2 text-[var(--ks-text-muted)]">
           Track enrollment, engagement, and performance across your courses.
         </p>

@@ -98,10 +98,10 @@ export default function InstructorCoursesPage() {
     <section className="space-y-8">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--ks-orange)]">
+          <p className="ks-eyebrow mb-2 text-[var(--ks-orange)]">
             Instructor
           </p>
-          <h1 className="text-4xl font-bold tracking-tight">My Courses</h1>
+          <h1 className="ks-page-title">My Courses</h1>
           <p className="mt-3 text-lg text-[var(--ks-text-muted)]">
             Create, edit, publish, and manage the content of your courses.
           </p>

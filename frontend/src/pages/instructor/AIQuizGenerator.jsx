@@ -296,10 +296,10 @@ export default function AIQuizGenerator() {
   if (savedQuiz) {
     return (
       <section className="space-y-6">
-        <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--ks-orange)]">
+        <p className="ks-eyebrow mb-2 text-[var(--ks-orange)]">
           Instructor
         </p>
-        <h1 className="text-3xl font-bold tracking-tight">AI Quiz Generator</h1>
+        <h1 className="ks-page-title">AI Quiz Generator</h1>
         <div className="grid gap-6">
           <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-8 text-center">
             <p className="text-lg font-semibold text-emerald-300">
@@ -348,10 +348,10 @@ export default function AIQuizGenerator() {
         >
           ← Back to my courses
         </Link>
-        <p className="mt-2 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--ks-orange)]">
+        <p className="ks-eyebrow mt-2 text-[var(--ks-orange)]">
           Instructor
         </p>
-        <h1 className="text-4xl font-bold tracking-tight">AI Quiz Generator</h1>
+        <h1 className="ks-page-title">AI Quiz Generator</h1>
         <p className="mt-3 text-lg text-[var(--ks-text-muted)]">
           Generate quiz questions for a lesson, review and edit them, then save approved
           questions to the lesson&apos;s quiz.
@@ -538,7 +538,7 @@ export default function AIQuizGenerator() {
         <section className="space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h2 className="text-2xl font-bold tracking-tight">Generated Questions</h2>
+              <h2 className="ks-section-title">Generated Questions</h2>
               <p className="mt-1 text-sm text-[var(--ks-text-muted)]">
                 {selectedLesson?.title} — Review, edit, and remove anything before saving.
               </p>

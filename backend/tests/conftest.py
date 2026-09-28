@@ -3,7 +3,20 @@ from sqlalchemy import delete, select
 
 from app.core.security import hash_password
 from app.database import SessionLocal
-from app.models import Course, Lesson, Module, User, UserRole
+from app.models import (
+    Course,
+    Enrollment,
+    GameAttempt,
+    GamificationLog,
+    Lesson,
+    LessonProgress,
+    Module,
+    User,
+    UserAchievement,
+    UserGamification,
+    UserQuestProgress,
+    UserRole,
+)
 
 TEST_PASSWORD = "TestPassword123!"
 
@@ -61,12 +74,33 @@ def _cleanup_test_data():
         ).scalars().all()
         if not user_ids:
             return
-        course_ids = select(Course.id).where(Course.instructor_id.in_(user_ids))
-        module_ids = select(Module.id).where(Module.course_id.in_(course_ids))
-        db.execute(delete(Lesson).where(Lesson.module_id.in_(module_ids)))
-        db.execute(delete(Module).where(Module.course_id.in_(course_ids)))
-        db.execute(delete(Course).where(Course.instructor_id.in_(user_ids)))
+
+        # Clean up student-related records
+        db.execute(delete(GameAttempt).where(GameAttempt.user_id.in_(user_ids)))
+        db.execute(delete(GamificationLog).where(GamificationLog.user_id.in_(user_ids)))
+        db.execute(delete(UserQuestProgress).where(UserQuestProgress.user_id.in_(user_ids)))
+        db.execute(delete(UserAchievement).where(UserAchievement.user_id.in_(user_ids)))
+        db.execute(delete(UserGamification).where(UserGamification.user_id.in_(user_ids)))
+        db.execute(delete(LessonProgress).where(LessonProgress.student_id.in_(user_ids)))
+        db.execute(delete(Enrollment).where(Enrollment.student_id.in_(user_ids)))
+
+        # Clean up courses created by test instructors
+        course_ids = db.execute(
+            select(Course.id).where(Course.instructor_id.in_(user_ids))
+        ).scalars().all()
+        if course_ids:
+            db.execute(delete(Enrollment).where(Enrollment.course_id.in_(course_ids)))
+            module_ids = db.execute(
+                select(Module.id).where(Module.course_id.in_(course_ids))
+            ).scalars().all()
+            if module_ids:
+                db.execute(delete(Lesson).where(Lesson.module_id.in_(module_ids)))
+                db.execute(delete(Module).where(Module.id.in_(module_ids)))
+            db.execute(delete(Course).where(Course.id.in_(course_ids)))
+
         db.execute(delete(User).where(User.id.in_(user_ids)))
         db.commit()
+    except Exception:
+        db.rollback()
     finally:
         db.close()

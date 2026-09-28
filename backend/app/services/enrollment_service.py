@@ -63,6 +63,8 @@ def compute_course_progress(
     progress_map = _progress_map(db, student_id)
     completed_count = sum(1 for lesson in lessons if progress_map.get(lesson.id) and progress_map[lesson.id].completed)
     progress = round(completed_count * 100 / total)
+    if completed_count < total and progress == 100:
+        progress = 99
     return total, completed_count, progress
 
 
@@ -87,8 +89,22 @@ def recalculate_course_progress(
     if enrollment is not None:
         enrollment.progress = progress
         enrollment.completed_at = (
-            datetime.now(timezone.utc) if progress == 100 else None
+            datetime.now(timezone.utc) if (completed_count == total and total > 0) else None
         )
+        from app.models.saved_item import UserCourseStatus
+
+        status_val = "COMPLETED" if (completed_count == total and total > 0) else "IN_PROGRESS"
+        status_row = db.scalar(
+            select(UserCourseStatus).where(
+                UserCourseStatus.user_id == student_id,
+                UserCourseStatus.course_id == course_id,
+            )
+        )
+        if status_row:
+            status_row.status = status_val
+            status_row.updated_at = datetime.now(timezone.utc)
+        else:
+            db.add(UserCourseStatus(user_id=student_id, course_id=course_id, status=status_val))
         db.commit()
         db.refresh(enrollment)
     else:
@@ -104,7 +120,13 @@ def enroll_in_course(db: Session, student_id: int, course_id: int) -> Enrollment
             status_code=status.HTTP_409_CONFLICT,
             detail="Already enrolled in this course",
         )
-    enrollment = Enrollment(student_id=student_id, course_id=course_id, progress=0)
+    total, completed_count, progress = compute_course_progress(db, student_id, course_id)
+    enrollment = Enrollment(
+        student_id=student_id,
+        course_id=course_id,
+        progress=progress,
+        completed_at=datetime.now(timezone.utc) if (completed_count == total and total > 0) else None,
+    )
     db.add(enrollment)
     try:
         db.commit()
@@ -115,6 +137,24 @@ def enroll_in_course(db: Session, student_id: int, course_id: int) -> Enrollment
             detail="Already enrolled in this course",
         ) from None
     db.refresh(enrollment)
+
+    # Sync UserCourseStatus
+    from app.models.saved_item import UserCourseStatus
+
+    status_val = "COMPLETED" if (completed_count == total and total > 0) else "IN_PROGRESS"
+    status_row = db.scalar(
+        select(UserCourseStatus).where(
+            UserCourseStatus.user_id == student_id,
+            UserCourseStatus.course_id == course_id,
+        )
+    )
+    if status_row:
+        status_row.status = status_val
+        status_row.updated_at = datetime.now(timezone.utc)
+    else:
+        db.add(UserCourseStatus(user_id=student_id, course_id=course_id, status=status_val))
+    db.commit()
+
     return enrollment
 
 
@@ -142,5 +182,22 @@ def unenroll_in_course(db: Session, student_id: int, course_id: int) -> None:
                 LessonProgress.lesson_id.in_(lesson_ids),
             )
         )
+    from app.services import gamification_service
+
+    gamification_service.reset_course_quests(db, student_id, course_id)
     db.delete(enrollment)
+
+    # Reset CourseStatus if it was IN_PROGRESS or COMPLETED
+    from app.models.saved_item import UserCourseStatus
+
+    status_row = db.scalar(
+        select(UserCourseStatus).where(
+            UserCourseStatus.user_id == student_id,
+            UserCourseStatus.course_id == course_id,
+        )
+    )
+    if status_row and status_row.status in ("IN_PROGRESS", "COMPLETED"):
+        db.delete(status_row)
+
     db.commit()
+    gamification_service.recalculate_student_quests(db, student_id)

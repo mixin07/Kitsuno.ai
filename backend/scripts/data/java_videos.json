@@ -1,0 +1,570 @@
+[
+  {
+    "video_id": "23HFxAPyJ9U",
+    "title": "Start coding with JAVA in 10 minutes! ☕",
+    "video_url": "https://www.youtube.com/watch?v=23HFxAPyJ9U",
+    "length_text": "10 minutes, 59 seconds",
+    "duration_minutes": 11,
+    "order_number": 1
+  },
+  {
+    "video_id": "TGVLmr194DI",
+    "title": "Java variables are easy! ❎",
+    "video_url": "https://www.youtube.com/watch?v=TGVLmr194DI",
+    "length_text": "20 minutes, 32 seconds",
+    "duration_minutes": 21,
+    "order_number": 2
+  },
+  {
+    "video_id": "RAthlOQUMkc",
+    "title": "User input in Java is easy! ⌨️",
+    "video_url": "https://www.youtube.com/watch?v=RAthlOQUMkc",
+    "length_text": "15 minutes, 55 seconds",
+    "duration_minutes": 16,
+    "order_number": 3
+  },
+  {
+    "video_id": "7QlOxkzFOYw",
+    "title": "Let's code a mad libs game with Java! 📖",
+    "video_url": "https://www.youtube.com/watch?v=7QlOxkzFOYw",
+    "length_text": "6 minutes, 43 seconds",
+    "duration_minutes": 7,
+    "order_number": 4
+  },
+  {
+    "video_id": "QAD5unRlCyo",
+    "title": "Java arithmetic is easy! 🧮",
+    "video_url": "https://www.youtube.com/watch?v=QAD5unRlCyo",
+    "length_text": "8 minutes, 22 seconds",
+    "duration_minutes": 8,
+    "order_number": 5
+  },
+  {
+    "video_id": "P8CVPIaRmys",
+    "title": "Code a simple java shopping cart program in 6 minutes! 🛒",
+    "video_url": "https://www.youtube.com/watch?v=P8CVPIaRmys",
+    "length_text": "6 minutes, 31 seconds",
+    "duration_minutes": 7,
+    "order_number": 6
+  },
+  {
+    "video_id": "Q_ll-EKocuI",
+    "title": "Java if statements are easy! 🤔",
+    "video_url": "https://www.youtube.com/watch?v=Q_ll-EKocuI",
+    "length_text": "13 minutes, 29 seconds",
+    "duration_minutes": 13,
+    "order_number": 7
+  },
+  {
+    "video_id": "-tt98ICTHtQ",
+    "title": "Generate random numbers using Java! 🔀",
+    "video_url": "https://www.youtube.com/watch?v=-tt98ICTHtQ",
+    "length_text": "5 minutes, 1 second",
+    "duration_minutes": 5,
+    "order_number": 8
+  },
+  {
+    "video_id": "nle8CQXYhl4",
+    "title": "The Java Math class + exercises! 📐",
+    "video_url": "https://www.youtube.com/watch?v=nle8CQXYhl4",
+    "length_text": "15 minutes, 10 seconds",
+    "duration_minutes": 15,
+    "order_number": 9
+  },
+  {
+    "video_id": "nTBDjxWAcoE",
+    "title": "Java printf() is really useful! 🖨️",
+    "video_url": "https://www.youtube.com/watch?v=nTBDjxWAcoE",
+    "length_text": "13 minutes, 37 seconds",
+    "duration_minutes": 14,
+    "order_number": 10
+  },
+  {
+    "video_id": "IgdIfGW-cVU",
+    "title": "Code a Java compound interest calculator in 7 minutes! 💸",
+    "video_url": "https://www.youtube.com/watch?v=IgdIfGW-cVU",
+    "length_text": "7 minutes, 34 seconds",
+    "duration_minutes": 8,
+    "order_number": 11
+  },
+  {
+    "video_id": "23VT2wh3BG4",
+    "title": "Nested if statements are easy! 🎟️",
+    "video_url": "https://www.youtube.com/watch?v=23VT2wh3BG4",
+    "length_text": "6 minutes, 33 seconds",
+    "duration_minutes": 7,
+    "order_number": 12
+  },
+  {
+    "video_id": "Ntl3DxhyrQQ",
+    "title": "Useful string methods in Java! 🧵",
+    "video_url": "https://www.youtube.com/watch?v=Ntl3DxhyrQQ",
+    "length_text": "8 minutes, 36 seconds",
+    "duration_minutes": 9,
+    "order_number": 13
+  },
+  {
+    "video_id": "44iQGNUcik0",
+    "title": "Java substrings are easy! 📧",
+    "video_url": "https://www.youtube.com/watch?v=44iQGNUcik0",
+    "length_text": "8 minutes, 5 seconds",
+    "duration_minutes": 8,
+    "order_number": 14
+  },
+  {
+    "video_id": "DFhpzaEOoxs",
+    "title": "Let's code a WEIGHT CONVERTER in Java! 🏋️",
+    "video_url": "https://www.youtube.com/watch?v=DFhpzaEOoxs",
+    "length_text": "8 minutes, 20 seconds",
+    "duration_minutes": 8,
+    "order_number": 15
+  },
+  {
+    "video_id": "t2PcC-FYFmI",
+    "title": "Learn the Java ternary operator in 5 minutes! ❔",
+    "video_url": "https://www.youtube.com/watch?v=t2PcC-FYFmI",
+    "length_text": "5 minutes, 51 seconds",
+    "duration_minutes": 6,
+    "order_number": 16
+  },
+  {
+    "video_id": "iF9OVaBdxBQ",
+    "title": "Code a Java temperature converter in 7 minutes! 🌡️",
+    "video_url": "https://www.youtube.com/watch?v=iF9OVaBdxBQ",
+    "length_text": "7 minutes, 56 seconds",
+    "duration_minutes": 8,
+    "order_number": 17
+  },
+  {
+    "video_id": "6q2JKiynteM",
+    "title": "Learn Java enhanced switches in 8 minutes! 💡",
+    "video_url": "https://www.youtube.com/watch?v=6q2JKiynteM",
+    "length_text": "8 minutes, 38 seconds",
+    "duration_minutes": 9,
+    "order_number": 18
+  },
+  {
+    "video_id": "1An1DH79e5Y",
+    "title": "Let's code a simple calculator with Java! 🖩",
+    "video_url": "https://www.youtube.com/watch?v=1An1DH79e5Y",
+    "length_text": "12 minutes, 16 seconds",
+    "duration_minutes": 12,
+    "order_number": 19
+  },
+  {
+    "video_id": "4ezfRdg6Z7E",
+    "title": "Java LOGICAL OPERATORS are easy! ❕",
+    "video_url": "https://www.youtube.com/watch?v=4ezfRdg6Z7E",
+    "length_text": "11 minutes, 26 seconds",
+    "duration_minutes": 11,
+    "order_number": 20
+  },
+  {
+    "video_id": "ZjHJrmYknrk",
+    "title": "Learn Java while loops in 12 minutes! ♾️",
+    "video_url": "https://www.youtube.com/watch?v=ZjHJrmYknrk",
+    "length_text": "12 minutes, 24 seconds",
+    "duration_minutes": 12,
+    "order_number": 21
+  },
+  {
+    "video_id": "QSSmxYRgi5o",
+    "title": "Let's code a NUMBER GUESSING GAME in Java! 🔢",
+    "video_url": "https://www.youtube.com/watch?v=QSSmxYRgi5o",
+    "length_text": "9 minutes, 46 seconds",
+    "duration_minutes": 10,
+    "order_number": 22
+  },
+  {
+    "video_id": "vOmZ4JFhRds",
+    "title": "Java for loops are easy! 🔂",
+    "video_url": "https://www.youtube.com/watch?v=vOmZ4JFhRds",
+    "length_text": "10 minutes, 1 second",
+    "duration_minutes": 10,
+    "order_number": 23
+  },
+  {
+    "video_id": "iGo1Syv4YuM",
+    "title": "Learn BREAK & CONTINUE in 2 minutes! 🚦",
+    "video_url": "https://www.youtube.com/watch?v=iGo1Syv4YuM",
+    "length_text": "2 minutes, 12 seconds",
+    "duration_minutes": 2,
+    "order_number": 24
+  },
+  {
+    "video_id": "sd4x2QG2K6U",
+    "title": "Learn Java nested loops in 8 minutes! ➿",
+    "video_url": "https://www.youtube.com/watch?v=sd4x2QG2K6U",
+    "length_text": "8 minutes, 44 seconds",
+    "duration_minutes": 9,
+    "order_number": 25
+  },
+  {
+    "video_id": "JKecvKiNX2I",
+    "title": "METHODS in Java are easy 📞",
+    "video_url": "https://www.youtube.com/watch?v=JKecvKiNX2I",
+    "length_text": "15 minutes, 25 seconds",
+    "duration_minutes": 15,
+    "order_number": 26
+  },
+  {
+    "video_id": "nhnAx79gxCM",
+    "title": "Learn Java overloaded methods in 6 minutes! 🍕",
+    "video_url": "https://www.youtube.com/watch?v=nhnAx79gxCM",
+    "length_text": "6 minutes, 8 seconds",
+    "duration_minutes": 6,
+    "order_number": 27
+  },
+  {
+    "video_id": "eVCK1jlopmY",
+    "title": "Learn VARIABLE SCOPE in 4 minutes! 🏠",
+    "video_url": "https://www.youtube.com/watch?v=eVCK1jlopmY",
+    "length_text": "4 minutes, 59 seconds",
+    "duration_minutes": 5,
+    "order_number": 28
+  },
+  {
+    "video_id": "49bIIa6id08",
+    "title": "Code a simple banking program with Java! 💰",
+    "video_url": "https://www.youtube.com/watch?v=49bIIa6id08",
+    "length_text": "20 minutes, 29 seconds",
+    "duration_minutes": 20,
+    "order_number": 29
+  },
+  {
+    "video_id": "sGevUtru91I",
+    "title": "Code a dice roller program with Java! 🎲",
+    "video_url": "https://www.youtube.com/watch?v=sGevUtru91I",
+    "length_text": "12 minutes, 1 second",
+    "duration_minutes": 12,
+    "order_number": 30
+  },
+  {
+    "video_id": "9dr2mHYYoug",
+    "title": "Learn Java arrays in 9 minutes! 🍎",
+    "video_url": "https://www.youtube.com/watch?v=9dr2mHYYoug",
+    "length_text": "9 minutes, 9 seconds",
+    "duration_minutes": 9,
+    "order_number": 31
+  },
+  {
+    "video_id": "ah5bAnGpmKY",
+    "title": "Enter USER INPUT into an ARRAY! ➡️",
+    "video_url": "https://www.youtube.com/watch?v=ah5bAnGpmKY",
+    "length_text": "8 minutes, 4 seconds",
+    "duration_minutes": 8,
+    "order_number": 32
+  },
+  {
+    "video_id": "EB9-OOnCthg",
+    "title": "How to SEARCH an ARRAY easy! 🔎",
+    "video_url": "https://www.youtube.com/watch?v=EB9-OOnCthg",
+    "length_text": "7 minutes, 30 seconds",
+    "duration_minutes": 8,
+    "order_number": 33
+  },
+  {
+    "video_id": "2knxgAFqwKk",
+    "title": "Learn VARARGS in 6 minutes! 💬",
+    "video_url": "https://www.youtube.com/watch?v=2knxgAFqwKk",
+    "length_text": "6 minutes, 30 seconds",
+    "duration_minutes": 7,
+    "order_number": 34
+  },
+  {
+    "video_id": "Qf3Nczxm2AY",
+    "title": "Learn Java 2D arrays in 9 minutes! ⬜",
+    "video_url": "https://www.youtube.com/watch?v=Qf3Nczxm2AY",
+    "length_text": "9 minutes, 38 seconds",
+    "duration_minutes": 10,
+    "order_number": 35
+  },
+  {
+    "video_id": "WmksoCCwGlk",
+    "title": "Code this quiz game with java! 💯",
+    "video_url": "https://www.youtube.com/watch?v=WmksoCCwGlk",
+    "length_text": "15 minutes, 1 second",
+    "duration_minutes": 15,
+    "order_number": 36
+  },
+  {
+    "video_id": "GsuEJ9QOPgk",
+    "title": "Code a rock paper scissors game with Java! 🗿",
+    "video_url": "https://www.youtube.com/watch?v=GsuEJ9QOPgk",
+    "length_text": "15 minutes, 49 seconds",
+    "duration_minutes": 16,
+    "order_number": 37
+  },
+  {
+    "video_id": "oPmlnKaHUNs",
+    "title": "Let's code a Java SLOT MACHINE! 🎰",
+    "video_url": "https://www.youtube.com/watch?v=oPmlnKaHUNs",
+    "length_text": "26 minutes, 46 seconds",
+    "duration_minutes": 27,
+    "order_number": 38
+  },
+  {
+    "video_id": "DYbi93vuSaU",
+    "title": "Learn Java Object Oriented Programming in 10 minutes! 🧱",
+    "video_url": "https://www.youtube.com/watch?v=DYbi93vuSaU",
+    "length_text": "9 minutes, 51 seconds",
+    "duration_minutes": 10,
+    "order_number": 39
+  },
+  {
+    "video_id": "ZD7CB6wKg8A",
+    "title": "Learn CONSTRUCTORS in 10 minutes! 🔨",
+    "video_url": "https://www.youtube.com/watch?v=ZD7CB6wKg8A",
+    "length_text": "10 minutes, 8 seconds",
+    "duration_minutes": 10,
+    "order_number": 40
+  },
+  {
+    "video_id": "iLrY412dFwo",
+    "title": "Learn OVERLOADED CONSTRUCTORS in 6 minutes! 🛠️",
+    "video_url": "https://www.youtube.com/watch?v=iLrY412dFwo",
+    "length_text": "6 minutes, 37 seconds",
+    "duration_minutes": 7,
+    "order_number": 41
+  },
+  {
+    "video_id": "cMJeCs0n6BY",
+    "title": "Learn Java ARRAY OF OBJECTS in 5 minutes! 🗃️",
+    "video_url": "https://www.youtube.com/watch?v=cMJeCs0n6BY",
+    "length_text": "5 minutes, 46 seconds",
+    "duration_minutes": 6,
+    "order_number": 42
+  },
+  {
+    "video_id": "qULACa4D_vg",
+    "title": "Learn the STATIC keyword in 8 minutes! 🤝",
+    "video_url": "https://www.youtube.com/watch?v=qULACa4D_vg",
+    "length_text": "8 minutes, 1 second",
+    "duration_minutes": 8,
+    "order_number": 43
+  },
+  {
+    "video_id": "GTP5lVEKXaU",
+    "title": "Learn Java inheritance in 9 minutes! 👨‍👧‍👦",
+    "video_url": "https://www.youtube.com/watch?v=GTP5lVEKXaU",
+    "length_text": "9 minutes, 7 seconds",
+    "duration_minutes": 9,
+    "order_number": 44
+  },
+  {
+    "video_id": "LN45TyPWAAg",
+    "title": "Learn the Java super keyword in 10 minutes! 🔝",
+    "video_url": "https://www.youtube.com/watch?v=LN45TyPWAAg",
+    "length_text": "10 minutes, 30 seconds",
+    "duration_minutes": 11,
+    "order_number": 45
+  },
+  {
+    "video_id": "hx_DRanBRRM",
+    "title": "Learn Java METHOD OVERRIDING in 4 minutes! ♻️",
+    "video_url": "https://www.youtube.com/watch?v=hx_DRanBRRM",
+    "length_text": "4 minutes, 33 seconds",
+    "duration_minutes": 5,
+    "order_number": 46
+  },
+  {
+    "video_id": "u3BGdOunOTI",
+    "title": "Learn the toString() method in 5 minutes! 🎉",
+    "video_url": "https://www.youtube.com/watch?v=u3BGdOunOTI",
+    "length_text": "5 minutes, 53 seconds",
+    "duration_minutes": 6,
+    "order_number": 47
+  },
+  {
+    "video_id": "4B8XKEORJss",
+    "title": "Learn Java abstraction in 9 minutes! 🌫️",
+    "video_url": "https://www.youtube.com/watch?v=4B8XKEORJss",
+    "length_text": "9 minutes, 34 seconds",
+    "duration_minutes": 10,
+    "order_number": 48
+  },
+  {
+    "video_id": "c2sTQk9opO8",
+    "title": "Learn INTERFACES in 6 minutes! 📋",
+    "video_url": "https://www.youtube.com/watch?v=c2sTQk9opO8",
+    "length_text": "6 minutes, 16 seconds",
+    "duration_minutes": 6,
+    "order_number": 49
+  },
+  {
+    "video_id": "6xRd0j1anzc",
+    "title": "Learn POLYMORPHISM in 6 minutes! 🎭",
+    "video_url": "https://www.youtube.com/watch?v=6xRd0j1anzc",
+    "length_text": "6 minutes, 46 seconds",
+    "duration_minutes": 7,
+    "order_number": 50
+  },
+  {
+    "video_id": "YDKHfqzaF30",
+    "title": "Learn runtime polymorphism in 5 minutes! 🤷‍♂️",
+    "video_url": "https://www.youtube.com/watch?v=YDKHfqzaF30",
+    "length_text": "5 minutes, 10 seconds",
+    "duration_minutes": 5,
+    "order_number": 51
+  },
+  {
+    "video_id": "OjrR_C_UPjc",
+    "title": "Learn Java getters and setters in 10 minutes! 🔐",
+    "video_url": "https://www.youtube.com/watch?v=OjrR_C_UPjc",
+    "length_text": "10 minutes, 6 seconds",
+    "duration_minutes": 10,
+    "order_number": 52
+  },
+  {
+    "video_id": "pqQAHA1XjJk",
+    "title": "Learn Java AGGREGATION in 9 minutes! 🏫",
+    "video_url": "https://www.youtube.com/watch?v=pqQAHA1XjJk",
+    "length_text": "9 minutes, 26 seconds",
+    "duration_minutes": 9,
+    "order_number": 53
+  },
+  {
+    "video_id": "6MYaUdSuW24",
+    "title": "Learn composition in 6 minutes! ⚙️",
+    "video_url": "https://www.youtube.com/watch?v=6MYaUdSuW24",
+    "length_text": "6 minutes, 17 seconds",
+    "duration_minutes": 6,
+    "order_number": 54
+  },
+  {
+    "video_id": "5bt07czziV4",
+    "title": "Learn WRAPPER CLASSES in 10 minutes! 🎁",
+    "video_url": "https://www.youtube.com/watch?v=5bt07czziV4",
+    "length_text": "10 minutes, 36 seconds",
+    "duration_minutes": 11,
+    "order_number": 55
+  },
+  {
+    "video_id": "wsTSREgCE5E",
+    "title": "Learn Java arraylists in 9 minutes! 📃",
+    "video_url": "https://www.youtube.com/watch?v=wsTSREgCE5E",
+    "length_text": "9 minutes, 40 seconds",
+    "duration_minutes": 10,
+    "order_number": 56
+  },
+  {
+    "video_id": "u1PROb-aRUI",
+    "title": "Learn EXCEPTION HANDLING in 8 minutes! ⚠️",
+    "video_url": "https://www.youtube.com/watch?v=u1PROb-aRUI",
+    "length_text": "8 minutes, 2 seconds",
+    "duration_minutes": 8,
+    "order_number": 57
+  },
+  {
+    "video_id": "Pg0aoSbrqOE",
+    "title": "How to WRITE FILES with Java in 8 minutes! ✍",
+    "video_url": "https://www.youtube.com/watch?v=Pg0aoSbrqOE",
+    "length_text": "8 minutes, 32 seconds",
+    "duration_minutes": 9,
+    "order_number": 58
+  },
+  {
+    "video_id": "eHjbvgw4hsI",
+    "title": "How to READ FILES with Java in 8 minutes! 📖",
+    "video_url": "https://www.youtube.com/watch?v=eHjbvgw4hsI",
+    "length_text": "6 minutes, 54 seconds",
+    "duration_minutes": 7,
+    "order_number": 59
+  },
+  {
+    "video_id": "PmOgruSPy3s",
+    "title": "Let's code a music player with Java! 🎼",
+    "video_url": "https://www.youtube.com/watch?v=PmOgruSPy3s",
+    "length_text": "14 minutes, 22 seconds",
+    "duration_minutes": 14,
+    "order_number": 60
+  },
+  {
+    "video_id": "0Nn8PZrWZKE",
+    "title": "Code this hangman game in Java! 🕺",
+    "video_url": "https://www.youtube.com/watch?v=0Nn8PZrWZKE",
+    "length_text": "28 minutes, 35 seconds",
+    "duration_minutes": 29,
+    "order_number": 61
+  },
+  {
+    "video_id": "F2bZ1fkAQx0",
+    "title": "Learn DATES & TIMES with Java in 8 minutes! 📆",
+    "video_url": "https://www.youtube.com/watch?v=F2bZ1fkAQx0",
+    "length_text": "8 minutes, 44 seconds",
+    "duration_minutes": 9,
+    "order_number": 62
+  },
+  {
+    "video_id": "P_iOnmdww8E",
+    "title": "Learn Java anonymous classes in 5 minutes! 🕵️‍♂️",
+    "video_url": "https://www.youtube.com/watch?v=P_iOnmdww8E",
+    "length_text": "5 minutes, 2 seconds",
+    "duration_minutes": 5,
+    "order_number": 63
+  },
+  {
+    "video_id": "HjzcZkzRDYs",
+    "title": "Learn Java timertasks in 6 minutes! ⏲️",
+    "video_url": "https://www.youtube.com/watch?v=HjzcZkzRDYs",
+    "length_text": "6 minutes, 24 seconds",
+    "duration_minutes": 6,
+    "order_number": 64
+  },
+  {
+    "video_id": "IwC5T5gtFI4",
+    "title": "Code a Java countdown timer in 6 minutes! ⏳",
+    "video_url": "https://www.youtube.com/watch?v=IwC5T5gtFI4",
+    "length_text": "6 minutes, 34 seconds",
+    "duration_minutes": 7,
+    "order_number": 65
+  },
+  {
+    "video_id": "H9vc4gTtGGA",
+    "title": "Learn Java generics in 13 minutes! 📦",
+    "video_url": "https://www.youtube.com/watch?v=H9vc4gTtGGA",
+    "length_text": "13 minutes, 56 seconds",
+    "duration_minutes": 14,
+    "order_number": 66
+  },
+  {
+    "video_id": "NMHk1CGb28o",
+    "title": "Java hashmaps are easy! 🗺️",
+    "video_url": "https://www.youtube.com/watch?v=NMHk1CGb28o",
+    "length_text": "10 minutes, 31 seconds",
+    "duration_minutes": 11,
+    "order_number": 67
+  },
+  {
+    "video_id": "BIOxWAfaAgw",
+    "title": "Learn Java enums in 10 minutes! 📅",
+    "video_url": "https://www.youtube.com/watch?v=BIOxWAfaAgw",
+    "length_text": "10 minutes, 10 seconds",
+    "duration_minutes": 10,
+    "order_number": 68
+  },
+  {
+    "video_id": "SztE5W41on4",
+    "title": "Learn Java threading in 10 minutes! 🧵",
+    "video_url": "https://www.youtube.com/watch?v=SztE5W41on4",
+    "length_text": "10 minutes, 21 seconds",
+    "duration_minutes": 10,
+    "order_number": 69
+  },
+  {
+    "video_id": "taI7G6U29L8",
+    "title": "Learn Java multithreading in 8 minutes! 🧶",
+    "video_url": "https://www.youtube.com/watch?v=taI7G6U29L8",
+    "length_text": "8 minutes, 1 second",
+    "duration_minutes": 8,
+    "order_number": 70
+  },
+  {
+    "video_id": "lGG0LAJf0uE",
+    "title": "Let's code an alarm clock with Java! ⏰",
+    "video_url": "https://www.youtube.com/watch?v=lGG0LAJf0uE",
+    "length_text": "29 minutes, 30 seconds",
+    "duration_minutes": 30,
+    "order_number": 71
+  }
+]

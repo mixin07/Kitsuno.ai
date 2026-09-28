@@ -76,13 +76,24 @@ def update_lesson_progress(
     if row.started_at is None:
         row.started_at = datetime.now(timezone.utc)
     if payload.completed is True:
+        was_completed = row.completed
         row.completed = True
         if row.completed_at is None:
             row.completed_at = datetime.now(timezone.utc)
+        if not was_completed:
+            from app.services import gamification_service
+            gamification_service.on_lesson_completed(db, student_id, lesson_id)
     elif payload.completed is False:
         row.completed = False
         row.completed_at = None
     enrollment_service.recalculate_course_progress(db, student_id, course.id)
+
+    # Check if course is now 100% completed
+    total, completed_count, course_pct = enrollment_service.compute_course_progress(db, student_id, course.id)
+    if completed_count == total and total > 0:
+        from app.services import gamification_service
+        gamification_service.on_course_completed(db, student_id, course.id)
+
     db.refresh(row)
     return row
 
@@ -98,6 +109,11 @@ def get_course_progress_summary(
         db, student_id, course_id
     )
     next_lesson = enrollment_service.first_incomplete_lesson(db, student_id, course_id)
+    lessons = enrollment_service.list_course_lessons_ordered(db, course_id)
+    progress_map = enrollment_service._progress_map(db, student_id)
+    completed_ids = [
+        lesson.id for lesson in lessons if progress_map.get(lesson.id) and progress_map[lesson.id].completed
+    ]
     return CourseProgressResponse(
         course_id=course_id,
         total_lessons=total,
@@ -105,4 +121,5 @@ def get_course_progress_summary(
         progress=progress,
         completed=progress == 100 and total > 0,
         next_lesson=LessonResponse.model_validate(next_lesson) if next_lesson else None,
+        completed_lesson_ids=completed_ids,
     )

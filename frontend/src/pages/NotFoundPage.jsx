@@ -56,7 +56,7 @@ function NotFoundPage() {
     computeScales()
     window.addEventListener('resize', computeScales)
     return () => window.removeEventListener('resize', computeScales)
-  })
+  }, [])
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''

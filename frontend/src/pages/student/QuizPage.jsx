@@ -120,7 +120,8 @@ export default function QuizPage() {
       {!attempt ? (
         <div className="space-y-4">
           <div>
-            <h1 className="text-2xl font-bold text-[var(--ks-text)]">{quiz.title}</h1>
+            <span className="ks-eyebrow">Quiz Assessment</span>
+            <h1 className="ks-page-title">{quiz.title}</h1>
             {quiz.description && (
               <p className="mt-2 text-sm leading-relaxed text-[var(--ks-text-muted)]">{quiz.description}</p>
             )}
@@ -149,7 +150,8 @@ export default function QuizPage() {
         <div className="space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h1 className="text-xl font-semibold text-[var(--ks-text)]">{quiz.title}</h1>
+              <span className="ks-eyebrow">Quiz Assessment</span>
+              <h1 className="ks-card-title">{quiz.title}</h1>
               <p className="mt-1 text-xs text-[var(--ks-text-muted)]">
                 {answeredCount} of {totalQuestions} answered
               </p>

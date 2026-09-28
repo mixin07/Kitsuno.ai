@@ -64,10 +64,10 @@ export default function AdminArea() {
       {/* 1. Admin Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--ks-orange)]">
+          <span className="ks-eyebrow text-[var(--ks-orange)]">
             Administration Control
           </span>
-          <h2 className="font-display text-2xl sm:text-3xl font-normal tracking-tight text-[var(--ks-text)] mt-0.5">
+          <h2 className="ks-page-title mt-0.5">
             System Overview & Platform Health
           </h2>
           <p className="mt-1 text-xs text-[var(--ks-text-muted)]">

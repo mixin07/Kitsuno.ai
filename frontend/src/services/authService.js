@@ -17,10 +17,22 @@ export async function getCurrentUser() {
   return response.data
 }
 
-export async function updateProfile({ name, password }) {
+export async function updateProfile({ name, password, avatar_url }) {
   const payload = {}
   if (name !== undefined) payload.name = name
   if (password) payload.password = password
+  if (avatar_url !== undefined) payload.avatar_url = avatar_url
   const response = await api.patch('/auth/profile', payload)
+  return response.data
+}
+
+export async function uploadAvatar(file) {
+  const formData = new FormData()
+  formData.append('file', file)
+  const response = await api.post('/auth/avatar/upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
   return response.data
 }

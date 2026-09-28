@@ -75,7 +75,8 @@ export default function QuizResultPage() {
       <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 shadow-xs">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="text-xl font-semibold text-[var(--ks-text)]">{result.quiz_title}</h1>
+            <span className="ks-eyebrow">Quiz Evaluation</span>
+            <h1 className="ks-card-title">{result.quiz_title}</h1>
             <p className="mt-1 text-sm text-[var(--ks-text-muted)]">
               {passed ? 'Quiz passed' : 'Quiz not passed'} —{' '}
               {result.completed_at ? 'completed' : 'in progress'}
@@ -139,6 +140,11 @@ export default function QuizResultPage() {
               Your answer:{' '}
               <span className="font-medium">{answer.selected_option_text ?? 'Not answered'}</span>
             </p>
+            {!answer.is_correct && answer.correct_option_text && (
+              <p className="mt-1 text-sm font-medium text-emerald-600">
+                Correct answer: <span className="font-semibold">{answer.correct_option_text}</span>
+              </p>
+            )}
             <p className="mt-1 text-xs text-[var(--ks-text-muted)]">
               +{answer.points_earned} point{answer.points_earned !== 1 && 's'}
             </p>
@@ -146,16 +152,24 @@ export default function QuizResultPage() {
         ))}
       </div>
 
-      {backToLesson && (
-        <div>
+      <div className="flex flex-wrap items-center gap-3">
+        {backToLesson && (
           <Link
             to={backToLesson}
             className="inline-block rounded-lg bg-[var(--ks-orange)] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--ks-orange-light)]"
           >
             Return to Lesson
           </Link>
-        </div>
-      )}
+        )}
+        {result.quiz_id && (
+          <Link
+            to={`/student/quiz/${result.quiz_id}?courseId=${courseId || ''}&lessonId=${lessonId || ''}`}
+            className="inline-block rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-5 py-2.5 text-sm font-semibold text-[var(--ks-text)] transition hover:border-[var(--ks-orange)]/50"
+          >
+            Retake Quiz
+          </Link>
+        )}
+      </div>
     </section>
   )
 }

@@ -85,7 +85,7 @@ export default function InstructorCourseFormPage() {
         >
           ← Back to my courses
         </Link>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight">
+        <h1 className="ks-page-title mt-2">
           {isEdit ? 'Edit Course' : 'Create Course'}
         </h1>
         <p className="mt-2 text-[var(--ks-text-muted)]">

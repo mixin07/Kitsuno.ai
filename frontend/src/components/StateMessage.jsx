@@ -11,7 +11,7 @@ export default function StateMessage({ variant = 'info', title, children, onRetr
       {variant === 'loading' && (
         <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-[var(--ks-border)] border-t-[var(--ks-orange)]" />
       )}
-      {title && <h2 className="text-lg font-semibold text-[var(--ks-text)]">{title}</h2>}
+      {title && <h2 className="ks-panel-title text-[var(--ks-text)]">{title}</h2>}
       {children && <p className="mx-auto mt-2 max-w-lg text-sm">{children}</p>}
       {onRetry && (
         <button

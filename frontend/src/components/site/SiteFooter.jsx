@@ -213,7 +213,6 @@ function SiteFooter() {
           <div className="ks-footer__cat-wrap" aria-hidden="true">
             <Lottie
               className="ks-footer__cat-lottie"
-              animationData={orangeCatPeeping}
               src={orangeCatPeeping}
               renderer="svg"
               autoplay

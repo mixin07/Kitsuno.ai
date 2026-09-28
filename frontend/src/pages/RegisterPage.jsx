@@ -92,10 +92,8 @@ export default function RegisterPage() {
             <div className="my-5 flex w-full items-center justify-center overflow-hidden">
               <Lottie
                 src={examsPreparation}
-                animationData={examsPreparation}
-                renderer="svg"
-                autoplay
                 loop
+                autoplay
                 className="h-[155px] sm:h-[175px] w-full max-w-[280px] object-contain"
                 aria-hidden="true"
               />
