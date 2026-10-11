@@ -16,6 +16,16 @@ from app.models.question import Question
 from app.models.quiz import Quiz
 from app.models.quiz_attempt import QuizAttempt
 from app.models.saved_item import SavedCourse, SavedLesson, SavedNote, UserCourseStatus
+from app.models.practice import ExamSession, ExamSessionQuestion, QuestionPractice
+from app.models.notification import Notification
+from app.models.study_plan import (
+    PlanStatus,
+    StudyPlan,
+    StudyPlanTask,
+    TaskPriority,
+    TaskStatus,
+    TaskType,
+)
 from app.models.user import User, UserRole
 
 __all__ = [
@@ -41,4 +51,14 @@ __all__ = [
     "SavedLesson",
     "SavedNote",
     "UserCourseStatus",
+    "StudyPlan",
+    "StudyPlanTask",
+    "PlanStatus",
+    "TaskType",
+    "TaskPriority",
+    "TaskStatus",
+    "QuestionPractice",
+    "ExamSession",
+    "ExamSessionQuestion",
+    "Notification",
 ]

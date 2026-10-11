@@ -10,12 +10,13 @@ import StateMessage from '../../components/StateMessage.jsx'
 
 // Modular Dashboard Components
 import DashboardHeader from '../../components/dashboard/DashboardHeader.jsx'
-import MetricsOverview from '../../components/dashboard/MetricsOverview.jsx'
+import TodayStudyPlanCard from '../../components/dashboard/TodayStudyPlanCard.jsx'
 import ContinueLearningCard from '../../components/dashboard/ContinueLearningCard.jsx'
+import LearningProgressSection from '../../components/dashboard/LearningProgressSection.jsx'
+import ThisWeekConsistencyCard from '../../components/dashboard/ThisWeekConsistencyCard.jsx'
 import AIStudyCompanionCard from '../../components/dashboard/AIStudyCompanionCard.jsx'
-import DailyQuests from '../../components/dashboard/DailyQuests.jsx'
 import PlayAndLearnPreview from '../../components/dashboard/PlayAndLearnPreview.jsx'
-import AchievementsSection from '../../components/dashboard/AchievementsSection.jsx'
+import SavedContentSection from '../../components/dashboard/SavedContentSection.jsx'
 import RecentActivityFeed from '../../components/dashboard/RecentActivityFeed.jsx'
 import RecommendedCoursesSection from '../../components/dashboard/RecommendedCoursesSection.jsx'
 
@@ -127,51 +128,79 @@ export default function StudentLearningDashboard() {
     (savedOverview?.saved_note_lesson_ids?.length || 0)
 
   return (
-    <div className="space-y-6 w-full pb-8">
-      {/* 1. DASHBOARD HEADER */}
+    <div className="space-y-5 md:space-y-6 w-full pb-8">
+      {/* 1. DASHBOARD HEADER & GREETING */}
       <DashboardHeader user={user} gamification={gamification} />
 
-      {/* 2. PROGRESS OVERVIEW BAR (COMPACT METRICS STRIP WITH SAVED SHORTCUT) */}
-      <MetricsOverview
-        analytics={analytics}
-        enrollments={enrollments}
-        gamification={gamification}
-        savedCount={savedCount}
-      />
+      {/* 2. PRIMARY ACTION ROW: TODAY'S FOCUS + CONTINUE LEARNING */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
+        {/* Today's Focus (5 cols on desktop) */}
+        <div className="lg:col-span-5 flex flex-col">
+          <TodayStudyPlanCard />
+        </div>
 
-      {/* 3. DASHBOARD MAIN CONTENT GRID */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-7">
-        {/* MAIN LEARNING COLUMN (8 cols on lg) */}
-        <div className="lg:col-span-8 space-y-7">
-          {/* PRIMARY CONTINUE LEARNING HERO */}
+        {/* Continue Learning (7 cols on desktop) */}
+        <div className="lg:col-span-7 flex flex-col">
           <ContinueLearningCard
             recommendation={recommendation}
             activeEnrollment={activeEnrollment}
             enrollments={enrollments}
           />
+        </div>
+      </div>
 
-          {/* ACTIVE QUESTS / DAILY GOALS */}
-          <DailyQuests gamification={gamification} />
-
-          {/* RECOMMENDED FOR YOU (EXPAND YOUR LEARNING) */}
-          <RecommendedCoursesSection enrollments={enrollments} courses={courses} />
+      {/* 3. PROGRESS ROW: LEARNING PROGRESS + THIS WEEK */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
+        {/* Learning Progress & Active Quests (7 cols on desktop) */}
+        <div className="lg:col-span-7 flex flex-col">
+          <LearningProgressSection
+            analytics={analytics}
+            enrollments={enrollments}
+            gamification={gamification}
+            savedCount={savedCount}
+          />
         </div>
 
-        {/* COMPANION & ACTIVITY COLUMN (4 cols on lg) */}
-        <div className="lg:col-span-4 space-y-6">
-          {/* AI STUDY COMPANION */}
+        {/* This Week: Streak & Consistency Strip (5 cols on desktop) */}
+        <div className="lg:col-span-5 flex flex-col">
+          <ThisWeekConsistencyCard
+            gamification={gamification}
+            analytics={analytics}
+          />
+        </div>
+      </div>
+
+      {/* 4. INTERACTION ROW: ASK KITSUNO AI + PLAY & LEARN */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
+        {/* Ask Kitsuno AI (6 cols on desktop) */}
+        <div className="lg:col-span-6 flex flex-col">
           <AIStudyCompanionCard />
+        </div>
 
-          {/* PLAY & LEARN MINIGAMES PREVIEW */}
+        {/* Play & Learn Minigames (6 cols on desktop) */}
+        <div className="lg:col-span-6 flex flex-col">
           <PlayAndLearnPreview />
+        </div>
+      </div>
 
-          {/* ACHIEVEMENTS */}
-          <AchievementsSection gamification={gamification} />
+      {/* 5. AUDIT ROW: SAVED CONTENT + RECENT ACTIVITY */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
+        {/* Saved Content & Bookmarks (5 cols on desktop) */}
+        <div className="lg:col-span-5 flex flex-col">
+          <SavedContentSection
+            savedOverview={savedOverview}
+            gamification={gamification}
+          />
+        </div>
 
-          {/* RECENT ACTIVITY LOG */}
+        {/* Recent Activity Feed (7 cols on desktop) */}
+        <div className="lg:col-span-7 flex flex-col">
           <RecentActivityFeed analytics={analytics} />
         </div>
       </div>
+
+      {/* 6. DISCOVERY SHELF: RECOMMENDED COURSES */}
+      <RecommendedCoursesSection enrollments={enrollments} courses={courses} />
     </div>
   )
 }

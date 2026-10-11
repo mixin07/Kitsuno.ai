@@ -7,9 +7,18 @@ from app.api.dependencies import require_student
 from app.database import get_db
 from app.models import QuizAttempt, User
 from app.schemas.quiz import AttemptSummaryResponse, QuizTakeResponse
-from app.services import quiz_service
+from app.schemas.practice import QuizHubSummaryResponse
+from app.services import practice_service, quiz_service
 
 router = APIRouter(prefix="/quizzes", tags=["quizzes"])
+
+
+@router.get("/hub", response_model=QuizHubSummaryResponse)
+def get_quiz_hub(
+    db: Annotated[Session, Depends(get_db)],
+    current_user: Annotated[User, Depends(require_student)],
+) -> QuizHubSummaryResponse:
+    return practice_service.get_quiz_hub_summary(db, current_user.id)
 
 
 @router.get("/{quiz_id}", response_model=QuizTakeResponse)

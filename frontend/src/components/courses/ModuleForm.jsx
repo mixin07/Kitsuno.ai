@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
 const INPUT_CLASS =
-  'w-full rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 py-2.5 text-[var(--ks-text)] outline-none transition placeholder:text-[var(--ks-text-muted)] focus:border-[var(--ks-orange)] focus:ring-2 focus:ring-[var(--ks-orange)]/25 disabled:opacity-50 shadow-xs'
-const LABEL_CLASS = 'mb-1.5 block text-sm font-medium text-[var(--ks-text)]'
+  'w-full rounded-[6px] border-2 border-[#241A16] bg-white px-3.5 py-2 text-xs sm:text-sm text-[#241A16] outline-none shadow-[2px_2px_0_#241A16] transition placeholder:text-neutral-400 focus:border-[#F16524] disabled:opacity-50'
+const LABEL_CLASS = 'mb-1.5 block text-[11px] font-mono font-bold uppercase tracking-wider text-[#241A16]'
 
 export default function ModuleForm({
   initialValues,
@@ -44,12 +44,12 @@ export default function ModuleForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-4" noValidate>
       {error && (
-        <p
+        <div
           role="alert"
-          className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm text-rose-600"
+          className="rounded-[6px] border-2 border-rose-400 bg-rose-50 px-4 py-2.5 text-xs text-rose-800 shadow-[2px_2px_0_#241A16]"
         >
           {error}
-        </p>
+        </div>
       )}
 
       <div>
@@ -102,13 +102,13 @@ export default function ModuleForm({
         )}
       </div>
 
-      <div className="flex flex-wrap justify-end gap-3 pt-1">
+      <div className="flex flex-wrap justify-end gap-2.5 pt-2 border-t-[1.5px] border-[#241A16]/10">
         {onCancel && (
           <button
             type="button"
             onClick={onCancel}
             disabled={isSubmitting}
-            className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 py-2 font-medium text-[var(--ks-text)] transition hover:bg-[var(--ks-bg-soft)] disabled:opacity-50"
+            className="ks-neo-btn-secondary px-3.5 py-1.5 text-xs font-bold"
           >
             Cancel
           </button>
@@ -116,7 +116,7 @@ export default function ModuleForm({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="rounded-lg bg-[var(--ks-orange)] px-5 py-2 font-semibold text-white transition hover:bg-[var(--ks-orange-light)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="ks-neo-btn-primary px-4 py-1.5 text-xs font-bold"
         >
           {isSubmitting ? 'Saving...' : submitLabel}
         </button>

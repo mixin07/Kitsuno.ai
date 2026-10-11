@@ -16,6 +16,7 @@ import { getInstructorCourseSummaries } from '../services/instructorAnalyticsSer
 import { useAuth } from '../hooks/useAuth.js'
 import { ROLES } from '../constants/roles.js'
 import StateMessage from '../components/StateMessage.jsx'
+import NeoMetricCard from '../components/NeoMetricCard.jsx'
 
 export default function InstructorArea() {
   const { user } = useAuth()
@@ -84,150 +85,87 @@ export default function InstructorArea() {
       : 0
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-5 md:space-y-6 w-full pb-8">
       {/* 1. Header with Quick Actions Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 pb-4 border-b-2 border-[#241A16]">
         <div>
-          <span className="ks-eyebrow text-[var(--ks-orange)]">
-            Instructor Studio
+          <span className="ks-eyebrow">
+            INSTRUCTOR STUDIO
           </span>
-          <h2 className="ks-page-title text-2xl sm:text-3xl mt-0.5">
+          <h1 className="ks-page-title mt-0.5">
             Course Management & Studio
-          </h2>
-          <p className="mt-1 text-xs text-[var(--ks-text-muted)]">
+          </h1>
+          <p className="ks-muted mt-1">
             Manage your real curricula, lessons, student progress, and automated AI quizzes.
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5 shrink-0">
           <Link
             to="/instructor/courses/new"
-            className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--ks-orange)] px-4 py-2.5 text-xs font-semibold text-white shadow-xs transition hover:bg-[var(--ks-orange-light)] hover:shadow-md"
+            className="ks-neo-btn-primary px-3.5 py-2 text-xs font-bold"
           >
             <Plus className="h-4 w-4" />
             <span>Create Course</span>
           </Link>
           <Link
             to="/instructor/ai-quiz-generator"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-[rgba(241,101,36,0.3)] bg-[var(--ks-surface)] px-4 py-2.5 text-xs font-semibold text-[var(--ks-orange)] shadow-xs transition hover:bg-[rgba(241,101,36,0.08)]"
+            className="ks-neo-btn-secondary px-3.5 py-2 text-xs font-bold"
           >
-            <Sparkles className="h-4 w-4" />
+            <Sparkles className="h-4 w-4 text-[#F16524]" />
             <span>AI Quiz Generator</span>
           </Link>
         </div>
       </div>
 
       {/* 2. Overview Metrics Cards */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {/* Card 1: Courses Created */}
-        <div className="rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 shadow-xs transition hover:border-[var(--ks-orange)]/30">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--ks-text-muted)]">
-              Courses Created
-            </span>
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[rgba(241,101,36,0.1)] text-[var(--ks-orange)]">
-              <BookOpen className="h-4 w-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="font-display text-3xl font-normal text-[var(--ks-text)]">
-              {coursesCount}
-            </span>
-            {coursesCount > 0 && (
-              <span className="text-xs font-semibold text-emerald-600">Active</span>
-            )}
-          </div>
-          <p className="mt-1 text-xs text-[var(--ks-text-muted)]">
-            {coursesCount > 0
-              ? `${publishedCount} published · ${draftCount} draft`
-              : 'Create your first course'}
-          </p>
-        </div>
-
-        {/* Card 2: Total Enrolled Learners */}
-        <div className="rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 shadow-xs transition hover:border-[var(--ks-orange)]/30">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--ks-text-muted)]">
-              Total Learners
-            </span>
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500/10 text-sky-700">
-              <Users className="h-4 w-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="font-display text-3xl font-normal text-[var(--ks-text)]">
-              {totalEnrolled}
-            </span>
-            <span className="text-xs font-semibold text-[var(--ks-text-muted)]">enrolled</span>
-          </div>
-          <p className="mt-1 text-xs text-[var(--ks-text-muted)]">
-            {totalEnrolled > 0
-              ? `Across ${coursesCount} managed ${coursesCount === 1 ? 'course' : 'courses'}`
-              : 'No student enrollments yet'}
-          </p>
-        </div>
-
-        {/* Card 3: Quiz Attempts */}
-        <div className="rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 shadow-xs transition hover:border-[var(--ks-orange)]/30">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--ks-text-muted)]">
-              Quiz Submissions
-            </span>
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[rgba(241,101,36,0.1)] text-[var(--ks-orange)]">
-              <Sparkles className="h-4 w-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="font-display text-3xl font-normal text-[var(--ks-orange)]">
-              {totalQuizAttempts}
-            </span>
-            <span className="text-xs font-semibold text-[var(--ks-text)]">attempts</span>
-          </div>
-          <p className="mt-1 text-xs text-[var(--ks-text-muted)]">
-            {totalQuizAttempts > 0
-              ? 'Evaluated by adaptive AI engine'
-              : 'Add quizzes to your lessons'}
-          </p>
-        </div>
-
-        {/* Card 4: Avg Completion Rate */}
-        <div className="rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 shadow-xs transition hover:border-[var(--ks-orange)]/30">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--ks-text-muted)]">
-              Avg Completion
-            </span>
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-500/10 text-amber-700">
-              <Award className="h-4 w-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="font-display text-3xl font-normal text-[var(--ks-text)]">
-              {avgCompletion}%
-            </span>
-            <span className="text-xs font-semibold text-[var(--ks-text-muted)]">rate</span>
-          </div>
-          <p className="mt-1 text-xs text-[var(--ks-text-muted)]">
-            {totalEnrolled > 0 ? 'Across active student cohorts' : 'Awaiting student activity'}
-          </p>
-        </div>
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        <NeoMetricCard
+          label="Courses Created"
+          value={coursesCount}
+          icon={BookOpen}
+          badge={coursesCount > 0 ? 'Active' : null}
+          badgeVariant="success"
+          hint={coursesCount > 0 ? `${publishedCount} published · ${draftCount} draft` : 'Create your first course'}
+        />
+        <NeoMetricCard
+          label="Total Learners"
+          value={totalEnrolled}
+          icon={Users}
+          hint={totalEnrolled > 0 ? `Across ${coursesCount} managed ${coursesCount === 1 ? 'course' : 'courses'}` : 'No student enrollments yet'}
+        />
+        <NeoMetricCard
+          label="Quiz Submissions"
+          value={totalQuizAttempts}
+          icon={Sparkles}
+          iconColor="text-[#F16524]"
+          valueColor="text-[#F16524]"
+          hint={totalQuizAttempts > 0 ? 'Evaluated by adaptive AI engine' : 'Add quizzes to your lessons'}
+        />
+        <NeoMetricCard
+          label="Avg Completion"
+          value={`${avgCompletion}%`}
+          icon={Award}
+          hint={totalEnrolled > 0 ? 'Across active student cohorts' : 'Awaiting student activity'}
+        />
       </div>
 
       {/* 3. Main Studio Workspace: Courses & Activity Feed */}
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 items-start">
         {/* Courses List (7/12 cols) */}
         <div className="space-y-4 lg:col-span-7">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-display text-xl font-normal text-[var(--ks-text)]">
+              <h2 className="ks-section-title">
                 Managed Courses
-              </h3>
-              <p className="text-xs text-[var(--ks-text-muted)]">
+              </h2>
+              <p className="ks-muted">
                 Curriculum, lessons, and automated quizzes
               </p>
             </div>
             <Link
               to="/instructor/courses"
-              className="group flex items-center gap-1 text-xs font-semibold text-[var(--ks-orange)] hover:underline"
+              className="group flex items-center gap-1 text-xs font-bold text-[#F16524] hover:underline"
             >
               <span>View All</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -241,32 +179,32 @@ export default function InstructorArea() {
                 return (
                   <div
                     key={course.id}
-                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 shadow-xs transition hover:border-[var(--ks-orange)]/35"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-[8px] border-2 border-[#241A16] bg-white p-4 sm:p-5 shadow-[4px_4px_0_#241A16] hover:shadow-[5px_5px_0_#241A16] hover:translate-x-[-0.5px] hover:translate-y-[-0.5px] transition-all"
                   >
                     <div className="space-y-1.5 flex-1">
                       <div className="flex items-center gap-2">
                         <span
-                          className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                          className={`rounded-[4px] border border-[#241A16] px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider ${
                             course.published
-                              ? 'bg-emerald-500/10 text-emerald-700'
-                              : 'bg-amber-500/10 text-amber-700'
+                              ? 'bg-emerald-50 text-emerald-800'
+                              : 'bg-amber-50 text-amber-800'
                           }`}
                         >
                           {course.published ? 'Published' : 'Draft'}
                         </span>
-                        <span className="text-xs font-medium text-[var(--ks-text-muted)]">
+                        <span className="text-xs font-mono text-neutral-500">
                           {course.category || 'General'}
                         </span>
                       </div>
-                      <h4 className="ks-card-title text-sm">
+                      <h3 className="ks-neo-card-title text-base sm:text-lg">
                         {course.title}
-                      </h4>
-                      <div className="flex items-center gap-3 text-xs text-[var(--ks-text-muted)]">
+                      </h3>
+                      <div className="flex items-center gap-3 text-xs text-neutral-500 font-mono">
                         <span>{summary?.total_enrolled || 0} enrolled</span>
                         <span>·</span>
                         <span>{summary?.total_lessons || 0} lessons</span>
                         <span>·</span>
-                        <span className="text-emerald-600 font-medium">
+                        <span className="text-emerald-700 font-bold">
                           {Math.round(summary?.completion_rate || 0)}% completion
                         </span>
                       </div>
@@ -275,14 +213,14 @@ export default function InstructorArea() {
                     <div className="flex items-center gap-2 shrink-0">
                       <Link
                         to={`/instructor/courses/${course.id}/content`}
-                        className="inline-flex items-center gap-1 rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] px-3 py-1.5 text-xs font-medium text-[var(--ks-text)] transition hover:border-[var(--ks-orange)] hover:text-[var(--ks-orange)]"
+                        className="ks-neo-btn-secondary px-3 py-1.5 text-xs"
                       >
                         <Layers className="h-3.5 w-3.5" />
                         <span>Curriculum</span>
                       </Link>
                       <Link
                         to={`/instructor/courses/${course.id}/edit`}
-                        className="inline-flex items-center gap-1 rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] px-3 py-1.5 text-xs font-medium text-[var(--ks-text)] transition hover:border-[var(--ks-orange)] hover:text-[var(--ks-orange)]"
+                        className="ks-neo-btn-secondary px-3 py-1.5 text-xs"
                       >
                         <FileEdit className="h-3.5 w-3.5" />
                         <span>Edit</span>
@@ -293,20 +231,20 @@ export default function InstructorArea() {
               })}
             </div>
           ) : (
-            <div className="rounded-3xl border border-dashed border-[var(--ks-border)] bg-[var(--ks-surface)] p-8 text-center sm:p-10">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[rgba(241,101,36,0.1)] text-[var(--ks-orange)]">
+            <div className="bg-white rounded-[8px] border-2 border-[#241A16] p-8 text-center sm:p-10 shadow-[4px_4px_0_#241A16]">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-[6px] border-[1.5px] border-[#241A16] bg-[#FFF2E6] text-[#F16524]">
                 <BookOpen className="h-6 w-6" />
               </div>
-              <h4 className="font-display text-xl font-normal text-[var(--ks-text)] mt-3">
+              <h3 className="ks-neo-card-title mt-3 text-lg">
                 You haven't created any courses yet
-              </h4>
-              <p className="mx-auto mt-2 max-w-sm text-xs text-[var(--ks-text-muted)] leading-relaxed">
+              </h3>
+              <p className="mx-auto mt-2 max-w-sm text-xs text-neutral-600 leading-relaxed">
                 Build your curriculum with modules, lessons, and auto-generated AI quizzes to publish for students.
               </p>
               <div className="mt-5">
                 <Link
                   to="/instructor/courses/new"
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--ks-orange)] px-5 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-[var(--ks-orange-light)]"
+                  className="ks-neo-btn-primary px-4 py-2 text-xs font-bold"
                 >
                   <Plus className="h-4 w-4" />
                   <span>Create Your First Course</span>
@@ -317,31 +255,31 @@ export default function InstructorArea() {
         </div>
 
         {/* Learner Activity & Quick AI Generator Panel (5/12 cols) */}
-        <div className="space-y-6 lg:col-span-5">
+        <div className="space-y-5 lg:col-span-5">
           {/* AI Quiz Generator Callout Card */}
-          <div className="rounded-3xl border border-[rgba(241,101,36,0.25)] bg-[var(--ks-surface)] p-6 shadow-xs">
+          <div className="bg-white rounded-[8px] border-2 border-[#241A16] p-5 shadow-[4px_4px_0_#241A16] space-y-3">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[var(--ks-orange)] text-white shadow-xs">
+              <div className="flex h-8 w-8 items-center justify-center rounded-[6px] border border-[#241A16] bg-[#F16524] text-white">
                 <Sparkles className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="font-display text-lg font-normal text-[var(--ks-text)]">
+                <h3 className="ks-neo-card-title text-base sm:text-lg">
                   AI Quiz Synthesis
                 </h3>
-                <p className="text-xs text-[var(--ks-text-muted)]">
+                <p className="ks-muted text-[11px]">
                   Generate instant comprehension quizzes from lesson notes
                 </p>
               </div>
             </div>
 
-            <p className="mt-3 text-xs leading-relaxed text-[var(--ks-text-muted)]">
+            <p className="text-xs leading-relaxed text-neutral-600">
               Input any markdown notes, syllabus, or lecture transcript. Kitsuno analyzes conceptual depth and creates calibrated multiple-choice questions with answer explanations.
             </p>
 
-            <div className="mt-4">
+            <div className="pt-1">
               <Link
                 to="/instructor/ai-quiz-generator"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--ks-orange)] py-2.5 text-xs font-semibold text-white shadow-xs transition hover:bg-[var(--ks-orange-light)] hover:shadow-md"
+                className="ks-neo-btn-primary w-full py-2.5 text-xs font-bold"
               >
                 <span>Open Quiz Generator</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -350,30 +288,30 @@ export default function InstructorArea() {
           </div>
 
           {/* Learner Activity Stream */}
-          <div className="rounded-3xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 shadow-xs">
+          <div className="bg-white rounded-[8px] border-2 border-[#241A16] p-5 shadow-[4px_4px_0_#241A16] space-y-3">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-display text-lg font-normal text-[var(--ks-text)]">
+                <h3 className="ks-neo-card-title text-base sm:text-lg">
                   Learner Activity Feed
                 </h3>
-                <p className="text-xs text-[var(--ks-text-muted)]">
+                <p className="ks-muted text-[11px]">
                   Real-time events across your courses
                 </p>
               </div>
               <Link
                 to="/instructor/analytics"
-                className="text-xs font-semibold text-[var(--ks-orange)] hover:underline"
+                className="text-xs font-bold text-[#F16524] hover:underline"
               >
                 Full Analytics
               </Link>
             </div>
 
-            <div className="mt-4 rounded-xl border border-dashed border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-5 text-center">
-              <Activity className="mx-auto h-7 w-7 text-[var(--ks-text-muted)] opacity-60" />
-              <p className="mt-2 text-xs font-medium text-[var(--ks-text)]">
+            <div className="rounded-[6px] border border-[rgba(36,26,22,0.18)] bg-[#FAF8F5] p-5 text-center">
+              <Activity className="mx-auto h-7 w-7 text-neutral-400" />
+              <p className="mt-2 text-xs font-semibold text-[#241A16]">
                 No student activity yet
               </p>
-              <p className="mt-1 text-[11px] text-[var(--ks-text-muted)] leading-relaxed">
+              <p className="mt-1 text-[11px] text-neutral-500 leading-relaxed">
                 When students enroll in your courses and complete lessons or quizzes, their real-time progress will be recorded here.
               </p>
             </div>

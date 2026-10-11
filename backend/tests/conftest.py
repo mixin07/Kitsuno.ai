@@ -4,15 +4,30 @@ from sqlalchemy import delete, select
 from app.core.security import hash_password
 from app.database import SessionLocal
 from app.models import (
+    AttemptAnswer,
     Course,
     Enrollment,
+    ExamSession,
+    ExamSessionQuestion,
     GameAttempt,
     GamificationLog,
     Lesson,
     LessonProgress,
     Module,
+    Notification,
+    Option,
+    Question,
+    QuestionPractice,
+    Quiz,
+    QuizAttempt,
+    SavedCourse,
+    SavedLesson,
+    SavedNote,
+    StudyPlan,
+    StudyPlanTask,
     User,
     UserAchievement,
+    UserCourseStatus,
     UserGamification,
     UserQuestProgress,
     UserRole,
@@ -28,6 +43,8 @@ def _make_email(prefix: str) -> str:
 
 
 def _create_db_user(name: str, role: UserRole) -> User:
+    import uuid
+
     db = SessionLocal()
     try:
         user = User(
@@ -64,23 +81,39 @@ def admin() -> User:
     return _create_db_user("Test Admin", UserRole.ADMIN)
 
 
-@pytest.fixture(scope="session", autouse=True)
-def _cleanup_test_data():
-    yield
+def _do_cleanup():
     db = SessionLocal()
     try:
         user_ids = db.execute(
-            select(User.id).where(User.email.like("%@test.com"))
+            select(User.id).where(
+                (User.email.like("%@test.com")) | (User.email.like("%@example.com"))
+            )
         ).scalars().all()
         if not user_ids:
             return
 
         # Clean up student-related records
+        db.execute(delete(ExamSessionQuestion).where(ExamSessionQuestion.session_id.in_(
+            select(ExamSession.id).where(ExamSession.student_id.in_(user_ids))
+        )))
+        db.execute(delete(ExamSession).where(ExamSession.student_id.in_(user_ids)))
+        db.execute(delete(QuestionPractice).where(QuestionPractice.student_id.in_(user_ids)))
+        db.execute(delete(Notification).where(Notification.user_id.in_(user_ids)))
+        db.execute(delete(StudyPlanTask).where(StudyPlanTask.student_id.in_(user_ids)))
+        db.execute(delete(StudyPlan).where(StudyPlan.student_id.in_(user_ids)))
         db.execute(delete(GameAttempt).where(GameAttempt.user_id.in_(user_ids)))
         db.execute(delete(GamificationLog).where(GamificationLog.user_id.in_(user_ids)))
         db.execute(delete(UserQuestProgress).where(UserQuestProgress.user_id.in_(user_ids)))
         db.execute(delete(UserAchievement).where(UserAchievement.user_id.in_(user_ids)))
         db.execute(delete(UserGamification).where(UserGamification.user_id.in_(user_ids)))
+        db.execute(delete(UserCourseStatus).where(UserCourseStatus.user_id.in_(user_ids)))
+        db.execute(delete(SavedCourse).where(SavedCourse.user_id.in_(user_ids)))
+        db.execute(delete(SavedLesson).where(SavedLesson.user_id.in_(user_ids)))
+        db.execute(delete(SavedNote).where(SavedNote.user_id.in_(user_ids)))
+        db.execute(delete(AttemptAnswer).where(AttemptAnswer.attempt_id.in_(
+            select(QuizAttempt.id).where(QuizAttempt.student_id.in_(user_ids))
+        )))
+        db.execute(delete(QuizAttempt).where(QuizAttempt.student_id.in_(user_ids)))
         db.execute(delete(LessonProgress).where(LessonProgress.student_id.in_(user_ids)))
         db.execute(delete(Enrollment).where(Enrollment.student_id.in_(user_ids)))
 
@@ -89,13 +122,55 @@ def _cleanup_test_data():
             select(Course.id).where(Course.instructor_id.in_(user_ids))
         ).scalars().all()
         if course_ids:
+            db.execute(delete(UserCourseStatus).where(UserCourseStatus.course_id.in_(course_ids)))
+            db.execute(delete(SavedCourse).where(SavedCourse.course_id.in_(course_ids)))
+            db.execute(delete(SavedNote).where(SavedNote.course_id.in_(course_ids)))
             db.execute(delete(Enrollment).where(Enrollment.course_id.in_(course_ids)))
+            db.execute(delete(StudyPlanTask).where(StudyPlanTask.course_id.in_(course_ids)))
+            db.execute(delete(StudyPlan).where(StudyPlan.course_id.in_(course_ids)))
+            db.execute(delete(ExamSession).where(ExamSession.course_id.in_(course_ids)))
+            db.execute(delete(GameAttempt).where(GameAttempt.course_id.in_(course_ids)))
+
             module_ids = db.execute(
                 select(Module.id).where(Module.course_id.in_(course_ids))
             ).scalars().all()
             if module_ids:
-                db.execute(delete(Lesson).where(Lesson.module_id.in_(module_ids)))
+                lesson_ids = db.execute(
+                    select(Lesson.id).where(Lesson.module_id.in_(module_ids))
+                ).scalars().all()
+                if lesson_ids:
+                    db.execute(delete(GameAttempt).where(GameAttempt.lesson_id.in_(lesson_ids)))
+                    db.execute(delete(SavedLesson).where(SavedLesson.lesson_id.in_(lesson_ids)))
+                    db.execute(delete(SavedNote).where(SavedNote.lesson_id.in_(lesson_ids)))
+                    db.execute(delete(LessonProgress).where(LessonProgress.lesson_id.in_(lesson_ids)))
+                    db.execute(delete(StudyPlanTask).where(StudyPlanTask.lesson_id.in_(lesson_ids)))
+
+                    quiz_ids = db.execute(
+                        select(Quiz.id).where(Quiz.lesson_id.in_(lesson_ids))
+                    ).scalars().all()
+                    if quiz_ids:
+                        db.execute(delete(StudyPlanTask).where(StudyPlanTask.quiz_id.in_(quiz_ids)))
+                        db.execute(delete(AttemptAnswer).where(AttemptAnswer.attempt_id.in_(
+                            select(QuizAttempt.id).where(QuizAttempt.quiz_id.in_(quiz_ids))
+                        )))
+                        db.execute(delete(QuizAttempt).where(QuizAttempt.quiz_id.in_(quiz_ids)))
+
+                        question_ids = db.execute(
+                            select(Question.id).where(Question.quiz_id.in_(quiz_ids))
+                        ).scalars().all()
+                        if question_ids:
+                            db.execute(delete(AttemptAnswer).where(AttemptAnswer.question_id.in_(question_ids)))
+                            db.execute(delete(Option).where(Option.question_id.in_(question_ids)))
+                            db.execute(delete(QuestionPractice).where(QuestionPractice.question_id.in_(question_ids)))
+                            db.execute(delete(ExamSessionQuestion).where(ExamSessionQuestion.question_id.in_(question_ids)))
+                            db.execute(delete(Question).where(Question.id.in_(question_ids)))
+
+                        db.execute(delete(Quiz).where(Quiz.id.in_(quiz_ids)))
+
+                    db.execute(delete(Lesson).where(Lesson.id.in_(lesson_ids)))
+
                 db.execute(delete(Module).where(Module.id.in_(module_ids)))
+
             db.execute(delete(Course).where(Course.id.in_(course_ids)))
 
         db.execute(delete(User).where(User.id.in_(user_ids)))
@@ -104,3 +179,10 @@ def _cleanup_test_data():
         db.rollback()
     finally:
         db.close()
+
+
+@pytest.fixture(scope="session", autouse=True)
+def _cleanup_test_data():
+    _do_cleanup()
+    yield
+    _do_cleanup()

@@ -12,6 +12,8 @@ import {
 } from 'recharts'
 import ProgressBar from '../../components/learning/ProgressBar.jsx'
 import StateMessage from '../../components/StateMessage.jsx'
+import NeoMetricCard from '../../components/NeoMetricCard.jsx'
+import { BookOpen, CheckCircle2, Award, Flag, Play, Sparkles } from 'lucide-react'
 import { getApiErrorMessage } from '../../services/api.js'
 import { getStudentAnalytics } from '../../services/analyticsService.js'
 
@@ -24,11 +26,13 @@ const ACTIVITY_LABELS = Object.freeze({
 })
 
 const CHART_TOOLTIP_STYLE = {
-  backgroundColor: '#FFFDF9',
-  border: '1px solid rgba(90, 55, 30, 0.16)',
-  borderRadius: '0.75rem',
-  boxShadow: '0 4px 20px -2px rgba(90, 55, 30, 0.08)',
+  backgroundColor: '#FFFFFF',
+  border: '1.5px solid #241A16',
+  borderRadius: '6px',
+  boxShadow: '2px 2px 0 #241A16',
   color: '#241A16',
+  fontSize: '12px',
+  fontWeight: '600',
 }
 
 function formatPercent(value) {
@@ -47,17 +51,16 @@ function formatDate(value) {
   })
 }
 
-function StatCard({ label, value, hint }) {
+function StatCard({ label, value, hint, icon, iconColor, valueColor }) {
   return (
-    <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-4 sm:p-5 shadow-xs flex flex-col justify-between font-sans">
-      <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[var(--ks-text-muted)] truncate font-sans">
-        {label}
-      </p>
-      <p className="mt-2 text-2xl sm:text-3xl font-bold tracking-tight text-[var(--ks-text)] font-sans">
-        {value}
-      </p>
-      {hint && <p className="mt-1 text-xs text-[var(--ks-text-muted)] truncate font-sans">{hint}</p>}
-    </div>
+    <NeoMetricCard
+      label={label}
+      value={value}
+      hint={hint}
+      icon={icon}
+      iconColor={iconColor}
+      valueColor={valueColor}
+    />
   )
 }
 
@@ -73,36 +76,36 @@ function CourseProgressSection({ courses }) {
   return (
     <section className="space-y-4">
       <div>
-        <h2 className="ks-section-title font-serif text-xl sm:text-2xl">Course Progress</h2>
-        <p className="mt-0.5 text-xs sm:text-sm text-[var(--ks-text-muted)]">Your progress across enrolled courses.</p>
+        <h2 className="ks-section-title">Course Progress</h2>
+        <p className="mt-0.5 text-xs sm:text-sm text-neutral-600">Your progress across enrolled courses.</p>
       </div>
       <div className="space-y-3.5">
         {courses.map((course) => (
           <div
             key={course.course_id}
-            className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-4 sm:p-5 shadow-xs space-y-3"
+            className="ks-neo-card p-4 sm:p-5 space-y-3"
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div className="flex flex-wrap items-center gap-2">
                 <Link
                   to={`/courses/${course.course_id}`}
-                  className="ks-card-title hover:text-[var(--ks-orange)] font-serif text-base sm:text-lg font-normal leading-snug"
+                  className="font-serif text-lg font-normal text-[#241A16] hover:text-[#F16524] transition-colors leading-snug"
                 >
                   {course.title}
                 </Link>
                 {course.completed ? (
-                  <span className="shrink-0 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2 py-0.5 text-[10.5px] font-semibold text-emerald-600">
+                  <span className="shrink-0 rounded-[4px] border border-[#241A16] bg-emerald-100 text-emerald-800 px-2 py-0.5 font-mono text-[10px] font-bold uppercase">
                     Completed
                   </span>
                 ) : (
-                  <span className="shrink-0 rounded-full border border-[var(--ks-border)] bg-[var(--ks-bg-soft)] px-2 py-0.5 text-[10.5px] font-medium text-[var(--ks-text-muted)]">
+                  <span className="shrink-0 rounded-[4px] border border-[rgba(36,26,22,0.25)] bg-[#FAF8F5] text-neutral-600 px-2 py-0.5 font-mono text-[10px] font-medium uppercase">
                     In progress
                   </span>
                 )}
               </div>
               <div className="flex sm:flex-col items-baseline sm:items-end justify-between sm:justify-start gap-1">
-                <p className="text-base sm:text-lg font-bold text-[var(--ks-orange)]">{formatPercent(course.progress)}</p>
-                <p className="text-xs text-[var(--ks-text-muted)]">
+                <p className="font-serif text-lg font-normal text-[#F16524]">{formatPercent(course.progress)}</p>
+                <p className="text-xs font-mono text-neutral-500">
                   {course.completed_lessons}/{course.total_lessons} lessons
                 </p>
               </div>
@@ -111,13 +114,13 @@ function CourseProgressSection({ courses }) {
             <ProgressBar value={course.progress} className="mt-1" />
 
             {course.next_lesson_id && course.next_lesson_title && (
-              <div className="mt-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 rounded-lg bg-[var(--ks-bg-soft)] border border-[var(--ks-border)]/60 px-3.5 py-2.5">
-                <p className="text-xs text-[var(--ks-text-muted)] truncate">
-                  Next up: <span className="font-medium text-[var(--ks-text)]">{course.next_lesson_title}</span>
+              <div className="mt-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 rounded-md bg-[#FAF8F5] border-[1.5px] border-[rgba(36,26,22,0.18)] px-3.5 py-2.5">
+                <p className="text-xs text-neutral-600 truncate">
+                  Next up: <span className="font-semibold text-[#241A16]">{course.next_lesson_title}</span>
                 </p>
                 <Link
                   to={`/courses/${course.course_id}/lessons/${course.next_lesson_id}`}
-                  className="text-xs font-semibold text-[var(--ks-orange)] hover:text-[var(--ks-deep)] shrink-0 self-start sm:self-auto"
+                  className="font-mono text-xs font-bold uppercase text-[#F16524] hover:text-[#241A16] shrink-0 self-start sm:self-auto transition-colors"
                 >
                   Continue →
                 </Link>
@@ -148,13 +151,13 @@ function QuizPerformanceSection({ quizPerformance }) {
   return (
     <section className="space-y-4">
       <div>
-        <h2 className="ks-section-title font-serif text-xl sm:text-2xl">Quiz Performance</h2>
-        <p className="mt-0.5 text-xs sm:text-sm text-[var(--ks-text-muted)]">
+        <h2 className="ks-section-title">Quiz Performance</h2>
+        <p className="mt-0.5 text-xs sm:text-sm text-neutral-600">
           Average and best scores across your completed attempts.
         </p>
       </div>
 
-      <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-3.5 sm:p-5 shadow-xs">
+      <div className="bg-white rounded-[8px] border-2 border-[#241A16] shadow-[4px_4px_0_#241A16] p-3.5 sm:p-5">
         <div className="h-56 sm:h-64 w-full min-w-0">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData} margin={{ top: 8, right: 8, left: -20, bottom: 8 }}>
@@ -177,32 +180,32 @@ function QuizPerformanceSection({ quizPerformance }) {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] shadow-xs">
+      <div className="overflow-hidden bg-white rounded-[8px] border-2 border-[#241A16] shadow-[3px_3px_0_#241A16]">
         {/* Mobile scroll hint */}
-        <p className="sm:hidden text-[10.5px] text-[var(--ks-text-subtle)] px-3.5 py-1.5 italic bg-[var(--ks-bg-soft)] border-b border-[var(--ks-border)]">
+        <p className="sm:hidden text-[10.5px] font-mono text-neutral-500 px-3.5 py-1.5 italic bg-[#FAF8F5] border-b-2 border-[#241A16]">
           Swipe table to view all metrics →
         </p>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[500px] text-left text-xs sm:text-sm">
-            <thead className="border-b border-[var(--ks-border)] bg-[var(--ks-bg-soft)] text-[10.5px] sm:text-xs uppercase tracking-wider text-[var(--ks-text-muted)]">
+            <thead className="border-b-2 border-[#241A16] bg-[#FAF8F5] font-mono text-[10px] uppercase tracking-wider text-neutral-600">
               <tr>
-                <th className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-semibold">Quiz</th>
-                <th className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-semibold">Course</th>
-                <th className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-semibold">Attempts</th>
-                <th className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-semibold">Average</th>
-                <th className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-semibold">Best</th>
-                <th className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-semibold">Last Attempt</th>
+                <th className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-bold">Quiz</th>
+                <th className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-bold">Course</th>
+                <th className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-bold">Attempts</th>
+                <th className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-bold">Average</th>
+                <th className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-bold">Best</th>
+                <th className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-bold">Last Attempt</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[var(--ks-border)]">
+            <tbody className="divide-y divide-[#241A16]/15">
               {quizPerformance.map((quiz) => (
-                <tr key={quiz.quiz_id} className="text-[var(--ks-text)] hover:bg-[var(--ks-bg-soft)]/50 transition-colors">
-                  <td className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-semibold text-[var(--ks-text)]">{quiz.quiz_title}</td>
-                  <td className="px-3.5 sm:px-5 py-2.5 sm:py-3 text-[var(--ks-text-muted)]">{quiz.course_title}</td>
-                  <td className="px-3.5 sm:px-5 py-2.5 sm:py-3">{quiz.attempts}</td>
-                  <td className="px-3.5 sm:px-5 py-2.5 sm:py-3">{formatPercent(quiz.average_percentage)}</td>
-                  <td className="px-3.5 sm:px-5 py-2.5 sm:py-3 text-emerald-600 font-semibold">{formatPercent(quiz.best_percentage)}</td>
-                  <td className="px-3.5 sm:px-5 py-2.5 sm:py-3 text-[var(--ks-text-muted)]">{formatDate(quiz.last_attempt_at)}</td>
+                <tr key={quiz.quiz_id} className="text-[#241A16] hover:bg-[#FAF8F5]/80 transition-colors">
+                  <td className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-semibold text-[#241A16]">{quiz.quiz_title}</td>
+                  <td className="px-3.5 sm:px-5 py-2.5 sm:py-3 text-neutral-600 font-mono text-xs">{quiz.course_title}</td>
+                  <td className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-mono">{quiz.attempts}</td>
+                  <td className="px-3.5 sm:px-5 py-2.5 sm:py-3 font-mono font-semibold">{formatPercent(quiz.average_percentage)}</td>
+                  <td className="px-3.5 sm:px-5 py-2.5 sm:py-3 text-emerald-700 font-mono font-bold">{formatPercent(quiz.best_percentage)}</td>
+                  <td className="px-3.5 sm:px-5 py-2.5 sm:py-3 text-neutral-500 font-mono text-xs">{formatDate(quiz.last_attempt_at)}</td>
                 </tr>
               ))}
             </tbody>
@@ -226,45 +229,39 @@ function StudyActivitySection({ recentActivity }) {
   return (
     <section className="space-y-4">
       <div>
-        <h2 className="ks-section-title font-serif text-xl sm:text-2xl">Study Activity</h2>
-        <p className="mt-0.5 text-xs sm:text-sm text-[var(--ks-text-muted)]">
+        <h2 className="ks-section-title">Study Activity</h2>
+        <p className="mt-0.5 text-xs sm:text-sm text-neutral-600">
           Summary of your study actions, completions, and milestones.
         </p>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4">
-        <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-3.5 sm:p-4 shadow-xs">
-          <span className="text-[10.5px] font-bold uppercase tracking-wider text-[var(--ks-text-subtle)] block truncate">
-            Lessons Finished
-          </span>
-          <span className="mt-1 text-xl sm:text-2xl font-bold text-[var(--ks-text)]">
-            {counts['LESSON_COMPLETED'] || 0}
-          </span>
-        </div>
-        <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-3.5 sm:p-4 shadow-xs">
-          <span className="text-[10.5px] font-bold uppercase tracking-wider text-[var(--ks-text-subtle)] block truncate">
-            Quizzes Passed
-          </span>
-          <span className="mt-1 text-xl sm:text-2xl font-bold text-[var(--ks-text)]">
-            {counts['QUIZ_COMPLETED'] || 0}
-          </span>
-        </div>
-        <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-3.5 sm:p-4 shadow-xs">
-          <span className="text-[10.5px] font-bold uppercase tracking-wider text-[var(--ks-text-subtle)] block truncate">
-            Lessons Started
-          </span>
-          <span className="mt-1 text-xl sm:text-2xl font-bold text-[var(--ks-text)]">
-            {counts['LESSON_STARTED'] || 0}
-          </span>
-        </div>
-        <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-3.5 sm:p-4 shadow-xs">
-          <span className="text-[10.5px] font-bold uppercase tracking-wider text-[var(--ks-text-subtle)] block truncate">
-            Total Milestones
-          </span>
-          <span className="mt-1 text-xl sm:text-2xl font-bold text-[var(--ks-orange)]">
-            {totalEvents}
-          </span>
-        </div>
+        <NeoMetricCard
+          label="Lessons Finished"
+          value={counts['LESSON_COMPLETED'] || 0}
+          icon={CheckCircle2}
+          valueColor="text-[#241A16]"
+        />
+        <NeoMetricCard
+          label="Quizzes Passed"
+          value={counts['QUIZ_COMPLETED'] || 0}
+          icon={Award}
+          iconColor="text-emerald-700"
+          valueColor="text-emerald-700"
+        />
+        <NeoMetricCard
+          label="Lessons Started"
+          value={counts['LESSON_STARTED'] || 0}
+          icon={Play}
+          valueColor="text-[#241A16]"
+        />
+        <NeoMetricCard
+          label="Total Milestones"
+          value={totalEvents}
+          icon={Flag}
+          iconColor="text-[#F16524]"
+          valueColor="text-[#F16524]"
+        />
       </div>
     </section>
   )
@@ -282,22 +279,22 @@ function RecentActivitySection({ recentActivity }) {
   return (
     <section className="space-y-4">
       <div>
-        <h2 className="ks-section-title font-serif text-xl sm:text-2xl">Recent Activity</h2>
-        <p className="mt-0.5 text-xs sm:text-sm text-[var(--ks-text-muted)]">Your latest learning events.</p>
+        <h2 className="ks-section-title">Recent Activity</h2>
+        <p className="mt-0.5 text-xs sm:text-sm text-neutral-600">Your latest learning events.</p>
       </div>
-      <div className="divide-y divide-[var(--ks-border)] rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] shadow-xs">
+      <div className="divide-y divide-[rgba(36,26,22,0.12)] ks-neo-card">
         {recentActivity.map((event, index) => (
           <div
             key={`${event.event_type}-${event.timestamp}-${index}`}
             className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-4 px-3.5 sm:px-5 py-3"
           >
             <div className="flex min-w-0 items-center gap-2.5">
-              <span className="shrink-0 rounded-full border border-[var(--ks-orange)]/30 bg-[var(--ks-orange)]/10 px-2 py-0.5 text-[10.5px] font-semibold text-[var(--ks-orange)]">
+              <span className="shrink-0 rounded-[4px] border border-[#241A16] bg-[#F16524]/10 text-[#F16524] px-2 py-0.5 font-mono text-[10px] font-bold uppercase">
                 {ACTIVITY_LABELS[event.event_type] || event.event_type}
               </span>
-              <p className="truncate text-xs sm:text-sm text-[var(--ks-text)]">{event.description}</p>
+              <p className="truncate text-xs sm:text-sm text-[#241A16]">{event.description}</p>
             </div>
-            <span className="shrink-0 text-[11px] text-[var(--ks-text-subtle)] pl-1 sm:pl-0">
+            <span className="shrink-0 font-mono text-[11px] text-neutral-400 pl-1 sm:pl-0">
               {new Date(event.timestamp).toLocaleString(undefined, {
                 dateStyle: 'short',
                 timeStyle: 'short',
@@ -362,66 +359,90 @@ export default function StudentAnalyticsPage() {
   const recentActivity = analytics?.recent_activity || []
 
   return (
-    <section className="space-y-6 sm:space-y-8 max-w-[1360px] mx-auto pb-12">
-      <div>
-        <p className="ks-eyebrow text-xs">Student Space</p>
-        <h1 className="ks-page-title font-serif text-2xl sm:text-3xl mt-1">Learning Analytics</h1>
-        <p className="mt-1 text-xs sm:text-sm text-[var(--ks-text-muted)] font-sans">
+    <section className="space-y-6 max-w-[1360px] mx-auto pb-12">
+      <div className="pb-4 border-b border-[rgba(36,26,22,0.12)]">
+        <span className="ks-eyebrow">STUDENT SPACE</span>
+        <h1 className="mt-1 ks-page-title">Learning Analytics</h1>
+        <p className="mt-1 text-xs sm:text-sm text-neutral-600 max-w-xl">
           A snapshot of your learning progress, quiz metrics, and study history.
         </p>
       </div>
 
-      {/* 1. OVERVIEW: Compact 2x2 stats on mobile, 4-col on desktop */}
+      {/* 1. OVERVIEW: 4-col stats */}
       <section className="space-y-3">
-        <h2 className="text-xs font-bold uppercase tracking-wider text-[var(--ks-text-subtle)] font-sans">
+        <h2 className="ks-section-title">
           Overview
         </h2>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          <StatCard label="Enrolled Courses" value={summary?.total_courses ?? 0} />
-          <StatCard label="Active Courses" value={summary?.active_courses ?? 0} />
-          <StatCard label="Completed Courses" value={summary?.completed_courses ?? 0} />
-          <StatCard label="Lessons Completed" value={summary?.lessons_completed ?? 0} />
+          <StatCard
+            label="Enrolled Courses"
+            value={summary?.total_courses ?? 0}
+            icon={BookOpen}
+            hint={summary?.total_courses === 1 ? '1 active course' : `${summary?.total_courses ?? 0} active courses`}
+          />
+          <StatCard
+            label="Active Courses"
+            value={summary?.active_courses ?? 0}
+            icon={Sparkles}
+            hint="Currently in progress"
+          />
+          <StatCard
+            label="Completed Courses"
+            value={summary?.completed_courses ?? 0}
+            icon={CheckCircle2}
+            iconColor="text-emerald-700"
+            valueColor="text-emerald-700"
+            hint="100% finished"
+          />
+          <StatCard
+            label="Lessons Completed"
+            value={summary?.lessons_completed ?? 0}
+            icon={Award}
+            iconColor="text-[#F16524]"
+            valueColor="text-[#F16524]"
+            hint="Across all courses"
+          />
         </div>
       </section>
 
       {/* 2. OVERALL LEARNING PROGRESS */}
-      <section className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-4 sm:p-6 shadow-xs space-y-3 font-sans">
+      <section className="bg-white rounded-[8px] border-2 border-[#241A16] shadow-[4px_4px_0_#241A16] p-5 sm:p-6 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--ks-text-muted)] font-sans">
+            <h2 className="ks-neo-card-title">
               Overall Learning Progress
             </h2>
-            <p className="text-xs text-[var(--ks-text-muted)] mt-0.5 font-sans">
+            <p className="text-xs text-neutral-600 mt-0.5">
               Cumulative progress across all your enrolled courses
             </p>
           </div>
-          <span className="text-2xl sm:text-3xl font-bold text-[var(--ks-orange)] font-sans">
+          <span className="font-serif text-3xl sm:text-4xl font-normal text-[#F16524]">
             {formatPercent(summary?.overall_progress)}
           </span>
         </div>
         <ProgressBar value={summary?.overall_progress} className="h-2.5" />
-        <div className="grid grid-cols-3 gap-2 pt-3 border-t border-[var(--ks-border)]/60 text-center font-sans">
+        <div className="grid grid-cols-3 gap-2 pt-3 border-t border-[rgba(36,26,22,0.12)] text-center">
           <div>
-            <span className="text-[10px] sm:text-[10.5px] uppercase font-bold text-[var(--ks-text-subtle)] block truncate font-sans">
+            <span className="text-[10px] uppercase font-mono font-bold text-neutral-500 block truncate">
               Quiz Attempts
             </span>
-            <span className="text-sm sm:text-base font-semibold text-[var(--ks-text)] font-sans">
+            <span className="text-base sm:text-lg font-normal font-serif text-[#241A16]">
               {summary?.quiz_attempts ?? 0}
             </span>
           </div>
           <div>
-            <span className="text-[10px] sm:text-[10.5px] uppercase font-bold text-[var(--ks-text-subtle)] block truncate font-sans">
+            <span className="text-[10px] uppercase font-mono font-bold text-neutral-500 block truncate">
               Average Score
             </span>
-            <span className="text-sm sm:text-base font-semibold text-[var(--ks-text)] font-sans">
+            <span className="text-base sm:text-lg font-normal font-serif text-[#241A16]">
               {formatPercent(summary?.average_quiz_score)}
             </span>
           </div>
           <div>
-            <span className="text-[10px] sm:text-[10.5px] uppercase font-bold text-[var(--ks-text-subtle)] block truncate font-sans">
+            <span className="text-[10px] uppercase font-mono font-bold text-neutral-500 block truncate">
               Best Score
             </span>
-            <span className="text-sm sm:text-base font-semibold text-emerald-600 font-sans">
+            <span className="text-base sm:text-lg font-normal font-serif text-emerald-700">
               {formatPercent(summary?.best_quiz_score)}
             </span>
           </div>
@@ -430,8 +451,8 @@ export default function StudentAnalyticsPage() {
 
       {courses.length === 0 && quizPerformance.length === 0 ? (
         <StateMessage variant="empty" title="Nothing here yet">
-          <span className="text-[var(--ks-text-muted)]">Enroll in a course to start tracking your analytics.</span>{' '}
-          <Link to="/courses" className="font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]">
+          <span className="text-neutral-600">Enroll in a course to start tracking your analytics.</span>{' '}
+          <Link to="/courses" className="font-semibold text-[#F16524] hover:underline">
             Browse the course catalogue →
           </Link>
         </StateMessage>

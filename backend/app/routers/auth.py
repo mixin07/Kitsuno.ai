@@ -17,7 +17,7 @@ from app.api.dependencies import (
 from app.core.jwt import create_access_token
 from app.core.security import hash_password, verify_password
 from app.database import get_db
-from app.models.user import User, UserRole
+from app.models.user import ApprovalStatus, User, UserRole
 from app.schemas.user import (
     TokenResponse,
     UserCreate,
@@ -29,8 +29,21 @@ from app.schemas.user import (
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 
-@router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/register",
+    response_model=UserResponse,
+    status_code=status.HTTP_201_CREATED,
+    deprecated=True,
+    description="DEPRECATED: Kitsuno.ai has migrated to Supabase Auth. Use Supabase client SDK `supabase.auth.signUp()` instead. This endpoint is retained for legacy test compatibility.",
+)
 def register(payload: UserCreate, db: Annotated[Session, Depends(get_db)]) -> User:
+    """Legacy registration endpoint. Marked deprecated in favor of Supabase Auth."""
+    if payload.role == UserRole.ADMIN:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Cannot register as ADMIN through public registration",
+        )
+
     existing = db.scalar(select(User).where(User.email == payload.email))
     if existing:
         raise HTTPException(
@@ -38,11 +51,23 @@ def register(payload: UserCreate, db: Annotated[Session, Depends(get_db)]) -> Us
             detail="Email already registered",
         )
 
+    if payload.role == UserRole.INSTRUCTOR:
+        assigned_role = UserRole.STUDENT
+        approval_status = ApprovalStatus.PENDING.value
+        requested_role = "INSTRUCTOR"
+    else:
+        assigned_role = UserRole.STUDENT
+        approval_status = ApprovalStatus.APPROVED.value
+        requested_role = None
+
     user = User(
         name=payload.name,
         email=payload.email,
         password_hash=hash_password(payload.password),
-        role=payload.role,
+        role=assigned_role,
+        approval_status=approval_status,
+        requested_role=requested_role,
+        is_active=True,
     )
     try:
         db.add(user)
@@ -57,8 +82,14 @@ def register(payload: UserCreate, db: Annotated[Session, Depends(get_db)]) -> Us
     return user
 
 
-@router.post("/login", response_model=TokenResponse)
+@router.post(
+    "/login",
+    response_model=TokenResponse,
+    deprecated=True,
+    description="DEPRECATED: Kitsuno.ai has migrated to Supabase Auth. Use Supabase client SDK `supabase.auth.signInWithPassword()` instead. This endpoint is retained for legacy test compatibility.",
+)
 def login(payload: UserLogin, db: Annotated[Session, Depends(get_db)]) -> TokenResponse:
+    """Legacy login endpoint. Marked deprecated in favor of Supabase Auth."""
     user = db.scalar(select(User).where(User.email == payload.email))
     if user is None or not verify_password(payload.password, user.password_hash):
         raise HTTPException(

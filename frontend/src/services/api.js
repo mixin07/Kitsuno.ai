@@ -1,13 +1,25 @@
 import axios from 'axios'
-import { clearAccessToken, getAccessToken } from './tokenStorage.js'
+import { supabase } from '../lib/supabase.js'
+import { clearAccessToken, getAccessToken, setAccessToken } from './tokenStorage.js'
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1',
 })
 
 api.interceptors.request.use(
-  (config) => {
-    const token = getAccessToken()
+  async (config) => {
+    let token = getAccessToken()
+    if (!token) {
+      try {
+        const { data } = await supabase.auth.getSession()
+        if (data?.session?.access_token) {
+          token = data.session.access_token
+          setAccessToken(token)
+        }
+      } catch {
+        // Fall back to no token
+      }
+    }
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }

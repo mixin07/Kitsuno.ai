@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
 const INPUT_CLASS =
-  'w-full rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 py-2.5 text-[var(--ks-text)] outline-none transition placeholder:text-[var(--ks-text-muted)] focus:border-[var(--ks-orange)] focus:ring-2 focus:ring-[var(--ks-orange)]/25 disabled:opacity-50 shadow-xs'
-const LABEL_CLASS = 'mb-1.5 block text-sm font-medium text-[var(--ks-text)]'
+  'w-full rounded-[6px] border-2 border-[#241A16] bg-white px-3.5 py-2 text-xs sm:text-sm text-[#241A16] outline-none shadow-[2px_2px_0_#241A16] transition placeholder:text-neutral-400 focus:border-[#F16524] disabled:opacity-50'
+const LABEL_CLASS = 'mb-1.5 block text-[11px] font-mono font-bold uppercase tracking-wider text-[#241A16]'
 
 export default function LessonForm({
   initialValues,
@@ -65,10 +65,10 @@ export default function LessonForm({
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--ks-border)] pb-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-[#241A16] pb-3">
         <div>
           <span className="ks-eyebrow">Lesson Content</span>
-          <h4 className="ks-panel-title mt-1">
+          <h4 className="font-serif text-xl font-normal text-[#241A16] mt-0.5">
             {initialValues ? 'Edit Lesson' : 'New Lesson'}
           </h4>
         </div>
@@ -77,7 +77,7 @@ export default function LessonForm({
             <button
               type="button"
               onClick={onCancel}
-              className="text-xs font-medium text-[var(--ks-text-muted)] hover:text-[var(--ks-text)]"
+              className="text-xs font-bold text-[#F16524] hover:underline"
             >
               ← Back to module
             </button>
@@ -85,10 +85,10 @@ export default function LessonForm({
           <button
             type="button"
             onClick={() => setShowPreview((v) => !v)}
-            className={`rounded-md px-3 py-1.5 text-xs font-medium transition ${
+            className={`rounded-[6px] border-2 border-[#241A16] px-3 py-1.5 text-xs font-bold transition shadow-[2px_2px_0_#241A16] ${
               showPreview
-                ? 'border border-[var(--ks-border)] bg-[var(--ks-surface)] text-[var(--ks-text)]'
-                : 'border border-[var(--ks-orange)]/30 bg-[var(--ks-orange)]/10 text-[var(--ks-orange)]'
+                ? 'bg-white text-[#241A16]'
+                : 'bg-[#FFF2E6] text-[#F16524]'
             }`}
           >
             {showPreview ? 'Back to Edit' : 'Preview'}
@@ -97,37 +97,37 @@ export default function LessonForm({
       </div>
 
       {showPreview ? (
-        <div className="space-y-4 rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-5">
+        <div className="space-y-4 rounded-[8px] border-2 border-[#241A16] bg-[#FAF8F5] p-5 shadow-[2px_2px_0_#241A16]">
           <div>
             <span className="ks-eyebrow">Preview — Student View</span>
-            <h3 className="ks-card-title mt-1">
+            <h3 className="font-serif text-2xl font-normal text-[#241A16] mt-1">
               {form.title.trim() || 'Untitled lesson'}
             </h3>
             {form.description.trim() ? (
-              <p className="mt-2 text-sm leading-relaxed text-[var(--ks-text-muted)]">
+              <p className="mt-2 text-sm leading-relaxed text-neutral-600">
                 {form.description.trim()}
               </p>
             ) : (
-              <p className="mt-2 text-sm italic text-[var(--ks-text-muted)]">No description</p>
+              <p className="mt-2 text-sm italic text-neutral-400">No description</p>
             )}
           </div>
 
           {form.video_url.trim() ? (
-            <div className="rounded-lg border border-[var(--ks-border)] bg-black p-2 text-center text-xs text-white">
+            <div className="rounded-[6px] border-2 border-[#241A16] bg-black p-2 text-center text-xs text-white">
               Video: {form.video_url.trim()}
             </div>
           ) : (
-            <p className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 py-3 text-sm text-[var(--ks-text-muted)]">
+            <p className="rounded-[6px] border-2 border-[#241A16] bg-white px-4 py-3 text-sm text-neutral-600 shadow-[2px_2px_0_#241A16]">
               No video — student will see “This lesson has no video.”
             </p>
           )}
 
           {form.content.trim() ? (
-            <div className="whitespace-pre-wrap rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 text-sm leading-relaxed text-[var(--ks-text)]">
+            <div className="whitespace-pre-wrap rounded-[6px] border-2 border-[#241A16] bg-white p-5 text-sm leading-relaxed text-[#241A16] shadow-[2px_2px_0_#241A16]">
               {form.content.trim()}
             </div>
           ) : (
-            <p className="rounded-lg border border-dashed border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 py-6 text-center text-sm text-[var(--ks-text-muted)]">
+            <p className="rounded-[6px] border-2 border-dashed border-[#241A16] bg-white px-4 py-6 text-center text-sm text-neutral-500">
               No lesson content yet. Write content above to see preview.
             </p>
           )}
@@ -137,18 +137,18 @@ export default function LessonForm({
               href={form.resource_url.trim()}
               target="_blank"
               rel="noreferrer"
-              className="inline-block text-sm font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]"
+              className="inline-block text-xs font-bold text-[#F16524] hover:underline"
             >
               Open resource ↗
             </a>
           )}
 
-          <div className="flex flex-wrap gap-2 border-t border-[var(--ks-border)] pt-3 text-xs text-[var(--ks-text-muted)]">
+          <div className="flex flex-wrap gap-2 border-t-2 border-[#241A16] pt-3 text-xs font-mono text-neutral-500">
             {form.duration_minutes && <span>{form.duration_minutes} min</span>}
             {form.order_number && <span>Order {form.order_number}</span>}
           </div>
 
-          <p className="text-xs text-[var(--ks-text-muted)]">
+          <p className="text-[11px] text-neutral-500">
             Preview uses the same plain-text content format rendered on the student lesson page.
           </p>
         </div>
@@ -157,7 +157,7 @@ export default function LessonForm({
       {error && (
         <p
           role="alert"
-          className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm text-rose-600"
+          className="rounded-[6px] border-2 border-rose-400 bg-rose-50 px-4 py-3 text-xs text-rose-800 shadow-[2px_2px_0_#241A16]"
         >
           {error}
         </p>
@@ -292,13 +292,13 @@ export default function LessonForm({
         )}
       </div>
 
-      <div className="flex flex-wrap justify-end gap-3 pt-1">
+      <div className="flex flex-wrap justify-end gap-2.5 pt-2 border-t-[1.5px] border-[#241A16]/10">
         {onCancel && (
           <button
             type="button"
             onClick={onCancel}
             disabled={isSubmitting}
-            className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 py-2 font-medium text-[var(--ks-text)] transition hover:bg-[var(--ks-bg-soft)] disabled:opacity-50"
+            className="ks-neo-btn-secondary px-3.5 py-1.5 text-xs font-bold"
           >
             Cancel
           </button>
@@ -306,7 +306,7 @@ export default function LessonForm({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="rounded-lg bg-[var(--ks-orange)] px-5 py-2 font-semibold text-white transition hover:bg-[var(--ks-orange-light)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="ks-neo-btn-primary px-4 py-1.5 text-xs font-bold"
         >
           {isSubmitting ? 'Saving...' : submitLabel}
         </button>

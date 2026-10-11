@@ -111,19 +111,19 @@
 .ks-page-title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(28px, 3vw, 32px);
+  font-size: clamp(28px, 3.2vw, 36px);
   letter-spacing: -0.02em;
-  line-height: 1.05;
-  color: var(--ks-text);
+  line-height: 1.1;
+  color: #241A16;
 }
 
 .ks-section-title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(20px, 2.2vw, 24px);
+  font-size: clamp(22px, 2.4vw, 28px);
   letter-spacing: -0.015em;
   line-height: 1.2;
-  color: var(--ks-text);
+  color: #241A16;
 }
 
 .ks-panel-title {
@@ -4455,3 +4455,635 @@ html {
     -moz-osx-font-smoothing: grayscale;
   }
 }
+
+/* ============================================================
+/* ============================================================
+   Kitsuno.ai — Minimal Neo-Brutalist Design System
+   Geometry + Contrast + Hard Edges + Tactile Shadows
+   ============================================================ */
+
+:root {
+  --ks-neo-border: #241A16;
+  --ks-neo-shadow: 2px 3px 0 #241A16;
+  --ks-neo-shadow-sm: 2px 2px 0 #241A16;
+  --ks-neo-radius: 8px;
+  --ks-neo-radius-sm: 6px;
+}
+
+/* 1. Surfaces (Clean calm cream background - no notebook simulation lines) */
+.ks-notebook-ruled {
+  background-image: none;
+}
+
+.ks-notebook-margin-line {
+  border-left: none;
+  padding-left: 0;
+}
+
+/* 2. Major Neo-Brutalist Cards & Panels (1.5px dark border, 8px radius, 3px hard shadow) */
+.ks-neo-card {
+  background-color: #FFFFFF;
+  border: 1.5px solid #241A16;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 #241A16;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ks-neo-card:hover {
+  box-shadow: 4px 4px 0 #241A16;
+  transform: translate(-1px, -1px);
+}
+
+.ks-neo-card-static {
+  background-color: #FFFFFF;
+  border: 1.5px solid #241A16;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 #241A16;
+}
+
+/* Secondary Panels: 1px border, 6px radius, no heavy shadow */
+.ks-neo-card-subtle {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(36, 26, 22, 0.22);
+  border-radius: 6px;
+  box-shadow: none;
+  transition: border-color 0.15s ease;
+}
+
+.ks-neo-card-subtle:hover {
+  border-color: #241A16;
+}
+
+/* Interactive Card System: Tactile hover/active offsets with hard shadow */
+.ks-neo-card-interactive {
+  background-color: #FFFFFF;
+  border: 1.5px solid #241A16;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 #241A16;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ks-neo-card-interactive:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #241A16;
+}
+
+.ks-neo-card-interactive:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #241A16;
+}
+
+/* Consistent Card Header Structure */
+.ks-neo-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(36, 26, 22, 0.15);
+  margin-bottom: 14px;
+}
+
+.ks-neo-card-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(20px, 2vw, 24px);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: #241A16;
+}
+
+/* Standardized Neo Eyebrow */
+.ks-eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #F16524;
+}
+
+/* Flat structured blocks inside major cards */
+.ks-neo-card-flat {
+  background-color: #FFFFFF;
+  border: 1.5px solid #241A16;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+/* 3. Tactile Neo-Brutalist Buttons */
+.ks-neo-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #F16524;
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 7px 15px;
+  border: 1.5px solid #241A16;
+  border-radius: 6px;
+  box-shadow: 2.5px 2.5px 0 #241A16;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
+}
+
+.ks-neo-btn-primary:hover {
+  background-color: #E0520D;
+  transform: translate(-0.5px, -0.5px);
+  box-shadow: 3px 3px 0 #241A16;
+}
+
+.ks-neo-btn-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 #241A16;
+}
+
+.ks-neo-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 1px 1px 0 #241A16;
+}
+
+.ks-neo-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #FFFFFF;
+  color: #241A16;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 6px 13px;
+  border: 1.5px solid #241A16;
+  border-radius: 6px;
+  box-shadow: 2px 2px 0 #241A16;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
+}
+
+.ks-neo-btn-secondary:hover {
+  background-color: #FAF5EE;
+  transform: translate(-0.5px, -0.5px);
+  box-shadow: 2.5px 2.5px 0 #241A16;
+}
+
+.ks-neo-btn-secondary:active {
+  transform: translate(1.5px, 1.5px);
+  box-shadow: 0 0 0 #241A16;
+}
+
+/* 4. Discrete XP Bar and Checkboxes */
+.ks-xp-bar {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  background-color: #FFFFFF;
+  border: 1.5px solid #241A16;
+  border-radius: 4px;
+}
+
+.ks-xp-bar-segment {
+  flex: 1;
+  height: 6px;
+  background-color: #EDE8E3;
+  border-radius: 1px;
+  transition: background-color 0.15s ease;
+}
+
+.ks-xp-bar-segment.filled {
+  background-color: #F16524;
+}
+
+.ks-quest-checkbox {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #241A16;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: #FFFFFF;
+}
+
+/* 4. Quiet Editorial Labels & Badges */
+.ks-neo-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(36, 26, 22, 0.14);
+  background-color: #FAF5EE;
+  color: #241A16;
+  box-shadow: none;
+  line-height: 1.2;
+}
+
+.ks-neo-label--orange {
+  background-color: rgba(241, 101, 36, 0.1);
+  color: #D9531E;
+  border-color: rgba(241, 101, 36, 0.25);
+}
+
+.ks-neo-label--dark {
+  background-color: #241A16;
+  color: #FFFFFF;
+  border-color: #241A16;
+}
+
+.ks-neo-label--cream {
+  background-color: #FFFAF4;
+  color: #241A16;
+}
+
+/* 5. Academic Stamps for Milestones & Streaks */
+.ks-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border: 1px solid rgba(36, 26, 22, 0.18);
+  border-radius: 6px;
+  background-color: #FAF5EE;
+  color: #241A16;
+  box-shadow: none;
+}
+
+.ks-stamp--streak {
+  background-color: #FFF2E6;
+  border-color: rgba(241, 101, 36, 0.3);
+  color: #D9531E;
+}
+
+.ks-stamp--verified {
+  background-color: #EBF7EE;
+  border-color: rgba(42, 122, 76, 0.3);
+  color: #2A7A4C;
+}
+
+/* 6. Compact Segmented XP Progress Bar */
+.ks-xp-bar {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  background-color: #FFFFFF;
+  border: 2px solid #241A16;
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.ks-xp-bar-segment {
+  flex: 1;
+  height: 7px;
+  border-radius: 1px;
+  border: none;
+  transition: background-color 0.1s ease;
+}
+
+.ks-xp-bar-segment--filled {
+  background-color: #F16524;
+}
+
+.ks-xp-bar-segment--empty {
+  background-color: rgba(36, 26, 22, 0.08);
+}
+
+/* 7. Level Trail Navigation (Academic Progression) */
+.ks-level-trail {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+.ks-trail-node {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid rgba(36, 26, 22, 0.2);
+  background-color: #FFFFFF;
+  color: #241A16;
+}
+
+.ks-trail-node--active {
+  background-color: #F16524;
+  color: #FFFFFF;
+  border-color: #F16524;
+}
+
+.ks-trail-node--completed {
+  background-color: #FFF2E6;
+  color: #8F3215;
+}
+
+.ks-trail-node--locked {
+  background-color: #FFFAF4;
+  color: #9C8577;
+  border-style: dashed;
+}
+
+.ks-trail-line {
+  width: 10px;
+  height: 1px;
+  background-color: rgba(36, 26, 22, 0.2);
+}
+
+/* 8. Quiet Checklist Quest Items */
+.ks-quest-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border: 1px solid rgba(36, 26, 22, 0.10);
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  box-shadow: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.ks-quest-item:hover {
+  border-color: rgba(36, 26, 22, 0.25);
+}
+
+.ks-quest-checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 2px solid #241A16;
+  background-color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 900;
+  flex-shrink: 0;
+  transition: all 0.1s ease;
+}
+
+.ks-quest-checkbox--checked {
+  background-color: #241A16;
+  border-color: #241A16;
+  color: #FFFFFF;
+}
+
+/* 9. Global Dashboard-Aligned Typography & State Utilities */
+.ks-body {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: #241A16;
+  line-height: 1.5;
+}
+
+.ks-muted {
+  font-family: var(--font-body);
+  color: var(--ks-text-muted, #6E5A4E);
+  font-size: 0.75rem;
+}
+
+.ks-ui-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #241A16;
+}
+
+.ks-metric-number {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 2.8vw, 32px);
+  font-weight: 400;
+  line-height: 1;
+  color: #241A16;
+}
+
+.ks-tab-item {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding-bottom: 8px;
+  border-bottom: 2px solid transparent;
+  color: #6E5A4E;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+  background: transparent;
+}
+
+.ks-tab-item:hover {
+  color: #241A16;
+}
+
+.ks-tab-item--active {
+  color: #F16524;
+  border-bottom-color: #F16524;
+  font-weight: 700;
+}
+
+/* 10. Global Neo-Brutal Token Aliases */
+.ks-page-eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #F16524;
+  display: inline-block;
+}
+
+.ks-ui {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: #241A16;
+}
+
+.ks-metric {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 2.8vw, 32px);
+  font-weight: 400;
+  line-height: 1;
+  color: #241A16;
+}
+
+.ks-brutal-card {
+  background-color: #FFFFFF;
+  border: 1.5px solid #241A16;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 #241A16;
+}
+
+.ks-brutal-card-subtle {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(36, 26, 22, 0.22);
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+/* Universal Global Neo-Brutalist Metric Card System */
+.ks-brutal-metric {
+  background-color: #FFFFFF;
+  border: 2px solid #241A16;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0 #241A16;
+  padding: 1rem 1.125rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ks-brutal-metric--interactive {
+  cursor: pointer;
+}
+
+.ks-brutal-metric--interactive:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 #241A16;
+}
+
+.ks-brutal-metric--interactive:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #241A16;
+}
+
+.ks-brutal-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #F16524;
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 8px 16px;
+  border: 1.5px solid #241A16;
+  border-radius: 6px;
+  box-shadow: 2px 2px 0 #241A16;
+  transition: all 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.ks-brutal-button:hover {
+  background-color: #E0520D;
+  transform: translate(-0.5px, -0.5px);
+  box-shadow: 3px 3px 0 #241A16;
+}
+
+.ks-brutal-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 #241A16;
+}
+
+.ks-brutal-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 1px 1px 0 #241A16;
+}
+
+.ks-brutal-button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #FFFFFF;
+  color: #241A16;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 8px 16px;
+  border: 1.5px solid #241A16;
+  border-radius: 6px;
+  box-shadow: 1.5px 1.5px 0 #241A16;
+  transition: all 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.ks-brutal-button-secondary:hover {
+  background-color: #FAF5EE;
+  transform: translate(-0.5px, -0.5px);
+  box-shadow: 2.5px 2.5px 0 #241A16;
+}
+
+.ks-brutal-button-secondary:active {
+  transform: translate(1.5px, 1.5px);
+  box-shadow: 0 0 0 #241A16;
+}
+
+.ks-brutal-input {
+  background-color: #FFFFFF;
+  border: 1.5px solid #241A16;
+  border-radius: 6px;
+  box-shadow: 2px 2px 0 #241A16;
+  color: #241A16;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  padding: 8px 12px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.ks-brutal-input:focus {
+  border-color: #F16524;
+}
+
+.ks-brutal-modal {
+  background-color: #FFFFFF;
+  border: 2px solid #241A16;
+  border-radius: 8px;
+  box-shadow: 4px 4px 0 #241A16;
+}
+
+.ks-brutal-popover {
+  background-color: #FFFFFF;
+  border: 1.5px solid #241A16;
+  border-radius: 6px;
+  box-shadow: 3px 3px 0 #241A16;
+}
+
+.ks-brutal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid #241A16;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: #FFF2E6;
+  color: #F16524;
+}
+
+

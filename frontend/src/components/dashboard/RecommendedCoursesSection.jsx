@@ -37,26 +37,29 @@ export default function RecommendedCoursesSection({ enrollments, courses: propCo
   if (courses.length === 0) return null
 
   return (
-    <div className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 space-y-4 shadow-xs">
-      <div className="flex items-center justify-between pb-3 border-b border-[var(--ks-border)]">
+    <div className="ks-neo-card-static p-4 sm:p-5 space-y-3.5">
+      <div className="flex items-center justify-between pb-3 border-b-[1.5px] border-[#241A16]">
         <div>
           <div className="flex items-center gap-1.5">
-            <Sparkles className="h-4 w-4 text-[var(--ks-orange)]" />
-            <h2 className="ks-section-title font-serif text-lg">
-              Recommended for You
-            </h2>
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#F16524]">
+              EXPLORE CATALOG
+            </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#F16524]" />
           </div>
-          <p className="text-[11px] text-[var(--ks-text-muted)]">
-            Explore new curricula aligned with your web development path
-          </p>
+          <div className="flex items-center gap-2 mt-0.5">
+            <Sparkles className="h-4 w-4 text-[#F16524]" />
+            <h3 className="ks-card-title text-xl md:text-2xl font-serif text-[#241A16] font-normal leading-tight">
+              Recommended for You
+            </h3>
+          </div>
         </div>
 
         <Link
           to="/courses"
-          className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--ks-orange)] hover:underline"
+          className="text-xs font-bold text-[#F16524] hover:underline inline-flex items-center gap-1.5 shrink-0"
         >
-          <span>All Courses</span>
-          <ArrowRight className="h-3 w-3" />
+          <span>All 9 Courses</span>
+          <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>
 
@@ -64,26 +67,31 @@ export default function RecommendedCoursesSection({ enrollments, courses: propCo
         {courses.map((course) => (
           <div
             key={course.id}
-            className="rounded-md border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-3.5 space-y-2 flex flex-col justify-between"
+            className="rounded-[6px] border-[1.5px] border-[#241A16]/25 bg-white hover:border-[#241A16] hover:bg-[#FFF4EB] transition-all p-3.5 space-y-2 flex flex-col justify-between group"
           >
             <div>
-              <span className="text-[10px] font-bold text-[var(--ks-orange)] bg-[var(--ks-orange)]/10 px-2 py-0.5 rounded border border-[var(--ks-orange)]/20">
-                {course.category || 'General'}
-              </span>
-              <h3 className="font-semibold text-xs text-[var(--ks-text)] mt-2 line-clamp-1">
+              <div className="flex items-center justify-between">
+                <span className="rounded-[4px] bg-[#FFF2E6] px-2 py-0.5 text-[9px] font-bold text-[#8F3215] border border-[#241A16]/30">
+                  {course.category || 'Curriculum'}
+                </span>
+                <span className="text-[10px] font-mono font-medium text-[#241A16]/70">
+                  {course.total_lessons || 10}+ lessons
+                </span>
+              </div>
+              <h4 className="font-bold text-sm text-[#241A16] group-hover:text-[#F16524] transition-colors mt-2 line-clamp-1">
                 {course.title}
-              </h3>
-              <p className="text-[11px] text-[var(--ks-text-muted)] line-clamp-2 mt-1">
-                {course.description || 'Master web development with structured lessons and AI quizzes.'}
+              </h4>
+              <p className="text-[11px] text-[var(--ks-text-muted)] line-clamp-2 mt-0.5 leading-relaxed font-normal">
+                {course.description || 'Master web development with structured lessons, practical exercises, and AI quizzes.'}
               </p>
             </div>
 
             <Link
               to={`/courses/${course.id}`}
-              className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--ks-orange)] hover:underline pt-2 border-t border-[var(--ks-border)]/60"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#F16524] group-hover:underline pt-2 border-t-[1.5px] border-[#241A16]/15"
             >
-              <BookOpen className="h-3 w-3" />
-              <span>View Course →</span>
+              <BookOpen className="h-3.5 w-3.5" />
+              <span>Explore Syllabus →</span>
             </Link>
           </div>
         ))}

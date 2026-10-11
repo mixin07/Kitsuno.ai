@@ -121,29 +121,40 @@ export default function CourseListPage() {
   }, [courses, searchQuery, selectedCategory, selectedDifficulty, sortBy])
 
   return (
-    <section className="space-y-6 max-w-[1360px] mx-auto">
+    <div className="space-y-5 md:space-y-6 w-full pb-8">
       {/* 1. INTRO HEADER */}
-      <div className="pb-4 border-b border-[var(--ks-border)]">
-        <span className="ks-eyebrow">COURSE CATALOG</span>
-        <h1 className="ks-page-title mt-1">Explore courses</h1>
-        <p className="mt-1 text-sm text-[var(--ks-text-muted)] max-w-xl">
-          Browse published curricula, learn at your own pace, and test your knowledge with adaptive AI quizzes.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b-[1.5px] border-[#241A16]">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <span className="ks-eyebrow">
+              COURSE CATALOG
+            </span>
+            <span className="w-1.5 h-1.5 bg-[#F16524]" />
+          </div>
+
+          <h1 className="ks-page-title">
+            Explore Courses
+          </h1>
+
+          <p className="ks-muted">
+            Browse published curricula, learn at your own pace, and test your knowledge with adaptive AI quizzes.
+          </p>
+        </div>
       </div>
 
       {/* 2. REAL FILTER & SEARCH CONTROLS */}
       {!isLoading && !error && courses.length > 0 && (
-        <div className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] p-4 space-y-3">
+        <div className="ks-neo-card p-4 space-y-3">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
             {/* Search Input */}
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--ks-text-subtle)]" />
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search by course title, topic, or keyword..."
-                className="w-full h-9 rounded border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] pl-9 pr-3 text-xs text-[var(--ks-text)] placeholder-[var(--ks-text-subtle)] outline-none transition focus:border-[var(--ks-orange)]"
+                className="w-full h-9 rounded-[6px] border-[1.5px] border-[#241A16] bg-white pl-9 pr-3 text-xs text-[#241A16] placeholder-neutral-400 outline-none transition focus:border-[#F16524]"
               />
             </div>
 
@@ -151,12 +162,12 @@ export default function CourseListPage() {
             <div className="flex flex-wrap items-center gap-2 text-xs">
               {/* Category Filter */}
               {categories.length > 0 && (
-                <div className="flex items-center gap-1.5 border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] px-2.5 py-1.5 rounded">
-                  <Filter className="h-3.5 w-3.5 text-[var(--ks-text-subtle)] shrink-0" />
+                <div className="flex items-center gap-1.5 border-[1.5px] border-[#241A16] bg-[#FAF8F5] px-2.5 py-1.5 rounded-[6px] shadow-[1px_1px_0_#241A16]">
+                  <Filter className="h-3.5 w-3.5 text-neutral-400 shrink-0" />
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="bg-transparent text-[var(--ks-text)] outline-none cursor-pointer text-xs"
+                    className="bg-transparent text-[#241A16] outline-none cursor-pointer text-xs font-medium"
                   >
                     <option value="ALL">All Categories</option>
                     {categories.map((cat) => (
@@ -169,11 +180,11 @@ export default function CourseListPage() {
               )}
 
               {/* Difficulty Filter */}
-              <div className="flex items-center gap-1.5 border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] px-2.5 py-1.5 rounded">
+              <div className="flex items-center gap-1.5 border-[1.5px] border-[#241A16] bg-[#FAF8F5] px-2.5 py-1.5 rounded-[6px] shadow-[1px_1px_0_#241A16]">
                 <select
                   value={selectedDifficulty}
                   onChange={(e) => setSelectedDifficulty(e.target.value)}
-                  className="bg-transparent text-[var(--ks-text)] outline-none cursor-pointer text-xs"
+                  className="bg-transparent text-[#241A16] outline-none cursor-pointer text-xs font-medium"
                 >
                   <option value="ALL">All Levels</option>
                   <option value="BEGINNER">Beginner</option>
@@ -183,12 +194,12 @@ export default function CourseListPage() {
               </div>
 
               {/* Sort By */}
-              <div className="flex items-center gap-1.5 border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] px-2.5 py-1.5 rounded">
-                <ArrowUpDown className="h-3.5 w-3.5 text-[var(--ks-text-subtle)] shrink-0" />
+              <div className="flex items-center gap-1.5 border-[1.5px] border-[#241A16] bg-[#FAF8F5] px-2.5 py-1.5 rounded-[6px] shadow-[1px_1px_0_#241A16]">
+                <ArrowUpDown className="h-3.5 w-3.5 text-neutral-400 shrink-0" />
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="bg-transparent text-[var(--ks-text)] outline-none cursor-pointer text-xs"
+                  className="bg-transparent text-[#241A16] outline-none cursor-pointer text-xs font-medium"
                 >
                   <option value="title">Sort: Title (A-Z)</option>
                   <option value="category">Sort: Category</option>
@@ -199,9 +210,9 @@ export default function CourseListPage() {
           </div>
 
           {/* Results Summary Bar */}
-          <div className="flex items-center justify-between text-[11px] text-[var(--ks-text-muted)] pt-2 border-t border-[var(--ks-border)]">
+          <div className="flex items-center justify-between text-[11px] font-mono text-neutral-500 pt-2 border-t border-[rgba(36,26,22,0.12)]">
             <span>
-              Showing <strong>{filteredCourses.length}</strong> of <strong>{courses.length}</strong> published courses
+              Showing <strong className="text-[#241A16]">{filteredCourses.length}</strong> of <strong className="text-[#241A16]">{courses.length}</strong> published courses
             </span>
             {(searchQuery || selectedCategory !== 'ALL' || selectedDifficulty !== 'ALL') && (
               <button
@@ -212,7 +223,7 @@ export default function CourseListPage() {
                   setSelectedDifficulty('ALL')
                   setSortBy('title')
                 }}
-                className="text-[var(--ks-orange)] font-semibold hover:underline"
+                className="text-[#F16524] font-bold hover:underline cursor-pointer"
               >
                 Reset filters
               </button>
@@ -237,10 +248,10 @@ export default function CourseListPage() {
       )}
 
       {!isLoading && !error && courses.length > 0 && filteredCourses.length === 0 && (
-        <div className="rounded-lg border border-dashed border-[var(--ks-border)] bg-[var(--ks-surface)] p-8 text-center space-y-2">
-          <BookOpen className="mx-auto h-8 w-8 text-[var(--ks-text-subtle)]" />
-          <h3 className="ks-panel-title">No Matching Courses Found</h3>
-          <p className="text-xs text-[var(--ks-text-muted)]">
+        <div className="rounded-[8px] border-[1.5px] border-[#241A16] bg-white p-8 text-center shadow-[3px_3px_0_#241A16] space-y-2">
+          <BookOpen className="mx-auto h-8 w-8 text-[#8C827A]" />
+          <h3 className="ks-card-title text-xl font-serif font-normal text-[#241A16]">No Matching Courses Found</h3>
+          <p className="text-xs text-neutral-600">
             Try adjusting your search criteria or resetting filters.
           </p>
           <button
@@ -250,7 +261,7 @@ export default function CourseListPage() {
               setSelectedCategory('ALL')
               setSelectedDifficulty('ALL')
             }}
-            className="mt-2 text-xs font-semibold text-[var(--ks-orange)] hover:underline"
+            className="ks-neo-btn-secondary inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold mt-2"
           >
             Clear Filters →
           </button>
@@ -258,7 +269,7 @@ export default function CourseListPage() {
       )}
 
       {!isLoading && !error && filteredCourses.length > 0 && (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:gap-7 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {filteredCourses.map((course) => (
             <CourseCard
               key={course.id}
@@ -273,6 +284,6 @@ export default function CourseListPage() {
           ))}
         </div>
       )}
-    </section>
+    </div>
   )
 }

@@ -52,7 +52,7 @@ function renderAvatarDisplay(avatarValue, initial, size = 'h-full w-full text-2x
         <img
           src={avatarValue}
           alt="User Avatar"
-          className={`${size} rounded-2xl object-cover border border-[#EAD8C7] shadow-xs`}
+          className={`${size} rounded-[8px] object-cover border-[1.5px] border-[#241A16] shadow-[1px_1px_0_#241A16]`}
         />
       )
     }
@@ -68,7 +68,7 @@ function renderAvatarDisplay(avatarValue, initial, size = 'h-full w-full text-2x
     if (emoji) {
       return (
         <div
-          className={`${size} flex items-center justify-center rounded-2xl bg-[#FDF1E6] border border-[#EAD8C7] select-none shadow-xs`}
+          className={`${size} flex items-center justify-center rounded-[8px] bg-[#FDF1E6] border-[1.5px] border-[#241A16] select-none shadow-[1px_1px_0_#241A16]`}
         >
           {emoji}
         </div>
@@ -77,7 +77,7 @@ function renderAvatarDisplay(avatarValue, initial, size = 'h-full w-full text-2x
   }
   return (
     <div
-      className={`${size} flex items-center justify-center rounded-2xl bg-[var(--ks-orange)] font-bold text-white shadow-md select-none`}
+      className={`${size} flex items-center justify-center rounded-[8px] bg-[#F16524] font-bold text-white border-[1.5px] border-[#241A16] shadow-[1px_1px_0_#241A16] select-none`}
     >
       {initial}
     </div>
@@ -287,12 +287,42 @@ export default function ProfilePage() {
   const userInitial = (user?.name || user?.email || 'U')[0].toUpperCase()
 
   return (
-    <div className="space-y-8 max-w-4xl mx-auto">
-      {/* 1. Header Banner */}
-      <div className="relative overflow-hidden rounded-3xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-4 sm:p-8 shadow-xs">
+    <div className="space-y-5 md:space-y-6 w-full pb-8">
+      {/* 1. Standardized Editorial Page Header */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b-[1.5px] border-[#241A16]">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <span className="ks-eyebrow">
+              ACCOUNT & PROFILE
+            </span>
+            <span className="w-1.5 h-1.5 bg-[#F16524]" />
+          </div>
+
+          <h1 className="ks-page-title">
+            Profile & Settings
+          </h1>
+
+          <p className="ks-muted">
+            Manage your personal credentials, custom avatar, and learning workspace.
+          </p>
+        </div>
+
+        {!isEditing && (
+          <button
+            type="button"
+            onClick={() => setIsEditing(true)}
+            className="ks-neo-btn-primary px-5 py-2 text-xs shrink-0 w-fit"
+          >
+            Edit Profile
+          </button>
+        )}
+      </div>
+
+      {/* 2. User Identity Card (Level 1 Neo Card) */}
+      <div className="ks-neo-card p-5 sm:p-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6">
           <div className="flex items-center gap-3.5 sm:gap-5 min-w-0">
-            <div className="flex h-16 w-16 sm:h-20 sm:w-20 shrink-0 items-center justify-center">
+            <div className="flex h-16 w-16 sm:h-20 sm:w-20 shrink-0 items-center justify-center rounded-[8px] border-[1.5px] border-[#241A16] bg-[#FAF8F5] overflow-hidden shadow-[1.5px_2px_0_#241A16]">
               {renderAvatarDisplay(
                 user?.avatar_url,
                 userInitial,
@@ -301,68 +331,63 @@ export default function ProfilePage() {
             </div>
             <div className="space-y-1 min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="font-display text-xl sm:text-3xl font-normal tracking-tight text-[var(--ks-text)] truncate max-w-full">
+                <h2 className="ks-neo-card-title truncate max-w-full">
                   {user?.name || 'Kitsuno User'}
-                </h1>
-                <span className="shrink-0 rounded-full bg-[rgba(241,101,36,0.12)] px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-[var(--ks-orange)]">
+                </h2>
+                <span className="shrink-0 rounded-[4px] border border-[#241A16] bg-[#F16524]/10 px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase text-[#F16524]">
                   {role}
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-[var(--ks-text-muted)] flex items-center gap-1.5 min-w-0">
-                <Mail className="h-3.5 w-3.5 shrink-0" />
-                <span className="truncate break-all sm:break-normal">
+              <p className="text-xs sm:text-sm text-neutral-600 flex items-center gap-1.5 min-w-0">
+                <Mail className="h-3.5 w-3.5 shrink-0 text-[#F16524]" />
+                <span className="truncate break-all sm:break-normal font-mono text-xs">
                   {user?.email || 'No email registered'}
                 </span>
               </p>
             </div>
           </div>
-
-          {!isEditing && (
-            <button
-              type="button"
-              onClick={() => setIsEditing(true)}
-              className="inline-flex items-center justify-center rounded-xl bg-[var(--ks-orange)] px-5 py-2.5 text-xs font-semibold text-white shadow-xs transition hover:bg-[var(--ks-orange-light)] focus-visible:outline-none shrink-0 w-fit cursor-pointer"
-            >
-              Edit Profile
-            </button>
-          )}
         </div>
       </div>
 
       {/* Notifications / Feedback */}
       {successMessage && (
-        <div className="flex items-center gap-3 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 p-4 text-xs font-medium text-emerald-800">
-          <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0" />
+        <div className="flex items-center gap-3 rounded-md border-[1.5px] border-[#241A16] bg-emerald-100 p-4 font-mono text-xs text-emerald-900 shadow-[1px_2px_0_#241A16]">
+          <CheckCircle2 className="h-5 w-5 text-emerald-700 shrink-0" />
           <span>{successMessage}</span>
         </div>
       )}
 
       {errorMessage && (
-        <div className="flex items-center gap-3 rounded-2xl border border-red-500/20 bg-red-500/10 p-4 text-xs font-medium text-red-800">
-          <AlertCircle className="h-5 w-5 text-red-600 shrink-0" />
+        <div className="flex items-center gap-3 rounded-md border-[1.5px] border-[#241A16] bg-rose-100 p-4 font-mono text-xs text-rose-900 shadow-[1px_2px_0_#241A16]">
+          <AlertCircle className="h-5 w-5 text-rose-700 shrink-0" />
           <span>{errorMessage}</span>
         </div>
       )}
 
-      {/* 2. Main Profile Details or Edit Form */}
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+      {/* 3. Main Profile Details or Edit Form */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 items-start">
         {/* Left Column: Account Details or Edit Form (7/12 cols) */}
         <div className="space-y-6 lg:col-span-7">
-          <div className="rounded-3xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 sm:p-7 shadow-xs">
-            <h2 className="font-display text-xl font-normal text-[var(--ks-text)] mb-6">
-              {isEditing ? 'Edit Profile & Avatar' : 'Account Information'}
-            </h2>
+          <div className="bg-white rounded-[8px] border-2 border-[#241A16] shadow-[4px_4px_0_#241A16] p-5 sm:p-6">
+            <div className="ks-neo-card-header">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-[#F16524]" />
+                <h2 className="ks-neo-card-title">
+                  {isEditing ? 'Edit Profile & Avatar' : 'Account Information'}
+                </h2>
+              </div>
+            </div>
 
             {isEditing ? (
               <form onSubmit={handleSave} className="space-y-6">
                 {/* Dedicated Profile Picture Section */}
-                <div className="rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-4 sm:p-5 space-y-4">
-                  <div className="flex items-center justify-between border-b border-[var(--ks-border)] pb-2.5">
+                <div className="rounded-md border-[1.5px] border-[rgba(36,26,22,0.18)] bg-[#FAF8F5] p-4 sm:p-5 space-y-4">
+                  <div className="flex items-center justify-between border-b border-[rgba(36,26,22,0.12)] pb-2.5">
                     <div>
-                      <span className="block text-xs font-bold uppercase tracking-wider text-[var(--ks-text)]">
+                      <span className="block text-[10px] font-mono font-bold uppercase tracking-wider text-[#241A16]">
                         Profile Picture
                       </span>
-                      <span className="text-[11px] text-[var(--ks-text-muted)]">
+                      <span className="text-[11px] text-neutral-500">
                         Choose a preset mascot or upload your custom image
                       </span>
                     </div>
@@ -371,14 +396,14 @@ export default function ProfilePage() {
                   <div className="flex flex-col sm:flex-row items-center gap-4">
                     {/* Current Preview */}
                     <div className="relative shrink-0">
-                      <div className="h-20 w-20 rounded-2xl overflow-hidden flex items-center justify-center border-2 border-[var(--ks-orange)]/40 bg-white shadow-2xs">
+                      <div className="h-20 w-20 rounded-lg overflow-hidden flex items-center justify-center border-[1.5px] border-[#241A16] bg-white shadow-[1px_2px_0_#241A16]">
                         {renderAvatarDisplay(
                           previewAvatar,
                           userInitial,
                           'h-20 w-20 text-3xl',
                         )}
                       </div>
-                      <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--ks-orange)] text-white text-[10px] shadow-xs">
+                      <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#F16524] text-white text-[10px] border border-[#241A16]">
                         <Camera className="h-3 w-3" />
                       </span>
                     </div>
@@ -396,7 +421,7 @@ export default function ProfilePage() {
                         <button
                           type="button"
                           onClick={() => fileInputRef.current?.click()}
-                          className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] px-3.5 py-2 text-xs font-semibold text-[var(--ks-text)] transition hover:border-[var(--ks-orange)] hover:text-[var(--ks-orange)] shadow-2xs cursor-pointer"
+                          className="ks-neo-btn-secondary px-3.5 py-1.5 text-xs inline-flex items-center gap-1.5"
                         >
                           <Upload className="h-3.5 w-3.5" />
                           <span>Upload Image</span>
@@ -405,22 +430,22 @@ export default function ProfilePage() {
                           <button
                             type="button"
                             onClick={handleResetAvatar}
-                            className="inline-flex items-center gap-1 rounded-xl border border-transparent px-2.5 py-2 text-xs font-medium text-[var(--ks-text-muted)] hover:text-rose-600 transition cursor-pointer"
+                            className="inline-flex items-center gap-1 rounded-md px-2.5 py-1.5 font-mono text-[11px] font-bold uppercase text-neutral-500 hover:text-rose-600 transition cursor-pointer"
                           >
                             <RotateCcw className="h-3 w-3" />
                             <span>Reset</span>
                           </button>
                         )}
                       </div>
-                      <p className="text-[11px] text-[var(--ks-text-subtle)]">
+                      <p className="text-[10px] font-mono text-neutral-400">
                         PNG, JPG, JPEG, or WEBP (up to 5MB)
                       </p>
                     </div>
                   </div>
 
                   {/* Preset Avatars Selection */}
-                  <div className="space-y-2 pt-2 border-t border-[var(--ks-border)]">
-                    <label className="block text-[11px] font-bold uppercase tracking-wider text-[var(--ks-text-muted)]">
+                  <div className="space-y-2 pt-2 border-t border-[rgba(36,26,22,0.12)]">
+                    <label className="block text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500">
                       Or Choose a Preset Avatar
                     </label>
                     <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
@@ -431,18 +456,18 @@ export default function ProfilePage() {
                             key={preset.id}
                             type="button"
                             onClick={() => handleSelectPreset(preset.id)}
-                            className={`flex flex-col items-center gap-1 p-2 rounded-xl border transition-all cursor-pointer ${
+                            className={`flex flex-col items-center gap-1 p-2 rounded-md border-[1.5px] transition-all cursor-pointer ${
                               isSelected
-                                ? 'border-[var(--ks-orange)] bg-[rgba(241,101,36,0.12)] shadow-xs scale-102 ring-2 ring-[var(--ks-orange)]/25'
-                                : 'border-[var(--ks-border)] bg-[var(--ks-surface)] hover:border-[var(--ks-orange)]/40 hover:bg-[#FFFDF9]'
+                                ? 'border-[#241A16] bg-[#F16524]/10 shadow-[1px_2px_0_#241A16]'
+                                : 'border-[rgba(36,26,22,0.18)] bg-white hover:border-[#241A16]'
                             }`}
                           >
-                            <div className="h-9 w-9 rounded-lg bg-white border border-[#EAD8C7] flex items-center justify-center text-lg shadow-2xs">
+                            <div className="h-9 w-9 rounded-md bg-[#FAF8F5] border border-[rgba(36,26,22,0.18)] flex items-center justify-center text-lg">
                               {preset.icon}
                             </div>
                             <span
-                              className={`text-[10px] font-semibold ${
-                                isSelected ? 'text-[var(--ks-orange)]' : 'text-[var(--ks-text)]'
+                              className={`font-mono text-[10px] font-bold uppercase ${
+                                isSelected ? 'text-[#F16524]' : 'text-[#241A16]'
                               }`}
                             >
                               {preset.label}
@@ -455,7 +480,7 @@ export default function ProfilePage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-[var(--ks-text-muted)] mb-2">
+                  <label className="block text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
                     Full Name
                   </label>
                   <input
@@ -463,41 +488,41 @@ export default function ProfilePage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
-                    className="w-full rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] px-4 py-2.5 text-sm text-[var(--ks-text)] focus:border-[var(--ks-orange)] focus:outline-none"
+                    className="w-full h-9 rounded-[6px] border-[1.5px] border-[#241A16] bg-white px-3.5 text-xs text-[#241A16] focus:border-[#F16524] outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-[var(--ks-text-muted)] mb-2">
+                  <label className="block text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
                     Email Address (Read-only)
                   </label>
                   <input
                     type="email"
                     value={user?.email || ''}
                     disabled
-                    className="w-full rounded-xl border border-[var(--ks-border)] bg-[var(--ks-bg-soft)] px-4 py-2.5 text-sm text-[var(--ks-text-muted)] cursor-not-allowed opacity-75"
+                    className="w-full h-9 rounded-[6px] border-[1.5px] border-[rgba(36,26,22,0.18)] bg-[#FAF8F5] px-3.5 font-mono text-xs text-neutral-500 cursor-not-allowed opacity-75"
                   />
-                  <span className="mt-1 block text-[11px] text-[var(--ks-text-subtle)]">
+                  <span className="mt-1 block text-[10px] font-mono text-neutral-400">
                     Email address is tied to your login credentials and cannot be changed here.
                   </span>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-[var(--ks-text-muted)] mb-2">
+                  <label className="block text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
                     Platform Role (Read-only)
                   </label>
                   <div className="flex items-center gap-2">
-                    <span className="rounded-full bg-[rgba(241,101,36,0.1)] px-3 py-1 text-xs font-bold text-[var(--ks-orange)]">
+                    <span className="rounded-[4px] border border-[#241A16] bg-[#F16524]/10 px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase text-[#F16524]">
                       {role}
                     </span>
-                    <span className="text-[11px] text-[var(--ks-text-subtle)]">
+                    <span className="text-[10px] font-mono text-neutral-400">
                       Role is managed by system administrator policy.
                     </span>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-[var(--ks-text-muted)] mb-2">
+                  <label className="block text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
                     New Password (Optional)
                   </label>
                   <input
@@ -506,18 +531,18 @@ export default function ProfilePage() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Leave blank to keep current password"
                     minLength={8}
-                    className="w-full rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] px-4 py-2.5 text-sm text-[var(--ks-text)] focus:border-[var(--ks-orange)] focus:outline-none"
+                    className="w-full h-9 rounded-[6px] border-[1.5px] border-[#241A16] bg-white px-3.5 text-xs text-[#241A16] focus:border-[#F16524] outline-none"
                   />
-                  <span className="mt-1 block text-[11px] text-[var(--ks-text-subtle)]">
+                  <span className="mt-1 block text-[10px] font-mono text-neutral-400">
                     Must be at least 8 characters if changing.
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3 pt-4 border-t border-[var(--ks-border)]">
+                <div className="flex items-center gap-3 pt-4 border-t border-[rgba(36,26,22,0.12)]">
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--ks-orange)] px-5 py-2.5 text-xs font-semibold text-white shadow-xs transition hover:bg-[var(--ks-orange-light)] disabled:opacity-50 cursor-pointer"
+                    className="ks-neo-btn-primary px-5 py-2 text-xs"
                   >
                     <Save className="h-4 w-4" />
                     <span>{isSubmitting ? 'Saving...' : 'Save Changes'}</span>
@@ -526,60 +551,60 @@ export default function ProfilePage() {
                     type="button"
                     onClick={handleCancel}
                     disabled={isSubmitting}
-                    className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] px-4 py-2.5 text-xs font-semibold text-[var(--ks-text-muted)] transition hover:text-[var(--ks-text)] cursor-pointer"
+                    className="ks-neo-btn-secondary px-4 py-2 text-xs"
                   >
                     Cancel
                   </button>
                 </div>
               </form>
             ) : (
-              <div className="space-y-4 text-sm">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 py-3 border-b border-[var(--ks-border)]">
-                  <span className="text-[var(--ks-text-muted)] flex items-center gap-2 shrink-0">
-                    <User className="h-4 w-4 text-[var(--ks-orange)] shrink-0" />
+              <div className="space-y-4 text-xs sm:text-sm">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 py-3 border-b border-[rgba(36,26,22,0.12)]">
+                  <span className="text-neutral-500 font-mono text-xs flex items-center gap-2 shrink-0">
+                    <User className="h-4 w-4 text-[#F16524] shrink-0" />
                     Full Name
                   </span>
-                  <span className="font-semibold text-[var(--ks-text)] truncate">
+                  <span className="font-semibold text-sm text-[#241A16] truncate">
                     {user?.name || '—'}
                   </span>
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 py-3 border-b border-[var(--ks-border)]">
-                  <span className="text-[var(--ks-text-muted)] flex items-center gap-2 shrink-0">
-                    <Mail className="h-4 w-4 text-[var(--ks-orange)] shrink-0" />
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 py-3 border-b border-[rgba(36,26,22,0.12)]">
+                  <span className="text-neutral-500 font-mono text-xs flex items-center gap-2 shrink-0">
+                    <Mail className="h-4 w-4 text-[#F16524] shrink-0" />
                     Email Address
                   </span>
-                  <span className="font-semibold text-[var(--ks-text)] truncate break-all sm:break-normal">
+                  <span className="font-mono text-xs text-[#241A16] truncate break-all sm:break-normal">
                     {user?.email || '—'}
                   </span>
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 py-3 border-b border-[var(--ks-border)]">
-                  <span className="text-[var(--ks-text-muted)] flex items-center gap-2 shrink-0">
-                    <Shield className="h-4 w-4 text-[var(--ks-orange)] shrink-0" />
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 py-3 border-b border-[rgba(36,26,22,0.12)]">
+                  <span className="text-neutral-500 font-mono text-xs flex items-center gap-2 shrink-0">
+                    <Shield className="h-4 w-4 text-[#F16524] shrink-0" />
                     Platform Role
                   </span>
-                  <span className="w-fit rounded-full bg-[rgba(241,101,36,0.1)] px-2.5 py-0.5 text-xs font-bold text-[var(--ks-orange)]">
+                  <span className="w-fit rounded-[4px] border border-[#241A16] bg-[#F16524]/10 px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase text-[#F16524]">
                     {role}
                   </span>
                 </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 py-3 border-b border-[var(--ks-border)]">
-                  <span className="text-[var(--ks-text-muted)] flex items-center gap-2 shrink-0">
-                    <Calendar className="h-4 w-4 text-[var(--ks-orange)] shrink-0" />
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 py-3 border-b border-[rgba(36,26,22,0.12)]">
+                  <span className="text-neutral-500 font-mono text-xs flex items-center gap-2 shrink-0">
+                    <Calendar className="h-4 w-4 text-[#F16524] shrink-0" />
                     Member Since
                   </span>
-                  <span className="font-medium text-[var(--ks-text)]">
+                  <span className="font-mono text-xs text-neutral-600">
                     {formattedCreatedDate}
                   </span>
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 py-3">
-                  <span className="text-[var(--ks-text-muted)] flex items-center gap-2 shrink-0">
-                    <Clock className="h-4 w-4 text-[var(--ks-orange)] shrink-0" />
+                  <span className="text-neutral-500 font-mono text-xs flex items-center gap-2 shrink-0">
+                    <Clock className="h-4 w-4 text-[#F16524] shrink-0" />
                     Last Profile Update
                   </span>
-                  <span className="font-medium text-[var(--ks-text)]">
+                  <span className="font-mono text-xs text-neutral-600">
                     {formattedUpdatedDate}
                   </span>
                 </div>
@@ -590,11 +615,16 @@ export default function ProfilePage() {
 
         {/* Right Column: Quick Role Portals & System Shortcuts (5/12 cols) */}
         <div className="space-y-6 lg:col-span-5">
-          <div className="rounded-3xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 sm:p-7 shadow-xs">
-            <h3 className="font-display text-lg font-normal text-[var(--ks-text)] mb-2">
-              Role Workspaces
-            </h3>
-            <p className="text-xs text-[var(--ks-text-muted)] mb-5">
+          <div className="bg-white rounded-[8px] border-2 border-[#241A16] shadow-[4px_4px_0_#241A16] p-5 sm:p-6">
+            <div className="ks-neo-card-header">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-[#F16524]" />
+                <h3 className="ks-neo-card-title">
+                  Role Workspaces
+                </h3>
+              </div>
+            </div>
+            <p className="ks-muted mb-4 -mt-2">
               Authorized areas linked to your {role.toLowerCase()} credentials
             </p>
 
@@ -603,47 +633,50 @@ export default function ProfilePage() {
                 <>
                   <Link
                     to="/student"
-                    className="flex items-center justify-between rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-4 transition hover:border-[var(--ks-orange)] hover:bg-[rgba(241,101,36,0.04)]"
+                    className="flex items-center justify-between rounded-[6px] border-[1.5px] border-[#241A16] bg-white shadow-[2px_2px_0_#241A16] p-3.5 transition-all hover:bg-[#FAF8F5] hover:translate-x-[-0.5px] hover:translate-y-[-0.5px]"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[rgba(241,101,36,0.1)] text-[var(--ks-orange)]">
+                      <div className="flex h-8 w-8 items-center justify-center rounded border border-[#241A16] bg-[#F16524]/10 text-[#F16524]">
                         <GraduationCap className="h-4 w-4" />
                       </div>
                       <div>
-                        <h4 className="text-xs font-bold text-[var(--ks-text)]">My Learning Workspace</h4>
-                        <p className="text-[11px] text-[var(--ks-text-muted)]">Active courses & progress</p>
+                        <h4 className="text-xs font-bold text-[#241A16]">My Learning Workspace</h4>
+                        <p className="text-[11px] text-neutral-500">Active courses & progress</p>
                       </div>
                     </div>
+                    <ArrowRight className="h-3.5 w-3.5 text-neutral-400" />
                   </Link>
 
                   <Link
                     to="/courses"
-                    className="flex items-center justify-between rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-4 transition hover:border-[var(--ks-orange)] hover:bg-[rgba(241,101,36,0.04)]"
+                    className="flex items-center justify-between rounded-[6px] border-[1.5px] border-[#241A16] bg-white shadow-[2px_2px_0_#241A16] p-3.5 transition-all hover:bg-[#FAF8F5] hover:translate-x-[-0.5px] hover:translate-y-[-0.5px]"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[rgba(241,101,36,0.1)] text-[var(--ks-orange)]">
+                      <div className="flex h-8 w-8 items-center justify-center rounded border border-[#241A16] bg-[#F16524]/10 text-[#F16524]">
                         <BookOpen className="h-4 w-4" />
                       </div>
                       <div>
-                        <h4 className="text-xs font-bold text-[var(--ks-text)]">Course Catalogue</h4>
-                        <p className="text-[11px] text-[var(--ks-text-muted)]">Browse available modules</p>
+                        <h4 className="text-xs font-bold text-[#241A16]">Course Catalogue</h4>
+                        <p className="text-[11px] text-neutral-500">Browse available modules</p>
                       </div>
                     </div>
+                    <ArrowRight className="h-3.5 w-3.5 text-neutral-400" />
                   </Link>
 
                   <Link
                     to="/student/analytics"
-                    className="flex items-center justify-between rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-4 transition hover:border-[var(--ks-orange)] hover:bg-[rgba(241,101,36,0.04)]"
+                    className="flex items-center justify-between rounded-[6px] border-[1.5px] border-[#241A16] bg-white shadow-[2px_2px_0_#241A16] p-3.5 transition-all hover:bg-[#FAF8F5] hover:translate-x-[-0.5px] hover:translate-y-[-0.5px]"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-500/10 text-amber-700">
+                      <div className="flex h-8 w-8 items-center justify-center rounded border border-[#241A16] bg-amber-500/10 text-amber-700">
                         <BarChart3 className="h-4 w-4" />
                       </div>
                       <div>
-                        <h4 className="text-xs font-bold text-[var(--ks-text)]">My Analytics</h4>
-                        <p className="text-[11px] text-[var(--ks-text-muted)]">Quiz performance & metrics</p>
+                        <h4 className="text-xs font-bold text-[#241A16]">My Analytics</h4>
+                        <p className="text-[11px] text-neutral-500">Quiz performance & metrics</p>
                       </div>
                     </div>
+                    <ArrowRight className="h-3.5 w-3.5 text-neutral-400" />
                   </Link>
                 </>
               )}
@@ -652,47 +685,50 @@ export default function ProfilePage() {
                 <>
                   <Link
                     to="/instructor"
-                    className="flex items-center justify-between rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-4 transition hover:border-[var(--ks-orange)] hover:bg-[rgba(241,101,36,0.04)]"
+                    className="flex items-center justify-between rounded-lg border-[1.5px] border-[rgba(36,26,22,0.18)] bg-[#FAF8F5] p-3.5 transition hover:border-[#241A16] hover:bg-white"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[rgba(241,101,36,0.1)] text-[var(--ks-orange)]">
+                      <div className="flex h-8 w-8 items-center justify-center rounded border border-[#241A16] bg-[#F16524]/10 text-[#F16524]">
                         <GraduationCap className="h-4 w-4" />
                       </div>
                       <div>
-                        <h4 className="text-xs font-bold text-[var(--ks-text)]">Instructor Studio</h4>
-                        <p className="text-[11px] text-[var(--ks-text-muted)]">Course management & studio</p>
+                        <h4 className="text-xs font-bold text-[#241A16]">Instructor Studio</h4>
+                        <p className="text-[11px] text-neutral-500">Course management & studio</p>
                       </div>
                     </div>
+                    <ArrowRight className="h-3.5 w-3.5 text-neutral-400" />
                   </Link>
 
                   <Link
                     to="/instructor/courses"
-                    className="flex items-center justify-between rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-4 transition hover:border-[var(--ks-orange)] hover:bg-[rgba(241,101,36,0.04)]"
+                    className="flex items-center justify-between rounded-lg border-[1.5px] border-[rgba(36,26,22,0.18)] bg-[#FAF8F5] p-3.5 transition hover:border-[#241A16] hover:bg-white"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[rgba(241,101,36,0.1)] text-[var(--ks-orange)]">
+                      <div className="flex h-8 w-8 items-center justify-center rounded border border-[#241A16] bg-[#F16524]/10 text-[#F16524]">
                         <BookOpen className="h-4 w-4" />
                       </div>
                       <div>
-                        <h4 className="text-xs font-bold text-[var(--ks-text)]">My Courses</h4>
-                        <p className="text-[11px] text-[var(--ks-text-muted)]">Build and publish curricula</p>
+                        <h4 className="text-xs font-bold text-[#241A16]">My Courses</h4>
+                        <p className="text-[11px] text-neutral-500">Build and publish curricula</p>
                       </div>
                     </div>
+                    <ArrowRight className="h-3.5 w-3.5 text-neutral-400" />
                   </Link>
 
                   <Link
                     to="/instructor/analytics"
-                    className="flex items-center justify-between rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-4 transition hover:border-[var(--ks-orange)] hover:bg-[rgba(241,101,36,0.04)]"
+                    className="flex items-center justify-between rounded-lg border-[1.5px] border-[rgba(36,26,22,0.18)] bg-[#FAF8F5] p-3.5 transition hover:border-[#241A16] hover:bg-white"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-500/10 text-amber-700">
+                      <div className="flex h-8 w-8 items-center justify-center rounded border border-[#241A16] bg-amber-500/10 text-amber-700">
                         <BarChart3 className="h-4 w-4" />
                       </div>
                       <div>
-                        <h4 className="text-xs font-bold text-[var(--ks-text)]">Course Analytics</h4>
-                        <p className="text-[11px] text-[var(--ks-text-muted)]">Learner progress & engagement</p>
+                        <h4 className="text-xs font-bold text-[#241A16]">Course Analytics</h4>
+                        <p className="text-[11px] text-neutral-500">Learner progress & engagement</p>
                       </div>
                     </div>
+                    <ArrowRight className="h-3.5 w-3.5 text-neutral-400" />
                   </Link>
                 </>
               )}
@@ -701,32 +737,34 @@ export default function ProfilePage() {
                 <>
                   <Link
                     to="/admin"
-                    className="flex items-center justify-between rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-4 transition hover:border-[var(--ks-orange)] hover:bg-[rgba(241,101,36,0.04)]"
+                    className="flex items-center justify-between rounded-lg border-[1.5px] border-[rgba(36,26,22,0.18)] bg-[#FAF8F5] p-3.5 transition hover:border-[#241A16] hover:bg-white"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[rgba(241,101,36,0.1)] text-[var(--ks-orange)]">
+                      <div className="flex h-8 w-8 items-center justify-center rounded border border-[#241A16] bg-[#F16524]/10 text-[#F16524]">
                         <Shield className="h-4 w-4" />
                       </div>
                       <div>
-                        <h4 className="text-xs font-bold text-[var(--ks-text)]">System Administration</h4>
-                        <p className="text-[11px] text-[var(--ks-text-muted)]">Platform controls & audit log</p>
+                        <h4 className="text-xs font-bold text-[#241A16]">System Administration</h4>
+                        <p className="text-[11px] text-neutral-500">Platform controls & audit log</p>
                       </div>
                     </div>
+                    <ArrowRight className="h-3.5 w-3.5 text-neutral-400" />
                   </Link>
 
                   <Link
                     to="/admin/analytics"
-                    className="flex items-center justify-between rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-4 transition hover:border-[var(--ks-orange)] hover:bg-[rgba(241,101,36,0.04)]"
+                    className="flex items-center justify-between rounded-lg border-[1.5px] border-[rgba(36,26,22,0.18)] bg-[#FAF8F5] p-3.5 transition hover:border-[#241A16] hover:bg-white"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-500/10 text-amber-700">
+                      <div className="flex h-8 w-8 items-center justify-center rounded border border-[#241A16] bg-amber-500/10 text-amber-700">
                         <BarChart3 className="h-4 w-4" />
                       </div>
                       <div>
-                        <h4 className="text-xs font-bold text-[var(--ks-text)]">Platform Analytics</h4>
-                        <p className="text-[11px] text-[var(--ks-text-muted)]">System-wide performance</p>
+                        <h4 className="text-xs font-bold text-[#241A16]">Platform Analytics</h4>
+                        <p className="text-[11px] text-neutral-500">System-wide performance</p>
                       </div>
                     </div>
+                    <ArrowRight className="h-3.5 w-3.5 text-neutral-400" />
                   </Link>
                 </>
               )}
@@ -735,24 +773,19 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      {/* 3. Saved Learning Content Section (for students) */}
+      {/* 4. Saved Learning Content Section (for students) */}
       {isStudent && (
-        <div className="rounded-3xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 sm:p-8 shadow-xs space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--ks-border)] pb-4">
-            <div>
-              <div className="flex items-center gap-2">
-                <Bookmark className="h-5 w-5 text-[var(--ks-orange)]" />
-                <h2 className="font-display text-xl font-normal text-[var(--ks-text)]">
-                  Saved Learning Items
-                </h2>
-              </div>
-              <p className="text-xs text-[var(--ks-text-muted)] mt-1">
-                Courses, individual lessons, and study notes saved to your account
-              </p>
+        <div className="ks-neo-card p-5 sm:p-6 space-y-5">
+          <div className="ks-neo-card-header">
+            <div className="flex items-center gap-2">
+              <Bookmark className="h-4 w-4 text-[#F16524]" />
+              <h2 className="ks-neo-card-title">
+                Saved Learning Items
+              </h2>
             </div>
             <Link
               to="/student/learning?tab=saved"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--ks-orange)] hover:underline"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#F16524] hover:underline"
             >
               <span>Manage in My Learning</span>
               <ArrowRight className="h-3.5 w-3.5" />
@@ -760,14 +793,14 @@ export default function ProfilePage() {
           </div>
 
           {/* Sub-tabs */}
-          <div className="flex items-center gap-2 text-xs">
+          <div className="flex flex-wrap items-center gap-2 text-xs">
             <button
               type="button"
               onClick={() => setProfileSavedTab('courses')}
-              className={`rounded-lg px-3 py-1.5 font-semibold transition ${
+              className={`rounded-[6px] px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider transition cursor-pointer ${
                 profileSavedTab === 'courses'
-                  ? 'bg-[var(--ks-orange)]/10 text-[var(--ks-orange)] border border-[var(--ks-orange)]/30'
-                  : 'text-[var(--ks-text-muted)] hover:text-[var(--ks-text)]'
+                  ? 'bg-[#241A16] text-white border-[1.5px] border-[#241A16] shadow-[1.5px_1.5px_0_#241A16]'
+                  : 'bg-white text-[#241A16] border-[1.5px] border-[rgba(36,26,22,0.18)] hover:border-[#241A16]'
               }`}
             >
               Saved Courses ({savedCourses.length})
@@ -775,10 +808,10 @@ export default function ProfilePage() {
             <button
               type="button"
               onClick={() => setProfileSavedTab('lessons')}
-              className={`rounded-lg px-3 py-1.5 font-semibold transition ${
+              className={`rounded-[6px] px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider transition cursor-pointer ${
                 profileSavedTab === 'lessons'
-                  ? 'bg-[var(--ks-orange)]/10 text-[var(--ks-orange)] border border-[var(--ks-orange)]/30'
-                  : 'text-[var(--ks-text-muted)] hover:text-[var(--ks-text)]'
+                  ? 'bg-[#241A16] text-white border-[1.5px] border-[#241A16] shadow-[1.5px_1.5px_0_#241A16]'
+                  : 'bg-white text-[#241A16] border-[1.5px] border-[rgba(36,26,22,0.18)] hover:border-[#241A16]'
               }`}
             >
               Saved Lessons ({savedLessons.length})
@@ -786,10 +819,10 @@ export default function ProfilePage() {
             <button
               type="button"
               onClick={() => setProfileSavedTab('notes')}
-              className={`rounded-lg px-3 py-1.5 font-semibold transition ${
+              className={`rounded-[6px] px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider transition cursor-pointer ${
                 profileSavedTab === 'notes'
-                  ? 'bg-[var(--ks-orange)]/10 text-[var(--ks-orange)] border border-[var(--ks-orange)]/30'
-                  : 'text-[var(--ks-text-muted)] hover:text-[var(--ks-text)]'
+                  ? 'bg-[#241A16] text-white border-[1.5px] border-[#241A16] shadow-[1.5px_1.5px_0_#241A16]'
+                  : 'bg-white text-[#241A16] border-[1.5px] border-[rgba(36,26,22,0.18)] hover:border-[#241A16]'
               }`}
             >
               Saved Notes ({savedNotes.length})
@@ -800,40 +833,41 @@ export default function ProfilePage() {
           {profileSavedTab === 'courses' && (
             <div>
               {savedCourses.length === 0 ? (
-                <p className="text-xs text-[var(--ks-text-muted)] py-4">No saved courses yet.</p>
+                <p className="text-xs text-neutral-500 py-4 font-mono">No saved courses yet.</p>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {savedCourses.map((item) => (
                     <div
                       key={item.id}
-                      className="rounded-2xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-4 flex flex-col justify-between space-y-3"
+                      className="rounded-lg border-[1.5px] border-[rgba(36,26,22,0.18)] bg-[#FAF8F5] p-4 flex flex-col justify-between space-y-3 hover:border-[#241A16] transition"
                     >
                       <div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--ks-orange)]">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#F16524]">
                           {item.course?.category || 'Course'}
                         </span>
-                        <h4 className="font-semibold text-xs text-[var(--ks-text)] mt-1 line-clamp-1">
+                        <h4 className="font-serif font-normal text-base text-[#241A16] mt-1 line-clamp-1">
                           {item.course?.title || `Course #${item.course_id}`}
                         </h4>
                         {item.course?.description && (
-                          <p className="text-[11px] text-[var(--ks-text-muted)] line-clamp-2 mt-1">
+                          <p className="text-[11px] text-neutral-600 line-clamp-2 mt-1">
                             {item.course.description}
                           </p>
                         )}
                       </div>
-                      <div className="flex items-center justify-between pt-2 border-t border-[var(--ks-border)]/60">
+                      <div className="flex items-center justify-between pt-2 border-t border-[rgba(36,26,22,0.12)]">
                         <button
                           type="button"
                           onClick={() => handleRemoveCourse(item.course_id)}
-                          className="text-[11px] text-[var(--ks-text-muted)] hover:text-rose-600 transition-colors"
+                          className="text-[11px] font-mono text-neutral-500 hover:text-red-600 transition-colors font-medium"
                         >
                           Remove
                         </button>
                         <Link
                           to={`/courses/${item.course_id}`}
-                          className="text-xs font-semibold text-[var(--ks-orange)] hover:underline"
+                          className="ks-neo-btn-secondary px-2.5 py-1 text-xs font-bold inline-flex items-center gap-1"
                         >
-                          View Course →
+                          <span>View Course</span>
+                          <ArrowRight className="h-3 w-3" />
                         </Link>
                       </div>
                     </div>
@@ -846,21 +880,21 @@ export default function ProfilePage() {
           {profileSavedTab === 'lessons' && (
             <div>
               {savedLessons.length === 0 ? (
-                <p className="text-xs text-[var(--ks-text-muted)] py-4">No saved lessons yet.</p>
+                <p className="text-xs text-neutral-500 py-4 font-mono">No saved lessons yet.</p>
               ) : (
                 <div className="space-y-2">
                   {savedLessons.map((item) => (
                     <div
                       key={item.id}
-                      className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-3 flex items-center justify-between gap-3"
+                      className="rounded-lg border-[1.5px] border-[rgba(36,26,22,0.18)] bg-[#FAF8F5] p-3 flex items-center justify-between gap-3 hover:border-[#241A16] transition"
                     >
                       <div className="min-w-0">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--ks-orange)] block">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#F16524] block">
                           {item.course_title}
                         </span>
                         <Link
                           to={`/courses/${item.course_id}/lessons/${item.lesson_id}`}
-                          className="text-xs font-semibold text-[var(--ks-text)] hover:text-[var(--ks-orange)] truncate block"
+                          className="text-xs font-bold text-[#241A16] hover:text-[#F16524] truncate block"
                         >
                           {item.lesson_title}
                         </Link>
@@ -869,15 +903,16 @@ export default function ProfilePage() {
                         <button
                           type="button"
                           onClick={() => handleRemoveLesson(item.lesson_id)}
-                          className="text-[11px] text-[var(--ks-text-muted)] hover:text-rose-600 transition-colors"
+                          className="text-[11px] font-mono text-neutral-500 hover:text-red-600 transition-colors font-medium"
                         >
                           Remove
                         </button>
                         <Link
                           to={`/courses/${item.course_id}/lessons/${item.lesson_id}`}
-                          className="rounded-lg bg-[var(--ks-orange)] px-2.5 py-1 text-xs font-semibold text-white hover:bg-[var(--ks-orange-light)]"
+                          className="ks-neo-btn-primary px-3 py-1 text-xs font-bold inline-flex items-center gap-1"
                         >
-                          Open Lesson →
+                          <span>Open Lesson</span>
+                          <ArrowRight className="h-3 w-3" />
                         </Link>
                       </div>
                     </div>
@@ -890,19 +925,19 @@ export default function ProfilePage() {
           {profileSavedTab === 'notes' && (
             <div>
               {savedNotes.length === 0 ? (
-                <p className="text-xs text-[var(--ks-text-muted)] py-4">No saved AI study notes yet.</p>
+                <p className="text-xs text-neutral-500 py-4 font-mono">No saved AI study notes yet.</p>
               ) : (
                 <div className="space-y-2">
                   {savedNotes.map((note) => (
                     <div
                       key={note.id}
-                      className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-3 flex items-center justify-between gap-3"
+                      className="rounded-lg border-[1.5px] border-[rgba(36,26,22,0.18)] bg-[#FAF8F5] p-3 flex items-center justify-between gap-3 hover:border-[#241A16] transition"
                     >
                       <div className="min-w-0">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--ks-orange)] block">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#F16524] block">
                           {note.course_title} • {note.lesson_title}
                         </span>
-                        <h4 className="text-xs font-semibold text-[var(--ks-text)] truncate">
+                        <h4 className="text-xs font-bold text-[#241A16] truncate">
                           {note.topic || note.lesson_title}
                         </h4>
                       </div>
@@ -910,15 +945,16 @@ export default function ProfilePage() {
                         <button
                           type="button"
                           onClick={() => handleRemoveNote(note.lesson_id)}
-                          className="text-[11px] text-[var(--ks-text-muted)] hover:text-rose-600 transition-colors"
+                          className="text-[11px] font-mono text-neutral-500 hover:text-red-600 transition-colors font-medium"
                         >
                           Remove
                         </button>
                         <Link
                           to={`/courses/${note.course_id}/lessons/${note.lesson_id}`}
-                          className="rounded-lg bg-[var(--ks-orange)] px-2.5 py-1 text-xs font-semibold text-white hover:bg-[var(--ks-orange-light)]"
+                          className="ks-neo-btn-primary px-3 py-1 text-xs font-bold inline-flex items-center gap-1"
                         >
-                          View Notes →
+                          <span>View Notes</span>
+                          <ArrowRight className="h-3 w-3" />
                         </Link>
                       </div>
                     </div>

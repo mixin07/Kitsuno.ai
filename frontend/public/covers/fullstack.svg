@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap');
+      .font-serif { font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif; }
+      .font-sans { font-family: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, sans-serif; }
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', Menlo, monospace; }
+    </style>
+    <pattern id="dot-grid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="0.75" fill="#241A16" fill-opacity="0.05" />
+    </pattern>
+    <pattern id="fine-grid" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#241A16" stroke-width="0.5" stroke-opacity="0.04" />
+    </pattern>
+    <linearGradient id="warm-shading" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F8D9C2" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#F16524" stop-opacity="0.04" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="#F8F3EA" />
+  <rect width="960" height="540" fill="url(#fine-grid)" />
+
+  <!-- Outer Editorial Frame -->
+  <rect x="24" y="24" width="912" height="492" rx="6" fill="none" stroke="#E6D9C8" stroke-width="1.5" />
+  
+  <!-- Corner Registration Marks -->
+  <path d="M 18 24 L 30 24 M 24 18 L 24 30" stroke="#8F3215" stroke-width="1" stroke-opacity="0.3" />
+  <path d="M 930 24 L 942 24 M 936 18 L 936 30" stroke="#8F3215" stroke-width="1" stroke-opacity="0.3" />
+  <path d="M 18 516 L 30 516 M 24 510 L 24 522" stroke="#8F3215" stroke-width="1" stroke-opacity="0.3" />
+  <path d="M 930 516 L 942 516 M 936 510 L 936 522" stroke="#8F3215" stroke-width="1" stroke-opacity="0.3" />
+
+  <!-- Top Header Bar -->
+  <g transform="translate(48, 52)">
+    <path d="M 0 0 L 8 -10 L 16 0 L 12 10 L 4 10 Z" fill="#F16524" />
+    <path d="M 5 0 L 8 -6 L 11 0 L 8 6 Z" fill="#F8F3EA" />
+    <text x="24" y="6" class="font-sans" font-size="12" font-weight="800" letter-spacing="3" fill="#241A16">KITSUNO.AI</text>
+    <text x="145" y="6" class="font-sans" font-size="10" font-weight="600" letter-spacing="2" fill="#8F3215">·</text>
+    <text x="160" y="6" class="font-sans" font-size="10" font-weight="700" letter-spacing="2" fill="#8F3215">SPECIFICATION</text>
+    <text x="864" y="6" text-anchor="end" class="font-mono" font-size="11" font-weight="600" letter-spacing="1.5" fill="#A89887">VOL. 05 / DISTRIBUTED ARCHITECTURE</text>
+    <line x1="0" y1="20" x2="864" y2="20" stroke="#E6D9C8" stroke-width="1" />
+  </g>
+
+  <!-- Left: Editorial Content -->
+  <g transform="translate(48, 120)">
+    <rect x="0" y="0" width="6" height="6" fill="#F16524" />
+    <text x="16" y="7" class="font-sans" font-size="11" font-weight="700" letter-spacing="2.5" fill="#F16524">DISTRIBUTED ARCHITECTURE · END-TO-END</text>
+    
+    <text x="0" y="66" class="font-serif" font-size="52" fill="#241A16" letter-spacing="-0.5">Full-Stack</text>
+    <text x="0" y="104" class="font-serif" font-size="28" font-style="italic" fill="#8F3215">Client, Gateway, Server &amp; Persistence</text>
+    
+    <text x="0" y="146" class="font-sans" font-size="13" font-weight="400" fill="#6B5950">
+      Multi-tier application architecture and complete production engineering.
+    </text>
+    <text x="0" y="168" class="font-sans" font-size="13" font-weight="400" fill="#6B5950">
+      RESTful APIs, auth pipelines, session states, and database engines.
+    </text>
+
+    <!-- Architecture Tokens -->
+    <g transform="translate(0, 210)">
+      <rect x="0" y="0" width="80" height="24" rx="4" fill="#F8D9C2" fill-opacity="0.4" stroke="#F16524" stroke-opacity="0.3" />
+      <text x="40" y="16" text-anchor="middle" class="font-mono" font-size="10" font-weight="600" fill="#8F3215">CLIENT UI</text>
+
+      <rect x="90" y="0" width="80" height="24" rx="4" fill="#F8D9C2" fill-opacity="0.4" stroke="#F16524" stroke-opacity="0.3" />
+      <text x="130" y="16" text-anchor="middle" class="font-mono" font-size="10" font-weight="600" fill="#8F3215">REST API</text>
+
+      <rect x="180" y="0" width="80" height="24" rx="4" fill="#F8D9C2" fill-opacity="0.4" stroke="#F16524" stroke-opacity="0.3" />
+      <text x="220" y="16" text-anchor="middle" class="font-mono" font-size="10" font-weight="600" fill="#8F3215">SERVER</text>
+
+      <rect x="270" y="0" width="84" height="24" rx="4" fill="#F8D9C2" fill-opacity="0.4" stroke="#F16524" stroke-opacity="0.3" />
+      <text x="312" y="16" text-anchor="middle" class="font-mono" font-size="10" font-weight="600" fill="#8F3215">DATABASE</text>
+    </g>
+
+    <line x1="0" y1="265" x2="360" y2="265" stroke="#E6D9C8" stroke-width="1" />
+    <text x="0" y="285" class="font-mono" font-size="10" fill="#A89887">STACK: REACT · FASTAPI / NODE · POSTGRESQL · REDIS</text>
+  </g>
+
+  <!-- Right: Abstract 4-Tier Architectural Stack Diagram -->
+  <g transform="translate(500, 110)">
+    <!-- Layer 1: Client Tier -->
+    <g transform="translate(40, 20)">
+      <rect x="0" y="0" width="370" height="48" rx="6" fill="#FFF" stroke="#E3D8CB" stroke-width="1.2" />
+      <rect x="0" y="0" width="6" height="48" rx="2" fill="#F16524" />
+      <text x="24" y="22" class="font-mono" font-size="10" font-weight="700" fill="#241A16">TIER 1 · PRESENTATION</text>
+      <text x="24" y="38" class="font-sans" font-size="9" fill="#8F3215">React SPA · Next.js · TailwindCSS · Client Cache</text>
+      <text x="350" y="30" text-anchor="end" class="font-mono" font-size="9" font-weight="600" fill="#F16524">HTTP / WS</text>
+    </g>
+
+    <!-- Connector 1-2 -->
+    <path d="M 225 68 L 225 84" stroke="#F16524" stroke-width="1.5" stroke-dasharray="2 2" />
+    <polygon points="225,87 221,80 229,80" fill="#F16524" />
+
+    <!-- Layer 2: API Gateway & Authentication -->
+    <g transform="translate(40, 88)">
+      <rect x="0" y="0" width="370" height="48" rx="6" fill="#FBF3EA" stroke="#F16524" stroke-width="1" />
+      <rect x="0" y="0" width="6" height="48" rx="2" fill="#8F3215" />
+      <text x="24" y="22" class="font-mono" font-size="10" font-weight="700" fill="#8F3215">TIER 2 · API GATEWAY</text>
+      <text x="24" y="38" class="font-sans" font-size="9" fill="#6B5950">JWT Auth · Rate Limiting · Route Dispatcher · Validation</text>
+      <text x="350" y="30" text-anchor="end" class="font-mono" font-size="9" fill="#8F3215">REST / JSON</text>
+    </g>
+
+    <!-- Connector 2-3 -->
+    <path d="M 225 136 L 225 152" stroke="#8F3215" stroke-width="1.5" stroke-dasharray="2 2" />
+    <polygon points="225,155 221,148 229,148" fill="#8F3215" />
+
+    <!-- Layer 3: Application Server & Business Logic -->
+    <g transform="translate(40, 156)">
+      <rect x="0" y="0" width="370" height="48" rx="6" fill="#FFF" stroke="#E3D8CB" stroke-width="1.2" />
+      <rect x="0" y="0" width="6" height="48" rx="2" fill="#FF8A4C" />
+      <text x="24" y="22" class="font-mono" font-size="10" font-weight="700" fill="#241A16">TIER 3 · RUNTIME ENGINE</text>
+      <text x="24" y="38" class="font-sans" font-size="9" fill="#8F3215">Business Logic · ORM Engine · Event Handlers · Background Jobs</text>
+      <text x="350" y="30" text-anchor="end" class="font-mono" font-size="9" fill="#A89887">ASYNC</text>
+    </g>
+
+    <!-- Connector 3-4 -->
+    <path d="M 225 204 L 225 220" stroke="#8F3215" stroke-width="1.5" stroke-dasharray="2 2" />
+    <polygon points="225,223 221,216 229,216" fill="#8F3215" />
+
+    <!-- Layer 4: Persistence / Database -->
+    <g transform="translate(40, 224)">
+      <rect x="0" y="0" width="370" height="48" rx="6" fill="#F8D9C2" fill-opacity="0.5" stroke="#F16524" stroke-width="1.2" />
+      <rect x="0" y="0" width="6" height="48" rx="2" fill="#F16524" />
+      <text x="24" y="22" class="font-mono" font-size="10" font-weight="700" fill="#8F3215">TIER 4 · DATA PERSISTENCE</text>
+      <text x="24" y="38" class="font-sans" font-size="9" fill="#241A16">Relational Tables · ACID Transactions · Key-Value Store · Indexing</text>
+      <text x="350" y="30" text-anchor="end" class="font-mono" font-size="9" font-weight="700" fill="#F16524">SQL / BSON</text>
+    </g>
+  </g>
+
+  <!-- Bottom Metadata Bar -->
+  <g transform="translate(48, 480)">
+    <line x1="0" y1="0" x2="864" y2="0" stroke="#E6D9C8" stroke-width="1" />
+    <text x="0" y="18" class="font-sans" font-size="10" font-weight="700" letter-spacing="1.5" fill="#241A16">CATEGORY: FULL-STACK ARCHITECTURE</text>
+    <text x="280" y="18" class="font-sans" font-size="10" font-weight="600" letter-spacing="1.5" fill="#8F3215">LEVEL: INTERMEDIATE</text>
+    <text x="500" y="18" class="font-mono" font-size="10" fill="#A89887">MODULES: 05 · LESSONS: 86</text>
+    
+    <g transform="translate(770, 6)">
+      <line x1="0" y1="0" x2="0" y2="14" stroke="#241A16" stroke-width="3" />
+      <line x1="6" y1="0" x2="6" y2="14" stroke="#241A16" stroke-width="1" />
+      <line x1="12" y1="0" x2="12" y2="14" stroke="#241A16" stroke-width="2" />
+      <line x1="18" y1="0" x2="18" y2="14" stroke="#241A16" stroke-width="1" />
+      <line x1="24" y1="0" x2="24" y2="14" stroke="#241A16" stroke-width="1.5" />
+      <line x1="30" y1="0" x2="30" y2="14" stroke="#241A16" stroke-width="2.5" />
+      <line x1="38" y1="0" x2="38" y2="14" stroke="#241A16" stroke-width="1" />
+      <line x1="44" y1="0" x2="44" y2="14" stroke="#241A16" stroke-width="2" />
+      <text x="54" y="12" class="font-mono" font-size="9" fill="#A89887">KTS-05</text>
+    </g>
+  </g>
+</svg>

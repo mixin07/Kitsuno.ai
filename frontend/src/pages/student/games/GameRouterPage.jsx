@@ -27,20 +27,20 @@ export default function GameRouterPage() {
       return <ConceptMatchGame />
     default:
       return (
-        <div className="p-8 max-w-lg mx-auto text-center space-y-4">
-          <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-8 space-y-4 shadow-xs">
-            <div className="w-12 h-12 mx-auto rounded-full bg-amber-500/10 flex items-center justify-center text-amber-600">
+        <div className="space-y-5 md:space-y-6 w-full max-w-lg mx-auto pb-8 text-center pt-8">
+          <div className="ks-neo-card p-8 space-y-4 text-center">
+            <div className="w-12 h-12 mx-auto rounded-[8px] bg-amber-500/10 border-[1.5px] border-[#241A16] flex items-center justify-center text-amber-700 shadow-[1.5px_1.5px_0_#241A16]">
               <HelpCircle className="h-6 w-6" />
             </div>
             <div className="space-y-1">
-              <h2 className="font-serif text-xl text-[var(--ks-text)]">Game Not Found</h2>
-              <p className="text-xs text-[var(--ks-text-muted)]">
+              <h2 className="font-serif text-2xl font-normal text-[#241A16]">Game Not Found</h2>
+              <p className="text-xs text-[#8F8177]">
                 The educational game &quot;{gameId}&quot; is not recognized or has been moved.
               </p>
             </div>
             <Link
               to="/student/play"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[var(--ks-orange)] text-white text-xs font-semibold hover:bg-[var(--ks-orange-hover)] transition-colors"
+              className="ks-neo-btn-primary inline-flex items-center gap-1.5 px-4 py-2 text-xs"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               <span>Back to Play &amp; Learn</span>

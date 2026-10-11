@@ -316,7 +316,7 @@ export default function AIStudyNotes({ lessonId, lessonTitle, courseId, courseTi
               <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--ks-orange)] block">
                 STUDY TOPIC
               </span>
-              <h4 className="text-lg font-bold text-[var(--ks-text)] font-serif mt-0.5">
+              <h4 className="text-xl font-normal text-[var(--ks-text)] font-serif mt-0.5">
                 {notesData.topic || lessonTitle}
               </h4>
             </div>

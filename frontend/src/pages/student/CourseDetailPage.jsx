@@ -22,48 +22,49 @@ import { DIFFICULTY_LABELS } from '../../constants/courses.js'
 import EnrollmentPanel from '../../components/learning/EnrollmentPanel.jsx'
 import ConfirmDialog from '../../components/ConfirmDialog.jsx'
 import StateMessage from '../../components/StateMessage.jsx'
+import { getCourseCover } from '../../utils/courseCovers.js'
 
 function LessonDetails({ lesson, courseId }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <li className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)]">
+    <li className="rounded-[6px] border-[1.5px] border-[#241A16] bg-[#FAF8F5] shadow-[2px_2px_0_#241A16] transition-all hover:bg-white overflow-hidden">
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left"
+        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left cursor-pointer select-none"
       >
-        <span className="font-medium text-[var(--ks-text)]">
-          <span className="mr-2 text-[var(--ks-text-muted)]">{lesson.order_number}.</span>
+        <span className="font-sans font-bold text-xs sm:text-sm text-[#241A16]">
+          <span className="mr-2 font-mono text-neutral-400">{lesson.order_number}.</span>
           {lesson.title}
         </span>
-        <span className="flex shrink-0 items-center gap-3 text-xs text-[var(--ks-text-muted)]">
+        <span className="flex shrink-0 items-center gap-2.5 text-xs text-neutral-500 font-mono">
           {lesson.duration_minutes != null && <span>{lesson.duration_minutes} min</span>}
           {lesson.quiz_id && (
-            <span className="rounded bg-[var(--ks-orange)]/15 px-2 py-0.5 text-[11px] font-semibold text-[var(--ks-orange)]">
+            <span className="rounded-[3px] border border-[#241A16] bg-[#FFF2E6] px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-[#F16524]">
               Quiz
             </span>
           )}
-          <span className={`transition-transform ${open ? 'rotate-180' : ''}`}>▾</span>
+          <span className={`transition-transform font-bold text-[#241A16] ${open ? 'rotate-180' : ''}`}>▾</span>
         </span>
       </button>
       {open && (
-        <div className="border-t border-[var(--ks-border)] px-4 py-4">
+        <div className="border-t-[1.5px] border-[#241A16] bg-white px-4 py-4">
           {lesson.description && (
-            <p className="mb-3 text-sm text-[var(--ks-text-muted)]">{lesson.description}</p>
+            <p className="mb-3 text-xs sm:text-sm text-neutral-600">{lesson.description}</p>
           )}
           {lesson.content && (
-            <div className="mb-3 whitespace-pre-wrap text-sm leading-relaxed text-[var(--ks-text-muted)]">
+            <div className="mb-3 whitespace-pre-wrap text-xs sm:text-sm leading-relaxed text-neutral-700">
               {lesson.content}
             </div>
           )}
-          <div className="flex flex-wrap gap-4 text-sm">
+          <div className="flex flex-wrap gap-4 text-xs font-mono font-bold">
             {lesson.video_url && (
               <a
                 href={lesson.video_url}
                 target="_blank"
                 rel="noreferrer"
-                className="font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]"
+                className="text-[#F16524] hover:underline"
               >
                 Watch video ↗
               </a>
@@ -73,7 +74,7 @@ function LessonDetails({ lesson, courseId }) {
                 href={lesson.resource_url}
                 target="_blank"
                 rel="noreferrer"
-                className="font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]"
+                className="text-[#F16524] hover:underline"
               >
                 Open resource ↗
               </a>
@@ -81,7 +82,7 @@ function LessonDetails({ lesson, courseId }) {
             {lesson.quiz_id && courseId && (
               <Link
                 to={`/student/quiz/${lesson.quiz_id}?courseId=${courseId}&lessonId=${lesson.id}`}
-                className="font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]"
+                className="text-[#F16524] hover:underline"
               >
                 Take Quiz →
               </Link>
@@ -272,12 +273,12 @@ export default function CourseDetailPage() {
   }
 
   return (
-    <section className="space-y-8">
+    <div className="space-y-5 md:space-y-6 w-full pb-8">
       <div>
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b-[1.5px] border-[#241A16]">
           <Link
             to="/courses"
-            className="inline-block text-sm font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]"
+            className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#F16524] hover:text-[#241A16] transition-colors"
           >
             ← Back to courses
           </Link>
@@ -285,12 +286,12 @@ export default function CourseDetailPage() {
           {isStudent && (
             <div className="flex flex-wrap items-center gap-2.5">
               {/* Learning Status Dropdown */}
-              <div className="flex items-center gap-1.5 rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-3 py-1.5 text-xs shadow-2xs">
-                <span className="text-[var(--ks-text-muted)] font-medium">Status:</span>
+              <div className="flex items-center gap-2 rounded-[6px] border-[1.5px] border-[#241A16] bg-white px-3 py-1.5 text-xs shadow-[1.5px_1.5px_0_#241A16]">
+                <span className="text-neutral-500 font-mono font-bold uppercase text-[10px]">Status:</span>
                 <select
                   value={courseStatus || (enrollment ? (enrollment.progress >= 100 ? 'completed' : 'in_progress') : 'want_to_study')}
                   onChange={(e) => handleStatusChange(e.target.value)}
-                  className="bg-transparent font-semibold text-[var(--ks-text)] outline-none cursor-pointer"
+                  className="bg-transparent font-sans font-bold text-xs text-[#241A16] outline-none cursor-pointer"
                 >
                   <option value="want_to_study">Want to Study</option>
                   <option value="planning">Planning</option>
@@ -304,15 +305,15 @@ export default function CourseDetailPage() {
                 type="button"
                 onClick={handleToggleSave}
                 disabled={isSavingCourse}
-                className={`inline-flex items-center gap-1.5 rounded-lg border px-3.5 py-1.5 text-xs font-semibold transition shadow-2xs ${
+                className={`inline-flex items-center gap-1.5 rounded-[6px] border-[1.5px] border-[#241A16] px-3 py-1.5 text-xs font-mono font-bold uppercase tracking-wider transition shadow-[1.5px_1.5px_0_#241A16] cursor-pointer ${
                   isSaved
-                    ? 'border-[var(--ks-orange)]/40 bg-[rgba(241,101,36,0.1)] text-[var(--ks-orange)] hover:bg-[rgba(241,101,36,0.18)]'
-                    : 'border-[var(--ks-border)] bg-[var(--ks-surface)] text-[var(--ks-text-muted)] hover:border-[var(--ks-border-focus)] hover:text-[var(--ks-text)]'
+                    ? 'bg-[#FFF2E6] text-[#F16524] hover:bg-[#FFE8D2]'
+                    : 'bg-white text-[#241A16] hover:bg-[#FAF8F5]'
                 }`}
               >
                 {isSaved ? (
                   <>
-                    <BookmarkCheck className="h-3.5 w-3.5 text-[var(--ks-orange)]" />
+                    <BookmarkCheck className="h-3.5 w-3.5 text-[#F16524]" />
                     <span>✓ Saved</span>
                   </>
                 ) : (
@@ -327,55 +328,66 @@ export default function CourseDetailPage() {
         </div>
 
         <div className="mt-4">
-          {course.thumbnail_url && (
-            <img
-              src={course.thumbnail_url}
-              alt=""
-              className="mb-6 h-56 w-full rounded-xl border border-[var(--ks-border)] object-cover shadow-xs"
-            />
-          )}
-          <span className="ks-eyebrow">CURRICULUM</span>
+          <img
+            src={getCourseCover(course)}
+            alt={course.title ? `${course.title} Cover` : 'Course Cover'}
+            className="mb-5 h-60 sm:h-72 w-full rounded-[8px] border-[1.5px] border-[#241A16] object-cover shadow-[2.5px_2.5px_0_#241A16]"
+            loading="lazy"
+            onError={(e) => {
+              const fallback = getCourseCover(course)
+              if (e.currentTarget.src !== fallback) {
+                e.currentTarget.src = fallback
+              }
+            }}
+          />
+
+          <div className="flex items-center gap-2 mb-1">
+            <span className="ks-eyebrow">CURRICULUM</span>
+            <span className="w-1.5 h-1.5 bg-[#F16524]" />
+          </div>
+
           <h1 className="ks-page-title mt-1">{course.title}</h1>
+
           <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-medium">
             {course.category && (
-              <span className="rounded-full border border-[var(--ks-border)] bg-[var(--ks-bg-soft)] px-3 py-1 text-[var(--ks-text-muted)]">
+              <span className="rounded-[4px] border border-[#241A16] bg-white px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-[#241A16]">
                 {course.category}
               </span>
             )}
-            <span className="rounded-full border border-[var(--ks-orange)]/30 bg-[var(--ks-orange)]/10 px-3 py-1 text-[var(--ks-orange)]">
+            <span className="rounded-[4px] border border-[#241A16] bg-[#FFF2E6] px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-[#F16524]">
               {difficultyLabel}
             </span>
             {!course.published && (
-              <span className="rounded-full border border-amber-500/40 bg-amber-500/10 px-3 py-1 text-amber-700 font-semibold">
+              <span className="rounded-[4px] border border-amber-600 bg-amber-50 px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-amber-800">
                 Unpublished
               </span>
             )}
           </div>
 
           {/* Quick Metrics Bar */}
-          <div className="mt-6 flex flex-wrap items-center gap-6 rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-4 text-sm text-[var(--ks-text)] shadow-xs">
+          <div className="mt-5 flex flex-wrap items-center gap-6 rounded-[8px] border-2 border-[#241A16] bg-white p-4 shadow-[4px_4px_0_#241A16]">
             <div>
-              <span className="block text-xs text-[var(--ks-text-muted)] uppercase tracking-wider font-semibold">Modules</span>
-              <span className="text-base font-bold">{totalModulesCount}</span>
+              <span className="block text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500">Modules</span>
+              <span className="ks-metric-number">{totalModulesCount}</span>
             </div>
-            <div className="h-8 w-px bg-[var(--ks-border)]" />
+            <div className="h-8 w-[1.5px] bg-[#241A16]/20" />
             <div>
-              <span className="block text-xs text-[var(--ks-text-muted)] uppercase tracking-wider font-semibold">Lessons</span>
-              <span className="text-base font-bold">{totalLessonsCount}</span>
+              <span className="block text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500">Lessons</span>
+              <span className="ks-metric-number">{totalLessonsCount}</span>
             </div>
             {totalDurationMinutes > 0 && (
               <>
-                <div className="h-8 w-px bg-[var(--ks-border)]" />
+                <div className="h-8 w-[1.5px] bg-[#241A16]/20" />
                 <div>
-                  <span className="block text-xs text-[var(--ks-text-muted)] uppercase tracking-wider font-semibold">Total Duration</span>
-                  <span className="text-base font-bold">{formatDuration(totalDurationMinutes)}</span>
+                  <span className="block text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500">Total Duration</span>
+                  <span className="ks-metric-number text-lg sm:text-xl">{formatDuration(totalDurationMinutes)}</span>
                 </div>
               </>
             )}
           </div>
 
           {course.description && (
-            <p className="mt-5 max-w-3xl leading-relaxed text-[var(--ks-text-muted)]">{course.description}</p>
+            <p className="mt-5 max-w-3xl leading-relaxed text-sm sm:text-base text-neutral-700">{course.description}</p>
           )}
         </div>
       </div>
@@ -383,7 +395,7 @@ export default function CourseDetailPage() {
       {isStudent && enrollment !== undefined && (
         <>
           {enrollmentError && (
-            <p role="alert" className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm text-rose-600">
+            <p role="alert" className="rounded-lg border-[1.5px] border-rose-500 bg-rose-50 px-4 py-3 text-xs font-mono font-bold text-rose-700">
               {enrollmentError}
             </p>
           )}
@@ -399,18 +411,18 @@ export default function CourseDetailPage() {
 
       <div className="space-y-4">
         {tree.map(({ module, lessons }) => (
-          <div key={module.id} className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] shadow-xs">
-            <div className="border-b border-[var(--ks-border)] px-5 py-4 flex items-center justify-between">
+          <div key={module.id} className="rounded-[8px] border-2 border-[#241A16] bg-white shadow-[4px_4px_0_#241A16] overflow-hidden">
+            <div className="border-b-2 border-[#241A16] bg-[#FAF8F5] px-5 py-3.5 flex items-center justify-between">
               <div>
-                <h2 className="ks-section-title">
-                  <span className="mr-2 text-[var(--ks-text-muted)]">{module.order_number}.</span>
+                <h2 className="ks-card-title text-base sm:text-lg text-[#241A16]">
+                  <span className="mr-2 font-mono text-neutral-400">{module.order_number}.</span>
                   {module.title}
                 </h2>
                 {module.description && (
-                  <p className="mt-1 text-sm text-[var(--ks-text-muted)]">{module.description}</p>
+                  <p className="mt-1 text-xs text-neutral-600">{module.description}</p>
                 )}
               </div>
-              <span className="text-xs font-semibold text-[var(--ks-text-muted)] bg-[var(--ks-bg-soft)] border border-[var(--ks-border)] px-2.5 py-1 rounded-full">
+              <span className="rounded-[3px] border border-[#241A16] bg-white px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-[#241A16]">
                 {lessons.length} lesson{lessons.length !== 1 ? 's' : ''}
               </span>
             </div>
@@ -421,7 +433,7 @@ export default function CourseDetailPage() {
                 ))}
               </ul>
             ) : (
-              <p className="px-5 py-4 text-sm text-[var(--ks-text-muted)]">No lessons yet.</p>
+              <p className="px-5 py-4 text-xs font-mono text-neutral-500">No lessons yet.</p>
             )}
           </div>
         ))}
@@ -444,6 +456,6 @@ export default function CourseDetailPage() {
         onConfirm={handleConfirmUnenroll}
         onCancel={() => setShowUnenrollConfirm(false)}
       />
-    </section>
+    </div>
   )
 }

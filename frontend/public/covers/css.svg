@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap');
+      .font-serif { font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif; }
+      .font-sans { font-family: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, sans-serif; }
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', Menlo, monospace; }
+    </style>
+    <pattern id="dot-grid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="0.75" fill="#241A16" fill-opacity="0.05" />
+    </pattern>
+    <pattern id="fine-grid" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#241A16" stroke-width="0.5" stroke-opacity="0.04" />
+    </pattern>
+    <linearGradient id="warm-shading" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F8D9C2" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#F16524" stop-opacity="0.04" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="#FAF5EE" />
+  <rect width="960" height="540" fill="url(#fine-grid)" />
+
+  <!-- Outer Editorial Frame -->
+  <rect x="24" y="24" width="912" height="492" rx="6" fill="none" stroke="#EADBCE" stroke-width="1.5" />
+  
+  <!-- Corner Registration Marks -->
+  <path d="M 18 24 L 30 24 M 24 18 L 24 30" stroke="#8F3215" stroke-width="1" stroke-opacity="0.3" />
+  <path d="M 930 24 L 942 24 M 936 18 L 936 30" stroke="#8F3215" stroke-width="1" stroke-opacity="0.3" />
+  <path d="M 18 516 L 30 516 M 24 510 L 24 522" stroke="#8F3215" stroke-width="1" stroke-opacity="0.3" />
+  <path d="M 930 516 L 942 516 M 936 510 L 936 522" stroke="#8F3215" stroke-width="1" stroke-opacity="0.3" />
+
+  <!-- Top Header Bar -->
+  <g transform="translate(48, 52)">
+    <path d="M 0 0 L 8 -10 L 16 0 L 12 10 L 4 10 Z" fill="#F16524" />
+    <path d="M 5 0 L 8 -6 L 11 0 L 8 6 Z" fill="#FAF5EE" />
+    <text x="24" y="6" class="font-sans" font-size="12" font-weight="800" letter-spacing="3" fill="#241A16">KITSUNO.AI</text>
+    <text x="145" y="6" class="font-sans" font-size="10" font-weight="600" letter-spacing="2" fill="#8F3215">·</text>
+    <text x="160" y="6" class="font-sans" font-size="10" font-weight="700" letter-spacing="2" fill="#8F3215">SPECIFICATION</text>
+    <text x="864" y="6" text-anchor="end" class="font-mono" font-size="11" font-weight="600" letter-spacing="1.5" fill="#A89887">VOL. 02 / CSS3</text>
+    <line x1="0" y1="20" x2="864" y2="20" stroke="#EADBCE" stroke-width="1" />
+  </g>
+
+  <!-- Left: Editorial Content -->
+  <g transform="translate(48, 120)">
+    <rect x="0" y="0" width="6" height="6" fill="#F16524" />
+    <text x="16" y="7" class="font-sans" font-size="11" font-weight="700" letter-spacing="2.5" fill="#F16524">LAYOUT SYSTEMS · STYLING</text>
+    
+    <text x="0" y="66" class="font-serif" font-size="56" fill="#241A16" letter-spacing="-0.5">CSS</text>
+    <text x="0" y="104" class="font-serif" font-size="28" font-style="italic" fill="#8F3215">Box Model, Grid &amp; Modern Flexbox</text>
+    
+    <text x="0" y="146" class="font-sans" font-size="13" font-weight="400" fill="#6B5950">
+      Cascading stylesheets and responsive graphic composition.
+    </text>
+    <text x="0" y="168" class="font-sans" font-size="13" font-weight="400" fill="#6B5950">
+      Dimensional layout calculation, Flexbox axes, and 2D grid tracks.
+    </text>
+
+    <!-- CSS Selectors & Tokens -->
+    <g transform="translate(0, 210)">
+      <rect x="0" y="0" width="84" height="24" rx="4" fill="#F8D9C2" fill-opacity="0.4" stroke="#F16524" stroke-opacity="0.3" />
+      <text x="42" y="16" text-anchor="middle" class="font-mono" font-size="10" font-weight="600" fill="#8F3215">display: grid</text>
+
+      <rect x="94" y="0" width="86" height="24" rx="4" fill="#F8D9C2" fill-opacity="0.4" stroke="#F16524" stroke-opacity="0.3" />
+      <text x="137" y="16" text-anchor="middle" class="font-mono" font-size="10" font-weight="600" fill="#8F3215">flex: 1 1 auto</text>
+
+      <rect x="190" y="0" width="76" height="24" rx="4" fill="#F8D9C2" fill-opacity="0.4" stroke="#F16524" stroke-opacity="0.3" />
+      <text x="228" y="16" text-anchor="middle" class="font-mono" font-size="10" font-weight="600" fill="#8F3215">gap: 24px</text>
+
+      <rect x="276" y="0" width="80" height="24" rx="4" fill="#F8D9C2" fill-opacity="0.4" stroke="#F16524" stroke-opacity="0.3" />
+      <text x="316" y="16" text-anchor="middle" class="font-mono" font-size="10" font-weight="600" fill="#8F3215">@media</text>
+    </g>
+
+    <line x1="0" y1="265" x2="360" y2="265" stroke="#EADBCE" stroke-width="1" />
+    <text x="0" y="285" class="font-mono" font-size="10" fill="#A89887">LAYOUT: CSS GRID LEVEL 2 &amp; FLEXBOX MODULE</text>
+  </g>
+
+  <!-- Right: Abstract Technical Box Model & Grid Visualization -->
+  <g transform="translate(500, 110)">
+    <!-- Layered Box Model Diagram -->
+    <!-- 1. Margin Outer Box (Dashed) -->
+    <rect x="40" y="20" width="370" height="270" rx="8" fill="#FFF" fill-opacity="0.6" stroke="#8F3215" stroke-width="1.2" stroke-dasharray="4 4" stroke-opacity="0.5" />
+    <text x="56" y="42" class="font-mono" font-size="10" font-weight="600" fill="#8F3215">MARGIN · 24px</text>
+
+    <!-- 2. Border Box -->
+    <rect x="75" y="55" width="300" height="200" rx="6" fill="#FCEEE3" fill-opacity="0.6" stroke="#F16524" stroke-width="1.8" />
+    <text x="90" y="75" class="font-mono" font-size="10" font-weight="700" fill="#F16524">BORDER · 2px solid</text>
+
+    <!-- 3. Padding Box -->
+    <rect x="110" y="90" width="230" height="130" rx="4" fill="#F8D9C2" fill-opacity="0.5" stroke="#EADBCE" stroke-width="1" stroke-dasharray="2 2" />
+    <text x="125" y="110" class="font-mono" font-size="9" font-weight="600" fill="#8F3215">PADDING · 16px</text>
+
+    <!-- 4. Content Core Box with Grid Divisions -->
+    <rect x="145" y="125" width="160" height="60" rx="3" fill="#FFF9F2" stroke="#F16524" stroke-width="1.2" />
+    
+    <!-- Grid Tracks inside content -->
+    <line x1="198" y1="125" x2="198" y2="185" stroke="#EADBCE" stroke-width="1" stroke-dasharray="2 2" />
+    <line x1="252" y1="125" x2="252" y2="185" stroke="#EADBCE" stroke-width="1" stroke-dasharray="2 2" />
+    <text x="225" y="152" text-anchor="middle" class="font-mono" font-size="10" font-weight="700" fill="#241A16">CONTENT</text>
+    <text x="225" y="168" text-anchor="middle" class="font-mono" font-size="8" fill="#8F3215">1fr · 2fr · 1fr</text>
+
+    <!-- Dimension Callout Arrows -->
+    <path d="M 40 155 L 75 155" stroke="#8F3215" stroke-width="1" marker-end="url(#arrow)" />
+    <path d="M 375 155 L 410 155" stroke="#8F3215" stroke-width="1" />
+    <line x1="225" y1="20" x2="225" y2="55" stroke="#8F3215" stroke-width="1" />
+    <line x1="225" y1="255" x2="225" y2="290" stroke="#8F3215" stroke-width="1" />
+
+    <!-- Corner CSS Curly Braces Accent -->
+    <text x="390" y="100" class="font-serif" font-size="64" fill="#F16524" fill-opacity="0.3">{</text>
+    <text x="390" y="240" class="font-serif" font-size="64" fill="#F16524" fill-opacity="0.3">}</text>
+  </g>
+
+  <!-- Bottom Metadata Bar -->
+  <g transform="translate(48, 480)">
+    <line x1="0" y1="0" x2="864" y2="0" stroke="#EADBCE" stroke-width="1" />
+    <text x="0" y="18" class="font-sans" font-size="10" font-weight="700" letter-spacing="1.5" fill="#241A16">CATEGORY: STYLING &amp; LAYOUTS</text>
+    <text x="280" y="18" class="font-sans" font-size="10" font-weight="600" letter-spacing="1.5" fill="#8F3215">LEVEL: BEGINNER</text>
+    <text x="500" y="18" class="font-mono" font-size="10" fill="#A89887">MODULES: 03 · LESSONS: 43</text>
+    
+    <g transform="translate(770, 6)">
+      <line x1="0" y1="0" x2="0" y2="14" stroke="#241A16" stroke-width="2" />
+      <line x1="6" y1="0" x2="6" y2="14" stroke="#241A16" stroke-width="1" />
+      <line x1="12" y1="0" x2="12" y2="14" stroke="#241A16" stroke-width="3" />
+      <line x1="18" y1="0" x2="18" y2="14" stroke="#241A16" stroke-width="1.5" />
+      <line x1="24" y1="0" x2="24" y2="14" stroke="#241A16" stroke-width="1" />
+      <line x1="30" y1="0" x2="30" y2="14" stroke="#241A16" stroke-width="2.5" />
+      <line x1="38" y1="0" x2="38" y2="14" stroke="#241A16" stroke-width="1" />
+      <line x1="44" y1="0" x2="44" y2="14" stroke="#241A16" stroke-width="2" />
+      <text x="54" y="12" class="font-mono" font-size="9" fill="#A89887">KTS-02</text>
+    </g>
+  </g>
+</svg>

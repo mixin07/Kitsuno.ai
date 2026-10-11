@@ -243,32 +243,36 @@ export default function CourseContentEditor({ courseId }) {
   }
 
   return (
-    <section className="space-y-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
+    <section className="space-y-5 md:space-y-6 w-full pb-8">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b-2 border-[#241A16]">
         <div>
           <Link
             to="/instructor/courses"
-            className="inline-block text-sm font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]"
+            className="inline-flex items-center gap-1 text-xs font-bold text-[#F16524] hover:underline mb-2"
           >
             ← Back to my courses
           </Link>
 
-          <h1 className="ks-page-title mt-2">
+          <span className="ks-eyebrow block">
+            CURRICULUM STUDIO
+          </span>
+
+          <h1 className="ks-page-title mt-0.5">
             {course.title}
           </h1>
 
-          <div className="mt-2 flex flex-wrap gap-2 text-xs font-medium">
+          <div className="mt-2.5 flex flex-wrap gap-2 text-xs font-mono">
             {course.category && (
-              <span className="rounded-full border border-[var(--ks-border)] bg-[var(--ks-bg-soft)] px-3 py-1 text-[var(--ks-text-muted)]">
+              <span className="rounded-[4px] border border-[#241A16] bg-white px-2.5 py-0.5 text-[10px] font-bold text-[#241A16]">
                 {course.category}
               </span>
             )}
 
             <span
-              className={`rounded-full px-3 py-1 ${
+              className={`rounded-[4px] border border-[#241A16] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
                 course.published
-                  ? 'border border-emerald-500/40 bg-emerald-500/10 text-emerald-600 font-semibold'
-                  : 'border border-amber-500/40 bg-amber-500/10 text-amber-700 font-semibold'
+                  ? 'bg-emerald-50 text-emerald-800'
+                  : 'bg-amber-50 text-amber-800'
               }`}
             >
               {course.published ? 'Published' : 'Unpublished'}
@@ -280,7 +284,7 @@ export default function CourseContentEditor({ courseId }) {
           type="button"
           onClick={handleTogglePublish}
           disabled={isPublishing}
-          className="rounded-lg bg-[var(--ks-orange)] px-5 py-2.5 font-semibold text-white transition hover:bg-[var(--ks-orange-light)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="ks-neo-btn-primary px-4 py-2 text-xs font-bold shrink-0"
         >
           {isPublishing
             ? 'Saving...'
@@ -291,9 +295,9 @@ export default function CourseContentEditor({ courseId }) {
       </div>
 
       {notice && (
-        <p className="rounded-lg border border-[var(--ks-orange)]/30 bg-[var(--ks-orange)]/10 px-4 py-3 text-sm text-[var(--ks-orange)]">
+        <div className="rounded-[6px] border-[1.5px] border-[#241A16] bg-[#FFF2E6] px-4 py-2.5 text-xs font-medium text-[#241A16] shadow-[2px_2px_0_#241A16]">
           {notice}
-        </p>
+        </div>
       )}
 
       <div className="space-y-4">
@@ -397,8 +401,8 @@ export default function CourseContentEditor({ courseId }) {
       )}
 
       {moduleForm?.mode === 'create' ? (
-        <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 shadow-xs">
-          <h3 className="ks-panel-title mb-4">
+        <div className="ks-neo-card rounded-[8px] border-2 border-[#241A16] bg-white p-5 shadow-[3px_3px_0_#241A16] md:shadow-[4px_4px_0_#241A16]">
+          <h3 className="font-serif text-xl font-normal text-[#241A16] mb-4">
             New Module
           </h3>
 
@@ -419,7 +423,7 @@ export default function CourseContentEditor({ courseId }) {
               mode: 'create',
             })
           }}
-          className="w-full rounded-xl border border-dashed border-[var(--ks-border)] px-5 py-4 font-semibold text-[var(--ks-text-muted)] transition hover:border-[var(--ks-orange)]/60 hover:text-[var(--ks-orange)]"
+          className="ks-neo-btn-secondary w-full py-3.5 text-xs font-bold"
         >
           + Add Module
         </button>

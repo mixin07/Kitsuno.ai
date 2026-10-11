@@ -146,7 +146,7 @@ def seed_all():
             {
                 "title": "Introduction to HTML",
                 "description": "Learn the fundamentals of HTML, including document structure, semantic elements, headings, links, images, forms, tables, and accessible page structure.",
-                "thumbnail_url": "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=800&auto=format&fit=crop",
+                "thumbnail_url": "/covers/html.svg",
                 "category": "Frontend Foundation",
                 "difficulty": CourseDifficulty.BEGINNER,
                 "instructor_id": instructor_id,
@@ -163,7 +163,7 @@ def seed_all():
             {
                 "title": "Introduction to CSS",
                 "description": "Learn how to style web pages using CSS, including selectors, the box model, colors, typography, Flexbox, Grid, responsive layouts, transitions, and basic animations.",
-                "thumbnail_url": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&auto=format&fit=crop",
+                "thumbnail_url": "/covers/css.svg",
                 "category": "Styling & Layouts",
                 "difficulty": CourseDifficulty.BEGINNER,
                 "instructor_id": instructor_id,
@@ -180,7 +180,7 @@ def seed_all():
             {
                 "title": "Introduction to JavaScript",
                 "description": "Learn JavaScript fundamentals including variables, data types, functions, arrays, objects, conditions, loops, DOM manipulation, events, and basic asynchronous programming.",
-                "thumbnail_url": "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=800&auto=format&fit=crop",
+                "thumbnail_url": "/covers/javascript.svg",
                 "category": "Logic & Interactivity",
                 "difficulty": CourseDifficulty.INTERMEDIATE,
                 "instructor_id": instructor_id,
@@ -197,7 +197,7 @@ def seed_all():
             {
                 "title": "Introduction to React",
                 "description": "Master modern React frontend development including components, JSX, props, state management with hooks, conditional rendering, list handling, custom hooks, and full interactive projects.",
-                "thumbnail_url": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&auto=format&fit=crop",
+                "thumbnail_url": "/covers/react.svg",
                 "category": "Modern UI Architecture",
                 "difficulty": CourseDifficulty.BEGINNER,
                 "instructor_id": instructor_id,
@@ -252,7 +252,7 @@ def seed_all():
             {
                 "title": "Introduction to Full-Stack Development",
                 "description": "Learn the fundamentals of full-stack web development by combining HTML, CSS, JavaScript, React, APIs, Backend, Databases, Authentication, and Deployment fundamentals.",
-                "thumbnail_url": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&auto=format&fit=crop",
+                "thumbnail_url": "/covers/fullstack.svg",
                 "category": "Web Development",
                 "difficulty": CourseDifficulty.BEGINNER,
                 "instructor_id": instructor_id,
@@ -296,7 +296,7 @@ def seed_all():
             {
                 "title": "Introduction to Java",
                 "description": "Master the fundamentals of Java programming, including variables, data types, control flow, methods, object-oriented programming (OOP), data structures, and file handling.",
-                "thumbnail_url": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop",
+                "thumbnail_url": "/covers/java.svg",
                 "category": "Programming",
                 "difficulty": CourseDifficulty.BEGINNER,
                 "instructor_id": instructor_id,
@@ -346,7 +346,7 @@ def seed_all():
             {
                 "title": "Introduction to MongoDB",
                 "description": "Learn the core concepts of MongoDB NoSQL database, including document structure, CRUD operations, query operators, indexing, and collection management.",
-                "thumbnail_url": "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&auto=format&fit=crop",
+                "thumbnail_url": "/covers/mongodb.svg",
                 "category": "Databases",
                 "difficulty": CourseDifficulty.BEGINNER,
                 "instructor_id": instructor_id,
@@ -394,7 +394,7 @@ def seed_all():
             {
                 "title": "Introduction to C",
                 "description": "Explore low-level programming with the C language, covering variables, memory, control structures, functions, arrays, pointers, structs, and dynamic memory allocation.",
-                "thumbnail_url": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&auto=format&fit=crop",
+                "thumbnail_url": "/covers/c.svg",
                 "category": "Programming",
                 "difficulty": CourseDifficulty.BEGINNER,
                 "instructor_id": instructor_id,
@@ -444,7 +444,7 @@ def seed_all():
             {
                 "title": "Introduction to Python",
                 "description": "Build a strong foundation in Python programming, covering syntax, data types, collections, functions, object-oriented programming, file I/O, and GUI application development.",
-                "thumbnail_url": "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=800&auto=format&fit=crop",
+                "thumbnail_url": "/covers/python.svg",
                 "category": "Programming",
                 "difficulty": CourseDifficulty.BEGINNER,
                 "instructor_id": instructor_id,

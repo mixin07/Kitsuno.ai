@@ -77,25 +77,28 @@ export default function InstructorCourseFormPage() {
   }
 
   return (
-    <section className="mx-auto max-w-2xl space-y-8">
-      <div>
+    <section className="mx-auto max-w-2xl space-y-5 md:space-y-6 w-full pb-8">
+      <div className="pb-4 border-b-2 border-[#241A16]">
         <Link
           to="/instructor/courses"
-          className="inline-block text-sm font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]"
+          className="inline-flex items-center gap-1 text-xs font-bold text-[#F16524] hover:underline mb-2"
         >
           ← Back to my courses
         </Link>
-        <h1 className="ks-page-title mt-2">
+        <span className="ks-eyebrow block">
+          INSTRUCTOR STUDIO
+        </span>
+        <h1 className="ks-page-title mt-0.5">
           {isEdit ? 'Edit Course' : 'Create Course'}
         </h1>
-        <p className="mt-2 text-[var(--ks-text-muted)]">
+        <p className="ks-muted mt-1">
           {isEdit
             ? 'Update the details of this course.'
             : 'New courses stay unpublished until you add modules and publish them.'}
         </p>
       </div>
 
-      <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 shadow-xs">
+      <div className="ks-neo-card rounded-[8px] border-2 border-[#241A16] bg-white p-5 sm:p-6 shadow-[3px_3px_0_#241A16] md:shadow-[4px_4px_0_#241A16]">
         <CourseForm
           initialValues={isEdit ? course : undefined}
           submitLabel={isEdit ? 'Save Changes' : 'Create Course'}

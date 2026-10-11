@@ -14,7 +14,7 @@ import ConfirmDialog from '../../components/ConfirmDialog.jsx'
 import StateMessage from '../../components/StateMessage.jsx'
 
 const ACTION_LINK_CLASS =
-  'rounded-md border border-[var(--ks-border)] bg-[var(--ks-surface)] px-3 py-1.5 text-xs font-medium text-[var(--ks-text)] transition hover:bg-[var(--ks-bg-soft)]'
+  'ks-neo-btn-secondary px-3 py-1.5 text-xs font-bold'
 
 export default function InstructorCoursesPage() {
   const { user } = useAuth()
@@ -95,29 +95,29 @@ export default function InstructorCoursesPage() {
   }
 
   return (
-    <section className="space-y-8">
-      <div className="flex flex-wrap items-start justify-between gap-4">
+    <section className="space-y-5 md:space-y-6 w-full pb-8">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b-2 border-[#241A16]">
         <div>
-          <p className="ks-eyebrow mb-2 text-[var(--ks-orange)]">
-            Instructor
-          </p>
-          <h1 className="ks-page-title">My Courses</h1>
-          <p className="mt-3 text-lg text-[var(--ks-text-muted)]">
+          <span className="ks-eyebrow">
+            INSTRUCTOR STUDIO
+          </span>
+          <h1 className="ks-page-title mt-0.5">My Courses</h1>
+          <p className="ks-muted mt-1">
             Create, edit, publish, and manage the content of your courses.
           </p>
         </div>
         <Link
           to="/instructor/courses/new"
-          className="rounded-lg bg-[var(--ks-orange)] px-5 py-2.5 font-semibold text-white transition hover:bg-[var(--ks-orange-light)]"
+          className="ks-neo-btn-primary px-3.5 py-2 text-xs font-bold shrink-0"
         >
           + New Course
         </Link>
       </div>
 
       {notice && (
-        <p className="rounded-lg border border-[var(--ks-orange)]/30 bg-[var(--ks-orange)]/10 px-4 py-3 text-sm text-[var(--ks-orange)]">
+        <div className="rounded-[6px] border-[1.5px] border-[#241A16] bg-[#FFF2E6] px-4 py-2.5 text-xs font-medium text-[#241A16] shadow-[2px_2px_0_#241A16]">
           {notice}
-        </p>
+        </div>
       )}
 
       {isLoading && <StateMessage variant="loading" title="Loading your courses..." />}
@@ -129,20 +129,31 @@ export default function InstructorCoursesPage() {
       )}
 
       {!isLoading && !error && visibleCourses.length === 0 && (
-        <StateMessage variant="empty" title="No courses yet">
-          You have not created any courses. Click &quot;New Course&quot; to get started.
-        </StateMessage>
+        <div className="ks-neo-card rounded-[8px] border-2 border-[#241A16] bg-white p-8 text-center sm:p-10 shadow-[3px_3px_0_#241A16] md:shadow-[4px_4px_0_#241A16]">
+          <h3 className="font-serif text-2xl font-normal text-[#241A16]">No courses yet</h3>
+          <p className="ks-muted mt-2 max-w-sm mx-auto">
+            You have not created any courses. Click &quot;+ New Course&quot; to get started.
+          </p>
+          <div className="mt-4">
+            <Link
+              to="/instructor/courses/new"
+              className="ks-neo-btn-primary px-4 py-2 text-xs font-bold"
+            >
+              + New Course
+            </Link>
+          </div>
+        </div>
       )}
 
       {!isLoading && !error && visibleCourses.length > 0 && (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {visibleCourses.map((course) => (
             <CourseCard
               key={course.id}
               course={course}
               to={`/instructor/courses/${course.id}/content`}
               actions={
-                <>
+                <div className="flex flex-wrap items-center gap-1.5 pt-1">
                   <Link
                     to={`/instructor/courses/${course.id}/edit`}
                     className={ACTION_LINK_CLASS}
@@ -153,13 +164,13 @@ export default function InstructorCoursesPage() {
                     to={`/instructor/courses/${course.id}/content`}
                     className={ACTION_LINK_CLASS}
                   >
-                    Manage Content
+                    Curriculum
                   </Link>
                   <button
                     type="button"
                     onClick={() => handleTogglePublish(course)}
                     disabled={busyCourseId === course.id}
-                    className="rounded-md border border-[var(--ks-orange)]/40 px-3 py-1.5 text-xs font-semibold text-[var(--ks-orange)] transition hover:bg-[var(--ks-orange)]/10 disabled:opacity-50"
+                    className="ks-neo-btn-primary px-2.5 py-1.5 text-xs font-bold"
                   >
                     {busyCourseId === course.id
                       ? 'Saving...'
@@ -173,11 +184,11 @@ export default function InstructorCoursesPage() {
                       setDeleteError('')
                       setDeleteTarget(course)
                     }}
-                    className="rounded-md border border-rose-500/50 px-3 py-1.5 text-xs font-semibold text-rose-600 transition hover:bg-rose-500/10"
+                    className="ks-neo-btn-secondary px-2.5 py-1.5 text-xs font-bold text-rose-600 hover:text-rose-700"
                   >
                     Delete
                   </button>
-                </>
+                </div>
               }
             />
           ))}

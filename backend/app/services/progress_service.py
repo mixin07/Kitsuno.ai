@@ -83,6 +83,9 @@ def update_lesson_progress(
         if not was_completed:
             from app.services import gamification_service
             gamification_service.on_lesson_completed(db, student_id, lesson_id)
+        # Synchronize with active study plan tasks
+        from app.services import study_plan_service
+        study_plan_service.sync_lesson_completion_to_tasks(db, student_id, lesson_id)
     elif payload.completed is False:
         row.completed = False
         row.completed_at = None
