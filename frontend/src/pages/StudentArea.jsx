@@ -3,21 +3,20 @@ import { Link } from 'react-router-dom'
 export default function StudentArea() {
   return (
     <section className="max-w-2xl">
-      <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--ks-orange)]">
-        Authenticated · STUDENT
+      <p className="ks-page-eyebrow">
+        AUTHENTICATED · STUDENT
       </p>
-      <h1 className="font-display text-4xl font-normal tracking-tight text-[var(--ks-text)]">
+      <h1 className="font-serif text-3xl font-normal tracking-tight text-[#241A16] sm:text-4xl">
         Student Area
       </h1>
-      <p className="mt-4 text-lg text-[var(--ks-text-muted)]">
-        This is a placeholder route to verify role-based access. The student
-        dashboard will be built in a later phase.
+      <p className="mt-2 text-xs sm:text-sm text-neutral-600 leading-relaxed">
+        This is a placeholder route to verify role-based access.
       </p>
       <Link
-        to="/"
-        className="mt-8 inline-block font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]"
+        to="/student"
+        className="mt-6 inline-block text-xs font-bold text-[#E8590C] hover:underline"
       >
-        ← Back to home
+        ← Go to Student Dashboard
       </Link>
     </section>
   )

@@ -254,7 +254,19 @@ def check_existing_db():
         from app.models import Course, Module, Lesson
         
         db = SessionLocal()
-        existing_course = db.query(Course).filter(Course.title == "Full Stack Web Development").first()
+        existing_course = (
+            db.query(Course)
+            .filter(
+                Course.title.in_(
+                    [
+                        "Introduction to Full-Stack Development",
+                        "Full Stack Web Development",
+                        "Introduction to Full Stack Web Development",
+                    ]
+                )
+            )
+            .first()
+        )
         
         existing_modules = {}
         existing_lessons = set()
@@ -284,7 +296,7 @@ def main():
     print("=========================================================================")
     print(f"MODE: {'[DRY RUN — NO DATABASE CHANGES]' if is_dry_run else '[LIVE DB IMPORT]'}\n")
 
-    course_title = "Full Stack Web Development"
+    course_title = "Introduction to Full-Stack Development"
     course_desc = "Master modern web development from HTML5 structure and CSS3 styling to advanced ES6+ JavaScript, DOM manipulation, async programming, and API integration."
 
     existing_course, existing_modules, existing_lessons = check_existing_db()

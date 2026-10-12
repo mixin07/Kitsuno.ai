@@ -214,20 +214,20 @@ export default function LearningJourney({ enrollments = [], courses = [] }) {
   }, [nodes])
 
   return (
-    <div className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 md:p-6 space-y-5 shadow-xs">
-      <div className="flex items-center justify-between pb-3 border-b border-[var(--ks-border)]">
+    <div className="ks-neo-card rounded-lg border-[1.5px] border-[#241A16] shadow-[2px_3px_0_#241A16] bg-white p-5 md:p-6 space-y-5">
+      <div className="flex items-center justify-between pb-3 border-b border-[rgba(36,26,22,0.12)]">
         <div>
           <div className="flex items-center gap-1.5">
-            <Sparkles className="h-4 w-4 text-[var(--ks-orange)]" />
-            <span className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-[var(--ks-orange)]">
+            <Sparkles className="h-4 w-4 text-[#F16524]" />
+            <span className="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-[#F16524]">
               KITSUNO LEARNING JOURNEY
             </span>
           </div>
-          <h2 className="ks-section-title text-lg font-serif mt-0.5">
+          <h2 className="ks-section-title text-xl font-serif font-normal text-[#241A16] mt-0.5">
             Interactive Curriculum Pathway
           </h2>
         </div>
-        <span className="text-xs text-[var(--ks-text-muted)] hidden sm:inline-block font-medium">
+        <span className="text-xs font-mono text-neutral-500 hidden sm:inline-block font-medium">
           {activeCourseTitle}
         </span>
       </div>
@@ -235,7 +235,7 @@ export default function LearningJourney({ enrollments = [], courses = [] }) {
       {/* Horizontal Node Path for Desktop / Stacked for Mobile */}
       <div className="relative pt-2 pb-2">
         {/* Connection Line Behind Nodes (Desktop) */}
-        <div className="hidden md:block absolute top-1/2 left-8 right-8 h-0.5 bg-[var(--ks-border)] -translate-y-1/2 z-0" />
+        <div className="hidden md:block absolute top-1/2 left-8 right-8 h-0.5 bg-[rgba(36,26,22,0.18)] -translate-y-1/2 z-0" />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 relative z-10">
           {nodes.map((node) => {
@@ -252,27 +252,27 @@ export default function LearningJourney({ enrollments = [], courses = [] }) {
                 aria-label={`${node.title} - ${node.status}`}
                 onClick={() => handleNodeClick(node)}
                 onKeyDown={(e) => handleKeyDown(e, node)}
-                className={`group relative rounded-xl border p-4 text-left transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[var(--ks-orange)] flex flex-col justify-between min-h-[148px] ${
+                className={`group relative rounded-lg border-[1.5px] p-4 text-left transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#F16524] flex flex-col justify-between min-h-[148px] ${
                   isCurrent
-                    ? 'border-[var(--ks-orange)] bg-[var(--ks-surface-soft)] shadow-md ring-2 ring-[var(--ks-orange)]/20 scale-[1.02] cursor-pointer'
+                    ? 'border-[#241A16] bg-[#FFF2E6] shadow-[2px_3px_0_#241A16] scale-[1.02] cursor-pointer'
                     : isCompleted
-                    ? 'border-emerald-500/40 bg-emerald-500/5 hover:border-emerald-500 shadow-2xs cursor-pointer'
+                    ? 'border-emerald-500/60 bg-emerald-50/50 hover:border-[#241A16] hover:shadow-[1.5px_2px_0_#241A16] cursor-pointer'
                     : isNotStarted
-                    ? 'border-[var(--ks-border)] bg-[var(--ks-surface)] hover:border-[var(--ks-orange)]/60 shadow-2xs cursor-pointer'
-                    : 'border-[var(--ks-border)] bg-[var(--ks-bg-soft)]/50 opacity-60 cursor-not-allowed'
+                    ? 'border-[rgba(36,26,22,0.18)] bg-white hover:border-[#241A16] hover:shadow-[1.5px_2px_0_#241A16] cursor-pointer'
+                    : 'border-[rgba(36,26,22,0.12)] bg-[#FAF8F5]/60 opacity-60 cursor-not-allowed'
                 }`}
               >
                 {/* Node Status Emblem */}
                 <div className="flex items-center justify-between mb-2">
                   <div
-                    className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold transition-transform group-hover:scale-105 ${
+                    className={`flex h-8 w-8 items-center justify-center rounded-md border-[1.5px] border-[#241A16] text-xs font-bold transition-transform group-hover:scale-105 ${
                       isCurrent
-                        ? 'bg-[var(--ks-orange)] text-white shadow-sm ring-4 ring-[var(--ks-orange)]/20 animate-pulse'
+                        ? 'bg-[#F16524] text-white shadow-[1px_1px_0_#241A16]'
                         : isCompleted
                         ? 'bg-emerald-600 text-white'
                         : isNotStarted
-                        ? 'bg-[var(--ks-orange)]/10 text-[var(--ks-orange)] border border-[var(--ks-orange)]/30'
-                        : 'bg-[var(--ks-border)] text-[var(--ks-text-subtle)]'
+                        ? 'bg-[#FFF2E6] text-[#F16524]'
+                        : 'bg-neutral-200 text-neutral-500'
                     }`}
                   >
                     {isCompleted ? (
@@ -287,22 +287,22 @@ export default function LearningJourney({ enrollments = [], courses = [] }) {
                   </div>
 
                   <span
-                    className={`text-[9.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                    className={`text-[9.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-[4px] border border-[#241A16] ${
                       isCurrent
-                        ? 'bg-[var(--ks-orange)] text-white'
+                        ? 'bg-[#F16524] text-white shadow-[1px_1px_0_#241A16]'
                         : isCompleted
-                        ? 'bg-emerald-500/15 text-emerald-700 font-semibold'
+                        ? 'bg-emerald-50 text-emerald-800'
                         : isNotStarted
-                        ? 'bg-[var(--ks-surface-soft)] text-[var(--ks-text-muted)] border border-[var(--ks-border)]'
-                        : 'bg-[var(--ks-border)] text-[var(--ks-text-muted)]'
+                        ? 'bg-white text-neutral-600'
+                        : 'bg-neutral-100 text-neutral-400'
                     }`}
                   >
                     {node.status === 'COMPLETED'
-                      ? 'COMPLETED'
+                      ? 'DONE'
                       : node.status === 'CURRENT'
                       ? 'IN PROGRESS'
                       : node.status === 'NOT_STARTED'
-                      ? 'NOT STARTED'
+                      ? 'UP NEXT'
                       : 'LOCKED'}
                   </span>
                 </div>
@@ -310,19 +310,19 @@ export default function LearningJourney({ enrollments = [], courses = [] }) {
                 {/* Node Content */}
                 <div>
                   <h3
-                    className={`text-sm font-semibold leading-snug ${
+                    className={`text-sm font-serif font-normal leading-snug ${
                       isCurrent
-                        ? 'text-[var(--ks-orange)] font-bold'
+                        ? 'text-[#F16524]'
                         : isCompleted
-                        ? 'text-[var(--ks-text)]'
+                        ? 'text-[#241A16]'
                         : isNotStarted
-                        ? 'text-[var(--ks-text)] group-hover:text-[var(--ks-orange)] transition-colors'
-                        : 'text-[var(--ks-text-muted)]'
+                        ? 'text-[#241A16] group-hover:text-[#F16524] transition-colors'
+                        : 'text-neutral-400'
                     }`}
                   >
                     {node.title}
                   </h3>
-                  <p className="mt-0.5 text-[11px] text-[var(--ks-text-muted)] line-clamp-1">
+                  <p className="mt-0.5 text-[11px] text-neutral-500 line-clamp-1">
                     {node.subtitle}
                   </p>
                 </div>
@@ -330,15 +330,15 @@ export default function LearningJourney({ enrollments = [], courses = [] }) {
                 {/* Progress bar inside enrolled current node */}
                 {isCurrent && node.isEnrolled && (
                   <div className="mt-3 space-y-1">
-                    <div className="flex items-center justify-between text-[10px] text-[var(--ks-text-muted)] font-medium">
+                    <div className="flex items-center justify-between text-[10px] text-neutral-600 font-mono font-medium">
                       <span>{node.progress}%</span>
                       <span>
                         {node.completedLessons} / {node.totalLessons} lessons
                       </span>
                     </div>
-                    <div className="h-1.5 w-full rounded-full bg-[var(--ks-border)] overflow-hidden">
+                    <div className="h-1.5 w-full rounded-full bg-black/10 overflow-hidden">
                       <div
-                        className="h-full bg-[var(--ks-orange)] transition-all duration-300"
+                        className="h-full bg-[#F16524] transition-all duration-300"
                         style={{ width: `${Math.max(node.progress > 0 ? 8 : 0, node.progress)}%` }}
                       />
                     </div>
@@ -347,14 +347,14 @@ export default function LearningJourney({ enrollments = [], courses = [] }) {
 
                 {/* Completed node status text */}
                 {isCompleted && (
-                  <div className="mt-2 text-[10px] text-emerald-700 font-semibold flex items-center gap-1">
+                  <div className="mt-2 text-[10px] text-emerald-700 font-mono font-semibold flex items-center gap-1">
                     <span>{node.totalLessons} / {node.totalLessons} lessons finished</span>
                   </div>
                 )}
 
                 {/* Not started step prompt */}
                 {isNotStarted && (
-                  <div className="mt-2 text-[10px] text-[var(--ks-text-muted)] group-hover:text-[var(--ks-orange)] font-medium flex items-center gap-1">
+                  <div className="mt-2 text-[10px] text-neutral-500 group-hover:text-[#F16524] font-medium flex items-center gap-1">
                     <span>
                       {node.isEnrolled
                         ? `Start first lesson (${node.totalLessons} lessons) →`

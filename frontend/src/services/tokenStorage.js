@@ -1,13 +1,29 @@
-const TOKEN_KEY = 'access_token'
+import { supabase } from '../lib/supabase.js'
+
+let activeToken = null
 
 export function getAccessToken() {
-  return localStorage.getItem(TOKEN_KEY)
+  return activeToken
 }
 
 export function setAccessToken(token) {
-  localStorage.setItem(TOKEN_KEY, token)
+  activeToken = token || null
 }
 
 export function clearAccessToken() {
-  localStorage.removeItem(TOKEN_KEY)
+  activeToken = null
+}
+
+export async function getValidToken() {
+  if (activeToken) return activeToken
+  try {
+    const { data } = await supabase.auth.getSession()
+    if (data?.session?.access_token) {
+      activeToken = data.session.access_token
+      return activeToken
+    }
+  } catch {
+    // ignore
+  }
+  return null
 }

@@ -107,32 +107,37 @@ export default function QuizPage() {
   const totalQuestions = quiz?.questions?.length ?? 0
 
   return (
-    <section className="space-y-6">
+    <div className="space-y-5 md:space-y-6 w-full pb-8">
       {courseId && lessonId && (
         <a
           href={`/courses/${courseId}/lessons/${lessonId}`}
-          className="inline-block text-sm font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]"
+          className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase text-[#F16524] hover:text-[#241A16] transition-colors"
         >
           ← Back to lesson
         </a>
       )}
 
       {!attempt ? (
-        <div className="space-y-4">
+        <div className="ks-neo-card p-6 sm:p-8 space-y-5">
           <div>
-            <span className="ks-eyebrow">Quiz Assessment</span>
-            <h1 className="ks-page-title">{quiz.title}</h1>
+            <div className="flex items-center gap-2">
+              <span className="ks-page-eyebrow">QUIZ ASSESSMENT</span>
+              <span className="w-1.5 h-1.5 bg-[#F16524]" />
+            </div>
+            <h1 className="ks-page-title mt-1">{quiz.title}</h1>
             {quiz.description && (
-              <p className="mt-2 text-sm leading-relaxed text-[var(--ks-text-muted)]">{quiz.description}</p>
+              <p className="mt-2 text-sm leading-relaxed text-neutral-600">{quiz.description}</p>
             )}
           </div>
-          <p className="text-sm text-[var(--ks-text-muted)]">
-            {quiz.questions.length} question{quiz.questions.length !== 1 && 's'} — {quiz.total_points} point{quiz.total_points !== 1 && 's'} total
-          </p>
+          <div className="flex items-center gap-3 pt-3 border-t border-[rgba(36,26,22,0.12)] font-mono text-xs text-neutral-500">
+            <span>{quiz.questions.length} question{quiz.questions.length !== 1 && 's'}</span>
+            <span>•</span>
+            <span>{quiz.total_points} total point{quiz.total_points !== 1 && 's'}</span>
+          </div>
           {error && (
             <p
               role="alert"
-              className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm text-rose-600"
+              className="rounded-[6px] border-[1.5px] border-rose-600 bg-rose-50 px-4 py-3 font-mono text-xs text-rose-700"
             >
               {error}
             </p>
@@ -141,34 +146,37 @@ export default function QuizPage() {
             type="button"
             onClick={handleStart}
             disabled={isStarting}
-            className="rounded-lg bg-[var(--ks-orange)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[var(--ks-orange-light)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="ks-neo-btn-primary px-6 py-2.5 text-xs"
           >
             {isStarting ? 'Starting...' : 'Start Quiz'}
           </button>
         </div>
       ) : (
         <div className="space-y-6">
-          <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b-[1.5px] border-[#241A16]">
             <div>
-              <span className="ks-eyebrow">Quiz Assessment</span>
-              <h1 className="ks-card-title">{quiz.title}</h1>
-              <p className="mt-1 text-xs text-[var(--ks-text-muted)]">
+              <div className="flex items-center gap-2">
+                <span className="ks-page-eyebrow">QUIZ ASSESSMENT</span>
+                <span className="w-1.5 h-1.5 bg-[#F16524]" />
+              </div>
+              <h1 className="ks-page-title text-xl sm:text-2xl mt-0.5">{quiz.title}</h1>
+              <p className="mt-1 text-xs font-mono text-neutral-500">
                 {answeredCount} of {totalQuestions} answered
               </p>
             </div>
 
-            <div className="flex gap-1">
+            <div className="flex flex-wrap gap-1.5">
               {quiz.questions.map((q, i) => (
                 <button
                   key={q.id}
                   type="button"
                   onClick={() => setCurrentStep(i)}
-                  className={`flex h-8 w-8 items-center justify-center rounded-lg text-xs font-medium transition ${
+                  className={`flex h-8 w-8 items-center justify-center rounded-[6px] font-mono text-xs font-bold transition cursor-pointer ${
                     i === currentStep
-                      ? 'bg-[var(--ks-orange)] text-white'
+                      ? 'bg-[#F16524] text-white border-[1.5px] border-[#241A16] shadow-[1.5px_1.5px_0_#241A16]'
                       : answers[q.id] != null
-                        ? 'border border-[var(--ks-orange)]/40 bg-[var(--ks-orange)]/10 text-[var(--ks-orange)]'
-                        : 'border border-[var(--ks-border)] bg-[var(--ks-surface)] text-[var(--ks-text-muted)] hover:border-[var(--ks-orange)]/40'
+                        ? 'border-[1.5px] border-[#241A16] bg-[#FFF2E6] text-[#F16524]'
+                        : 'border-[1.5px] border-[rgba(36,26,22,0.2)] bg-white text-neutral-600 hover:border-[#241A16]'
                   }`}
                 >
                   {i + 1}
@@ -181,24 +189,24 @@ export default function QuizPage() {
             if (i !== currentStep) return null
             return (
               <div key={q.id} className="space-y-4">
-                <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 shadow-xs">
+                <div className="ks-neo-card p-6">
                   <div className="flex items-start justify-between gap-4">
-                    <p className="text-sm font-medium text-[var(--ks-text)]">
-                      <span className="text-[var(--ks-text-muted)]">Q{i + 1}.</span> {q.question_text}
+                    <p className="ks-card-title text-base sm:text-lg text-[#241A16]">
+                      <span className="text-neutral-400 font-mono text-sm mr-2">Q{i + 1}.</span> {q.question_text}
                     </p>
-                    <span className="shrink-0 rounded-full border border-[var(--ks-border)] bg-[var(--ks-bg-soft)] px-2.5 py-0.5 text-xs font-semibold text-[var(--ks-text-muted)]">
+                    <span className="shrink-0 rounded-[4px] border border-[#241A16] bg-[#FAF8F5] px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase text-neutral-700">
                       {q.points} pt{q.points !== 1 && 's'}
                     </span>
                   </div>
 
-                  <div className="mt-5 space-y-3">
+                  <div className="mt-5 space-y-2.5">
                     {q.options.map((opt) => (
                       <label
                         key={opt.id}
-                        className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 text-sm transition ${
+                        className={`flex cursor-pointer items-center gap-3 rounded-md border-[1.5px] px-4 py-3 text-xs sm:text-sm transition ${
                           answers[q.id] === opt.id
-                            ? 'border-[var(--ks-orange)]/60 bg-[var(--ks-orange)]/10 text-[var(--ks-text)] font-medium'
-                            : 'border-[var(--ks-border)] bg-[var(--ks-bg-soft)]/40 text-[var(--ks-text)] hover:border-[var(--ks-orange)]/40'
+                            ? 'border-[#241A16] bg-[#F16524]/10 text-[#241A16] font-semibold shadow-[1px_2px_0_#241A16]'
+                            : 'border-[rgba(36,26,22,0.18)] bg-[#FAF8F5] text-[#241A16] hover:border-[#241A16] hover:bg-white'
                         }`}
                         tabIndex={0}
                         role="radio"
@@ -206,15 +214,15 @@ export default function QuizPage() {
                         onKeyDown={(e) => handleOptionKeyDown(e, q.id, opt.id)}
                       >
                         <span
-                          className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${
-                            answers[q.id] === opt.id ? 'border-[var(--ks-orange)]' : 'border-[var(--ks-border)]'
+                          className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-[1.5px] ${
+                            answers[q.id] === opt.id ? 'border-[#241A16] bg-white' : 'border-[rgba(36,26,22,0.3)]'
                           }`}
                         >
                           {answers[q.id] === opt.id && (
-                            <span className="h-2 w-2 rounded-full bg-[var(--ks-orange)]" />
+                            <span className="h-2 w-2 rounded-full bg-[#F16524]" />
                           )}
                         </span>
-                        {opt.option_text}
+                        <span>{opt.option_text}</span>
                       </label>
                     ))}
                   </div>
@@ -225,7 +233,7 @@ export default function QuizPage() {
                     type="button"
                     disabled={currentStep === 0}
                     onClick={() => setCurrentStep((s) => s - 1)}
-                    className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 py-2 text-sm font-medium text-[var(--ks-text)] transition hover:border-[var(--ks-orange)]/40 hover:bg-[var(--ks-bg-soft)] disabled:cursor-not-allowed disabled:opacity-40"
+                    className="ks-neo-btn-secondary px-4 py-2 text-xs disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     ← Prev
                   </button>
@@ -233,7 +241,7 @@ export default function QuizPage() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep((s) => s + 1)}
-                      className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 py-2 text-sm font-medium text-[var(--ks-text)] transition hover:border-[var(--ks-orange)]/40 hover:bg-[var(--ks-bg-soft)]"
+                      className="ks-neo-btn-secondary px-4 py-2 text-xs"
                     >
                       Next →
                     </button>
@@ -241,7 +249,7 @@ export default function QuizPage() {
                     <button
                       type="button"
                       onClick={() => setShowConfirm(true)}
-                      className="rounded-lg bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-500"
+                      className="rounded-md border-[1.5px] border-[#241A16] bg-emerald-600 px-6 py-2 text-xs font-mono font-bold uppercase text-white shadow-[2px_3px_0_#241A16] hover:bg-emerald-700 active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
                     >
                       Submit Quiz
                     </button>
@@ -254,7 +262,7 @@ export default function QuizPage() {
           {submitError && (
             <p
               role="alert"
-              className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm text-rose-600"
+              className="rounded-md border-[1.5px] border-rose-600 bg-rose-50 px-4 py-3 font-mono text-xs text-rose-700"
             >
               {submitError}
             </p>
@@ -272,6 +280,6 @@ export default function QuizPage() {
           />
         </div>
       )}
-    </section>
+    </div>
   )
 }

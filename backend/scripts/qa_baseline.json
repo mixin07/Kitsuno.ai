@@ -1,0 +1,98 @@
+{
+  "protected_users": [
+    {
+      "id": 81,
+      "auth_user_id": null,
+      "email": "jeyavelan68@gmail.com",
+      "name": "Mirudhula",
+      "role": "ADMIN",
+      "approval_status": "APPROVED",
+      "requested_role": null
+    },
+    {
+      "id": 1023,
+      "auth_user_id": "f125fbeb-1c03-45d8-952e-effac19f4995",
+      "email": "sm7510@srmist.edu.in",
+      "name": "Shahid ",
+      "role": "INSTRUCTOR",
+      "approval_status": "APPROVED",
+      "requested_role": null
+    },
+    {
+      "id": 1024,
+      "auth_user_id": "3a1b9251-a463-4511-82e6-7b235d64336a",
+      "email": "mj0971@gmail.com",
+      "name": "Mikasa",
+      "role": "STUDENT",
+      "approval_status": "APPROVED",
+      "requested_role": null
+    }
+  ],
+  "counts": {
+    "courses": 9,
+    "modules": 28,
+    "lessons": 476,
+    "quizzes": 36,
+    "questions": 180,
+    "options": 720,
+    "study_plans": 0,
+    "study_plan_tasks": 0,
+    "gamification_logs": 17,
+    "user_gamification": 2,
+    "saved_courses": 0,
+    "saved_lessons": 0,
+    "saved_notes": 0,
+    "quiz_attempts": 0,
+    "attempt_answers": 0,
+    "enrollments": 0,
+    "lesson_progress": 0,
+    "users": 3
+  },
+  "courses": [
+    {
+      "id": 2474,
+      "title": "Introduction to Full-Stack Development",
+      "instructor_id": 1023
+    },
+    {
+      "id": 3897,
+      "title": "Introduction to HTML",
+      "instructor_id": 1023
+    },
+    {
+      "id": 3898,
+      "title": "Introduction to CSS",
+      "instructor_id": 1023
+    },
+    {
+      "id": 3899,
+      "title": "Introduction to JavaScript",
+      "instructor_id": 1023
+    },
+    {
+      "id": 3900,
+      "title": "Introduction to React",
+      "instructor_id": 1023
+    },
+    {
+      "id": 5611,
+      "title": "Introduction to Java",
+      "instructor_id": 1023
+    },
+    {
+      "id": 5612,
+      "title": "Introduction to MongoDB",
+      "instructor_id": 1023
+    },
+    {
+      "id": 5613,
+      "title": "Introduction to C",
+      "instructor_id": 1023
+    },
+    {
+      "id": 5614,
+      "title": "Introduction to Python",
+      "instructor_id": 1023
+    }
+  ]
+}

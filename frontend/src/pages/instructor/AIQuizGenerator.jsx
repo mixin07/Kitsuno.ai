@@ -14,8 +14,8 @@ import ConfirmDialog from '../../components/ConfirmDialog.jsx'
 import StateMessage from '../../components/StateMessage.jsx'
 
 const INPUT_CLASS =
-  'w-full rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 py-2.5 text-[var(--ks-text)] outline-none transition placeholder:text-[var(--ks-text-muted)] focus:border-[var(--ks-orange)] focus:ring-2 focus:ring-[var(--ks-orange)]/25 disabled:opacity-50 shadow-xs'
-const LABEL_CLASS = 'mb-1.5 block text-sm font-medium text-[var(--ks-text)]'
+  'w-full rounded-[6px] border-2 border-[#241A16] bg-white px-3.5 py-2 text-xs font-medium text-[#241A16] shadow-[2px_2px_0_#241A16] outline-none transition placeholder:text-neutral-400 focus:border-[#F16524] focus:ring-0 disabled:opacity-50'
+const LABEL_CLASS = 'mb-1.5 block text-[11px] font-mono font-bold uppercase tracking-wider text-[#241A16]'
 const DIFFICULTIES = ['EASY', 'MEDIUM', 'HARD']
 const MAX_QUESTIONS = 10
 
@@ -296,40 +296,40 @@ export default function AIQuizGenerator() {
   if (savedQuiz) {
     return (
       <section className="space-y-6">
-        <p className="ks-eyebrow mb-2 text-[var(--ks-orange)]">
-          Instructor
-        </p>
-        <h1 className="ks-page-title">AI Quiz Generator</h1>
+        <div className="pb-4 border-b-2 border-[#241A16]">
+          <span className="ks-eyebrow block">INSTRUCTOR STUDIO</span>
+          <h1 className="ks-page-title mt-0.5">AI Quiz Generator</h1>
+        </div>
         <div className="grid gap-6">
-          <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-8 text-center">
-            <p className="text-lg font-semibold text-emerald-300">
+          <div className="ks-neo-card rounded-[8px] border-2 border-[#241A16] bg-emerald-50 p-8 text-center shadow-[4px_4px_0_#241A16]">
+            <p className="font-serif text-2xl font-normal text-[#241A16]">
               Quiz saved successfully.
             </p>
-            <p className="mt-2 text-sm text-emerald-200/80">
+            <p className="mt-2 text-xs font-medium text-neutral-700 sm:text-sm">
               {savedQuiz.questions.length} question{savedQuiz.questions.length !== 1 && 's'} saved
               to the lesson&apos;s quiz (ID {savedQuiz.quiz_id}).
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Link
                 to={`/student/quiz/${savedQuiz.quiz_id}?courseId=${selectedCourseId}&lessonId=${selectedLessonId}`}
-                className="rounded-lg bg-emerald-600 px-5 py-2.5 font-semibold text-white transition hover:bg-emerald-500"
+                className="ks-neo-btn-primary px-5 py-2 text-xs font-bold !bg-emerald-600 hover:!bg-emerald-700"
               >
                 Go to Quiz
               </Link>
               <Link
                 to={`/instructor/courses/${selectedCourseId}/content`}
-                className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-5 py-2.5 font-semibold text-[var(--ks-text)] transition hover:bg-[var(--ks-bg-soft)]"
+                className="ks-neo-btn-secondary px-5 py-2 text-xs font-bold"
               >
                 Back to Lesson
               </Link>
             </div>
-            <p className="mt-4 text-xs text-emerald-200/60">
+            <p className="mt-4 text-[11px] text-neutral-600">
               Students can take this quiz from the lesson&apos;s learning page.
             </p>
             <button
               type="button"
               onClick={resetGenerator}
-              className="mt-6 text-sm font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]"
+              className="mt-6 text-xs font-bold text-[#F16524] hover:underline"
             >
               ← Generate more questions
             </button>
@@ -340,19 +340,17 @@ export default function AIQuizGenerator() {
   }
 
   return (
-    <section className="space-y-8">
-      <div>
+    <section className="space-y-6">
+      <div className="pb-4 border-b-2 border-[#241A16]">
         <Link
           to="/instructor/courses"
-          className="mb-2 inline-block text-sm font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]"
+          className="mb-2 inline-flex items-center gap-1.5 text-xs font-bold text-[#F16524] hover:underline transition-colors"
         >
           ← Back to my courses
         </Link>
-        <p className="ks-eyebrow mt-2 text-[var(--ks-orange)]">
-          Instructor
-        </p>
-        <h1 className="ks-page-title">AI Quiz Generator</h1>
-        <p className="mt-3 text-lg text-[var(--ks-text-muted)]">
+        <span className="ks-eyebrow block">INSTRUCTOR STUDIO</span>
+        <h1 className="ks-page-title mt-0.5">AI Quiz Generator</h1>
+        <p className="ks-muted mt-1">
           Generate quiz questions for a lesson, review and edit them, then save approved
           questions to the lesson&apos;s quiz.
         </p>
@@ -365,7 +363,7 @@ export default function AIQuizGenerator() {
       )}
 
       {visibleCourses.length > 0 && (
-        <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 shadow-xs">
+        <div className="ks-neo-card rounded-[8px] border-2 border-[#241A16] bg-white p-5 sm:p-6 shadow-[3px_3px_0_#241A16] md:shadow-[4px_4px_0_#241A16]">
           <div className="grid gap-4 sm:grid-cols-3">
             <div>
               <label htmlFor="ai-course" className={LABEL_CLASS}>
@@ -499,7 +497,7 @@ export default function AIQuizGenerator() {
           {formError && (
             <p
               role="alert"
-              className="mt-5 rounded-lg border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm text-rose-300"
+              className="mt-5 rounded-[6px] border-2 border-rose-400 bg-rose-50 px-4 py-3 text-xs font-medium text-rose-800 font-mono shadow-[2px_2px_0_#241A16]"
             >
               {formError}
             </p>
@@ -510,7 +508,7 @@ export default function AIQuizGenerator() {
               type="button"
               onClick={handleGenerate}
               disabled={isGenerating}
-              className="rounded-lg bg-[var(--ks-orange)] px-6 py-2.5 font-semibold text-white transition hover:bg-[var(--ks-orange-light)] disabled:cursor-not-allowed disabled:opacity-50"
+              className="ks-neo-btn-primary px-5 py-2 text-xs font-bold"
             >
               {isGenerating ? 'Generating...' : 'Generate Questions'}
             </button>
@@ -519,7 +517,7 @@ export default function AIQuizGenerator() {
                 type="button"
                 onClick={handleGenerate}
                 disabled={isGenerating}
-                className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-6 py-2.5 font-semibold text-[var(--ks-text)] transition hover:bg-[var(--ks-bg-soft)] disabled:cursor-not-allowed disabled:opacity-50"
+                className="ks-neo-btn-secondary px-5 py-2 text-xs font-bold"
               >
                 Regenerate
               </button>
@@ -536,14 +534,14 @@ export default function AIQuizGenerator() {
 
       {!isGenerating && questions && questions.length > 0 && (
         <section className="space-y-6">
-          <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-3 border-b-2 border-[#241A16]">
             <div>
-              <h2 className="ks-section-title">Generated Questions</h2>
-              <p className="mt-1 text-sm text-[var(--ks-text-muted)]">
+              <h2 className="font-serif text-2xl font-normal text-[#241A16]">Generated Questions</h2>
+              <p className="mt-1 text-xs text-neutral-600 sm:text-sm">
                 {selectedLesson?.title} — Review, edit, and remove anything before saving.
               </p>
             </div>
-            <span className="rounded-full border border-[var(--ks-orange)]/30 bg-[var(--ks-orange)]/10 px-3 py-1 text-xs font-semibold text-[var(--ks-orange)]">
+            <span className="inline-flex items-center rounded-[4px] border border-[#241A16] bg-[#FFF2E6] px-2.5 py-0.5 text-[11px] font-mono font-bold uppercase tracking-wider text-[#F16524]">
               {questions.length} question{questions.length !== 1 && 's'}
             </span>
           </div>
@@ -553,10 +551,10 @@ export default function AIQuizGenerator() {
             return (
               <div
                 key={qIndex}
-                className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 shadow-xs"
+                className="ks-neo-card rounded-[8px] border-2 border-[#241A16] bg-white p-5 sm:p-6 shadow-[3px_3px_0_#241A16] md:shadow-[4px_4px_0_#241A16]"
               >
-                <div className="flex items-start justify-between gap-4">
-                  <span className="rounded-full border border-[var(--ks-border)] bg-[var(--ks-bg-soft)] px-3 py-1 text-xs font-semibold text-[var(--ks-text-muted)]">
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <span className="inline-flex items-center rounded-[4px] border border-[#241A16] bg-[#FAF8F5] px-2.5 py-0.5 text-[11px] font-mono font-bold text-[#241A16]">
                     Question {qIndex + 1}
                   </span>
                   <button
@@ -565,7 +563,7 @@ export default function AIQuizGenerator() {
                       setDeleteError('')
                       setRemoveTarget(qIndex)
                     }}
-                    className="rounded-md border border-rose-500/50 px-3 py-1.5 text-xs font-semibold text-rose-600 transition hover:bg-rose-500/10"
+                    className="ks-neo-btn-secondary px-2.5 py-1 text-[11px] font-bold text-rose-600 hover:text-rose-700"
                   >
                     Remove
                   </button>
@@ -587,7 +585,7 @@ export default function AIQuizGenerator() {
                 <div className="mt-4 space-y-3">
                   {question.options.map((option, oIndex) => (
                     <div key={oIndex} className="flex items-center gap-3">
-                      <span className="w-7 shrink-0 text-sm font-medium text-[var(--ks-text-muted)]">
+                      <span className="w-7 shrink-0 text-xs font-bold text-[#241A16]">
                         {String.fromCharCode(65 + oIndex)}.
                       </span>
                       <input
@@ -648,18 +646,18 @@ export default function AIQuizGenerator() {
           {saveError && (
             <p
               role="alert"
-              className="rounded-lg border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm text-rose-600"
+              className="rounded-[6px] border-2 border-rose-400 bg-rose-50 px-4 py-3 text-xs font-medium text-rose-800 font-mono shadow-[2px_2px_0_#241A16]"
             >
               {saveError}
             </p>
           )}
 
-          <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
             <button
               type="button"
               onClick={resetGenerator}
               disabled={isSaving}
-              className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-5 py-2.5 font-semibold text-[var(--ks-text)] transition hover:bg-[var(--ks-bg-soft)] disabled:opacity-50"
+              className="ks-neo-btn-secondary px-5 py-2 text-xs font-bold"
             >
               Discard
             </button>
@@ -667,13 +665,13 @@ export default function AIQuizGenerator() {
               type="button"
               onClick={handleSave}
               disabled={isSaving}
-              className="rounded-lg bg-emerald-600 px-6 py-2.5 font-semibold text-white transition hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-50"
+              className="ks-neo-btn-primary px-6 py-2 text-xs font-bold"
             >
               {isSaving ? 'Saving...' : 'Save to Quiz'}
             </button>
           </div>
 
-          <p className="text-xs text-[var(--ks-text-muted)]">
+          <p className="text-[11px] text-neutral-500">
             Saving writes these approved questions to the {selectedCourse?.title} lesson&apos;s
             quiz. Questions are not saved until you click &quot;Save to Quiz&quot;.
           </p>

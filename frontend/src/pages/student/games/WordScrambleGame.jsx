@@ -175,28 +175,28 @@ export default function WordScrambleGame() {
 
   if (loading) {
     return (
-      <div className="p-8 max-w-4xl mx-auto flex flex-col items-center justify-center min-h-[50vh] space-y-3">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
-        <p className="text-xs text-[var(--ks-text-muted)]">Scrambling engineering terminology...</p>
+      <div className="space-y-5 md:space-y-6 w-full max-w-2xl mx-auto pb-8 flex flex-col items-center justify-center min-h-[50vh]">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#F16524] border-t-transparent" />
+        <p className="ks-muted text-xs">Scrambling engineering terminology...</p>
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="p-8 max-w-lg mx-auto text-center space-y-4">
-        <div className="rounded-xl border border-rose-200 bg-rose-50 p-6 text-rose-800 space-y-3">
-          <p className="font-semibold text-sm">{error}</p>
+      <div className="space-y-5 md:space-y-6 w-full max-w-lg mx-auto pb-8 text-center pt-8">
+        <div className="ks-neo-card p-6 text-center space-y-3">
+          <p className="font-semibold text-xs text-rose-700">{error}</p>
           <div className="flex items-center justify-center gap-3 pt-2">
             <button
               onClick={fetchGame}
-              className="px-4 py-2 rounded-lg bg-rose-600 text-white text-xs font-semibold hover:bg-rose-700"
+              className="ks-neo-btn-primary px-4 py-2 text-xs"
             >
               Retry
             </button>
             <Link
               to="/student/play"
-              className="px-4 py-2 rounded-lg border border-rose-300 bg-white text-rose-700 text-xs font-semibold hover:bg-rose-50"
+              className="ks-neo-btn-secondary px-4 py-2 text-xs"
             >
               Back to Games
             </Link>
@@ -209,30 +209,33 @@ export default function WordScrambleGame() {
   const currentWord = words[currentIdx]
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 max-w-2xl mx-auto space-y-6">
+    <div className="space-y-5 md:space-y-6 w-full max-w-2xl mx-auto pb-8">
       {/* Top Header Bar */}
-      <div className="flex items-center justify-between pb-4 border-b border-[var(--ks-border)]">
+      <div className="flex items-center justify-between pb-4 border-b-[1.5px] border-[#241A16]">
         <div className="flex items-center gap-3">
           <Link
             to="/student/play"
-            className="p-1.5 rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] text-[var(--ks-text-muted)] hover:text-[var(--ks-text)] transition-colors"
+            className="ks-neo-btn-secondary p-2 inline-flex items-center justify-center"
             title="Back to Play & Learn"
           >
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-lg">🔤</span>
-              <h1 className="font-serif text-xl sm:text-2xl text-[var(--ks-text)]">Word Scramble</h1>
+            <span className="ks-eyebrow block">
+              MINI-GAME · WORD SCRAMBLE
+            </span>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className="text-xl">🔤</span>
+              <h1 className="ks-page-title text-2xl sm:text-3xl text-[#241A16]">Word Scramble</h1>
               {gameData?.content?.topic && (
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-700">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-[4px] border-[1.5px] border-[#241A16] bg-[#FFF2E6] text-[#F16524] shadow-[1px_1px_0_#241A16]">
                   {gameData.content.topic}
                 </span>
               )}
             </div>
             {gameData?.course_title && (
-              <p className="text-xs text-[var(--ks-text-muted)] flex items-center gap-1 mt-0.5">
-                <BookOpen className="h-3 w-3 text-emerald-500" />
+              <p className="ks-muted text-xs flex items-center gap-1 mt-0.5">
+                <BookOpen className="h-3 w-3 text-[#F16524]" />
                 <span>{gameData.course_title}</span>
               </p>
             )}
@@ -240,12 +243,12 @@ export default function WordScrambleGame() {
         </div>
 
         {gameState === 'playing' && (
-          <div className="flex items-center gap-3 text-xs font-mono font-semibold">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] text-[var(--ks-text)]">
-              <Clock className="h-3.5 w-3.5 text-emerald-500" />
+          <div className="flex items-center gap-2.5 text-xs font-mono font-semibold">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] border-[1.5px] border-[#241A16] bg-white text-[#241A16] shadow-[1.5px_1.5px_0_#241A16]">
+              <Clock className="h-3.5 w-3.5 text-[#F16524]" />
               <span>{formatTime(elapsedTime)}</span>
             </div>
-            <div className="px-3 py-1.5 rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] text-[var(--ks-text-muted)]">
+            <div className="px-3 py-1.5 rounded-[6px] border-[1.5px] border-[#241A16] bg-white text-neutral-600 shadow-[1.5px_1.5px_0_#241A16]">
               <span>
                 Word {currentIdx + 1} / {words.length}
               </span>
@@ -256,24 +259,24 @@ export default function WordScrambleGame() {
 
       {/* STATE 1: Ready Screen */}
       {gameState === 'ready' && (
-        <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 sm:p-8 text-center space-y-6 shadow-xs">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-600">
-            <Type className="h-8 w-8" />
+        <div className="ks-neo-card p-6 sm:p-8 text-center space-y-6">
+          <div className="w-14 h-14 mx-auto rounded-[8px] bg-[#FFF2E6] border-[1.5px] border-[#241A16] flex items-center justify-center text-[#F16524] shadow-[2px_2px_0_#241A16]">
+            <Type className="h-7 w-7" />
           </div>
 
-          <div className="max-w-md mx-auto space-y-2">
-            <h2 className="font-serif text-2xl text-[var(--ks-text)]">Decipher Technical Terms</h2>
-            <p className="text-xs sm:text-sm text-[var(--ks-text-muted)] leading-relaxed">
+          <div className="max-w-md mx-auto space-y-1.5">
+            <h2 className="font-serif text-2xl font-normal text-[#241A16]">Decipher Technical Terms</h2>
+            <p className="ks-muted text-xs sm:text-sm leading-relaxed">
               Unscramble {words.length} core programming keywords and concepts from your enrolled curriculum.
               Smart hints are available if you get stuck!
             </p>
           </div>
 
-          <div className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-4 max-w-sm mx-auto text-left space-y-2">
-            <p className="text-[10.5px] font-bold uppercase tracking-wider text-[var(--ks-text-subtle)]">
+          <div className="rounded-[6px] border-[1.5px] border-[rgba(36,26,22,0.18)] bg-[#FFFAF4] p-4 max-w-sm mx-auto text-left space-y-2 shadow-[1px_1.5px_0_rgba(36,26,22,0.06)]">
+            <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#F16524]">
               Instructions
             </p>
-            <ul className="text-xs text-[var(--ks-text-muted)] space-y-1.5 list-disc list-inside">
+            <ul className="text-xs text-neutral-600 space-y-1.5 list-disc list-inside">
               <li>Examine the scrambled letters and hint</li>
               <li>Type the unscrambled term in the input box</li>
               <li>Press Enter to lock in and advance to the next word</li>
@@ -282,7 +285,7 @@ export default function WordScrambleGame() {
 
           <button
             onClick={handleStart}
-            className="px-6 py-2.5 rounded-xl bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition-all shadow-sm hover:shadow"
+            className="ks-neo-btn-primary px-6 py-2.5 text-xs sm:text-sm"
           >
             Start Word Scramble
           </button>
@@ -291,31 +294,31 @@ export default function WordScrambleGame() {
 
       {/* STATE 2: Playing Screen */}
       {gameState === 'playing' && currentWord && (
-        <div className="space-y-5">
+        <div className="space-y-4">
           {/* Progress bar */}
-          <div className="w-full bg-[var(--ks-surface-soft)] rounded-full h-1.5 overflow-hidden border border-[var(--ks-border)]">
+          <div className="w-full h-2 rounded-full bg-[#FAF8F5] border-[1.5px] border-[#241A16] overflow-hidden p-0.5">
             <div
-              className="bg-emerald-500 h-full transition-all duration-300"
+              className="bg-[#F16524] h-full rounded-full transition-all duration-300"
               style={{ width: `${((currentIdx + 1) / words.length) * 100}%` }}
             />
           </div>
 
-          <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 space-y-6 shadow-xs text-center">
+          <div className="ks-neo-card p-6 space-y-6 text-center">
             <div className="space-y-1">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-600">
+              <span className="ks-eyebrow block">
                 Category: {currentWord.category || 'Web Development'}
               </span>
-              <p className="text-xs text-[var(--ks-text-muted)]">
+              <p className="ks-muted text-xs">
                 Unscramble this {currentWord.length}-letter term
               </p>
             </div>
 
             {/* Scrambled Letters Display */}
-            <div className="flex flex-wrap items-center justify-center gap-2 py-4">
+            <div className="flex flex-wrap items-center justify-center gap-2 py-3">
               {currentWord.scrambled.split('').map((letter, idx) => (
                 <div
                   key={idx}
-                  className="w-11 h-12 rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] flex items-center justify-center text-xl font-bold font-mono text-[var(--ks-text)] shadow-xs select-none"
+                  className="w-11 h-12 rounded-[6px] border-[1.5px] border-[#241A16] bg-white flex items-center justify-center text-xl font-bold font-mono text-[#241A16] shadow-[2px_2px_0_#241A16] select-none"
                 >
                   {letter}
                 </div>
@@ -325,15 +328,15 @@ export default function WordScrambleGame() {
             {/* Hint Box */}
             <div className="max-w-md mx-auto">
               {showHint ? (
-                <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs text-amber-800 flex items-start gap-2 text-left">
-                  <Lightbulb className="h-4 w-4 shrink-0 text-amber-600 mt-0.5" />
+                <div className="rounded-[6px] border-[1.5px] border-[#241A16] bg-[#FFFAF4] p-3 text-xs text-[#241A16] flex items-start gap-2 text-left shadow-[1.5px_1.5px_0_#241A16]">
+                  <Lightbulb className="h-4 w-4 shrink-0 text-[#F16524] mt-0.5" />
                   <p>{currentWord.hint}</p>
                 </div>
               ) : (
                 <button
                   type="button"
                   onClick={() => setShowHint(true)}
-                  className="inline-flex items-center gap-1.5 text-xs text-[var(--ks-orange)] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs text-[#F16524] font-bold hover:underline cursor-pointer"
                 >
                   <HelpCircle className="h-3.5 w-3.5" />
                   <span>Need a hint?</span>
@@ -348,15 +351,15 @@ export default function WordScrambleGame() {
                 type="text"
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value.toUpperCase())}
-                placeholder="Type your answer here..."
+                placeholder="TYPE YOUR ANSWER..."
                 maxLength={currentWord.length + 5}
-                className="w-full px-4 py-3 rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] focus:bg-[var(--ks-surface)] focus:border-emerald-500 focus:outline-none text-center font-mono font-bold text-lg uppercase tracking-wider text-[var(--ks-text)]"
+                className="w-full px-4 py-2.5 rounded-[6px] border-[1.5px] border-[#241A16] bg-white focus:bg-white focus:border-[#F16524] focus:outline-none text-center font-mono font-bold text-base uppercase tracking-wider text-[#241A16] shadow-[1.5px_1.5px_0_#241A16]"
               />
 
               <button
                 type="submit"
                 disabled={!userInput.trim()}
-                className="w-full py-2.5 rounded-xl bg-emerald-600 disabled:opacity-50 text-white text-xs font-semibold hover:bg-emerald-700 transition-all flex items-center justify-center gap-1.5"
+                className="ks-neo-btn-primary w-full py-2.5 text-xs inline-flex items-center justify-center gap-1.5 disabled:opacity-50"
               >
                 <span>{currentIdx + 1 === words.length ? 'Submit All Words' : 'Lock In & Next Word'}</span>
                 <ChevronRight className="h-4 w-4" />
@@ -368,75 +371,75 @@ export default function WordScrambleGame() {
 
       {/* STATE 3: Results */}
       {gameState === 'finished' && (
-        <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 sm:p-8 text-center space-y-6 shadow-xs">
+        <div className="ks-neo-card p-6 sm:p-8 text-center space-y-6">
           {submitting ? (
             <div className="py-12 space-y-3">
-              <div className="h-8 w-8 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent mx-auto" />
-              <p className="text-xs text-[var(--ks-text-muted)]">Verifying technical terminology & awarding XP...</p>
+              <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#F16524] border-t-transparent mx-auto" />
+              <p className="ks-muted text-xs">Verifying technical terminology &amp; awarding XP...</p>
             </div>
           ) : resultData ? (
             <>
-              <div className="w-16 h-16 mx-auto rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-600">
-                <Trophy className="h-8 w-8" />
+              <div className="w-14 h-14 mx-auto rounded-[8px] bg-amber-500/10 border-[1.5px] border-[#241A16] flex items-center justify-center text-amber-700 shadow-[2px_2px_0_#241A16]">
+                <Trophy className="h-7 w-7" />
               </div>
 
               <div className="space-y-1">
-                <h2 className="font-serif text-2xl text-[var(--ks-text)]">Vocabulary Deciphered!</h2>
-                <p className="text-xs text-[var(--ks-text-muted)]">
+                <h2 className="font-serif text-2xl font-normal text-[#241A16]">Vocabulary Deciphered!</h2>
+                <p className="ks-muted text-xs">
                   Your vocabulary answers were checked against server dictionaries.
                 </p>
               </div>
 
               {/* Stats Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-lg mx-auto">
-                <div className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-3">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--ks-text-subtle)]">Score</p>
-                  <p className="text-xl font-mono font-bold text-[var(--ks-text)]">{resultData.score}</p>
+                <div className="rounded-[6px] border-[1.5px] border-[rgba(36,26,22,0.18)] bg-white p-3 shadow-[1px_1.5px_0_rgba(36,26,22,0.06)]">
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500">Score</p>
+                  <p className="ks-metric-number text-xl sm:text-2xl text-[#241A16] mt-0.5">{resultData.score}</p>
                 </div>
-                <div className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-3">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--ks-text-subtle)]">Accuracy</p>
-                  <p className="text-xl font-mono font-bold text-emerald-600">{resultData.accuracy}%</p>
+                <div className="rounded-[6px] border-[1.5px] border-[rgba(36,26,22,0.18)] bg-white p-3 shadow-[1px_1.5px_0_rgba(36,26,22,0.06)]">
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500">Accuracy</p>
+                  <p className="ks-metric-number text-xl sm:text-2xl text-[#F16524] mt-0.5">{resultData.accuracy}%</p>
                 </div>
-                <div className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-3">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--ks-text-subtle)]">Words Solved</p>
-                  <p className="text-xl font-mono font-bold text-[var(--ks-text)]">
+                <div className="rounded-[6px] border-[1.5px] border-[rgba(36,26,22,0.18)] bg-white p-3 shadow-[1px_1.5px_0_rgba(36,26,22,0.06)]">
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500">Words Solved</p>
+                  <p className="ks-metric-number text-xl sm:text-2xl text-[#241A16] mt-0.5">
                     {resultData.correct_count} / {resultData.questions_count}
                   </p>
                 </div>
-                <div className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-3">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-[var(--ks-text-subtle)]">XP Earned</p>
-                  <p className="text-xl font-mono font-bold text-emerald-600">+{resultData.xp_awarded} XP</p>
+                <div className="rounded-[6px] border-[1.5px] border-[rgba(36,26,22,0.18)] bg-white p-3 shadow-[1px_1.5px_0_rgba(36,26,22,0.06)]">
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500">XP Earned</p>
+                  <p className="ks-metric-number text-xl sm:text-2xl text-emerald-700 mt-0.5">+{resultData.xp_awarded} XP</p>
                 </div>
               </div>
 
               {resultData.is_new_high_score && (
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-700 text-xs font-semibold">
-                  <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[4px] border-[1.5px] border-[#241A16] bg-[#FFF2E6] text-[#F16524] text-xs font-mono font-bold shadow-[1.5px_1.5px_0_#241A16]">
+                  <Sparkles className="h-3.5 w-3.5 text-[#F16524]" />
                   <span>New Personal High Score!</span>
                 </div>
               )}
 
               {resultData.unlocked_achievements?.length > 0 && (
-                <div className="rounded-lg border border-purple-200 bg-purple-50 p-3 max-w-sm mx-auto text-xs text-purple-800 space-y-1">
-                  <p className="font-bold flex items-center justify-center gap-1">
+                <div className="rounded-[6px] border-[1.5px] border-[#241A16] bg-[#FFF2E6] p-3 max-w-sm mx-auto text-xs text-[#241A16] space-y-1 shadow-[1.5px_1.5px_0_#241A16]">
+                  <p className="font-bold flex items-center justify-center gap-1 text-[#F16524]">
                     <Award className="h-4 w-4" />
                     <span>Achievement Unlocked!</span>
                   </p>
-                  <p>{resultData.unlocked_achievements.join(', ')}</p>
+                  <p className="font-mono text-[11px]">{resultData.unlocked_achievements.join(', ')}</p>
                 </div>
               )}
 
               <div className="flex items-center justify-center gap-3 pt-3">
                 <button
                   onClick={fetchGame}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition-colors"
+                  className="ks-neo-btn-primary inline-flex items-center gap-1.5 px-4 py-2 text-xs"
                 >
                   <RotateCcw className="h-3.5 w-3.5" />
                   <span>Play Again</span>
                 </button>
                 <Link
                   to="/student/play"
-                  className="px-4 py-2 rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] text-[var(--ks-text)] text-xs font-semibold hover:bg-[var(--ks-surface-soft)] transition-colors"
+                  className="ks-neo-btn-secondary px-4 py-2 text-xs"
                 >
                   Back to Hub
                 </Link>
@@ -447,7 +450,7 @@ export default function WordScrambleGame() {
               <p className="text-xs text-rose-600">Failed to complete session.</p>
               <button
                 onClick={fetchGame}
-                className="px-4 py-2 rounded-lg bg-emerald-600 text-white text-xs font-semibold"
+                className="ks-neo-btn-primary px-4 py-2 text-xs"
               >
                 Retry
               </button>

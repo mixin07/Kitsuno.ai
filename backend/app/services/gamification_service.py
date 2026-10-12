@@ -1,15 +1,17 @@
-from __future__ import annotations
-
-from datetime import date, datetime, timedelta, timezone
+import calendar
+from datetime import date, datetime, time, timedelta, timezone
 from sqlalchemy import select, func
 from sqlalchemy.orm import Session
 
 from app.models.gamification import (
+    GameAttempt,
     GamificationLog,
     UserAchievement,
     UserGamification,
     UserQuestProgress,
 )
+from app.models.course import Course
+from app.models.quiz import Quiz
 from app.models.lesson_progress import LessonProgress
 from app.models.quiz_attempt import QuizAttempt
 from app.models.enrollment import Enrollment
@@ -17,11 +19,19 @@ from app.models.lesson import Lesson
 from app.models.module import Module
 from app.schemas.gamification import (
     AchievementItemResponse,
+    DayActivityEvent,
+    DayActivitySummary,
     GamificationActivityLogResponse,
+    LevelDetailsResponse,
     LevelProgressInfo,
+    LevelTierItem,
+    MonthlyActivityResponse,
     QuestItemResponse,
+    StreakActivityItem,
+    StreakDetailsResponse,
     StreakInfo,
     StudentGamificationResponse,
+    XpSummaryResponse,
 )
 
 # Achievement Metadata Definitions
@@ -585,3 +595,422 @@ def get_student_gamification(db: Session, student_id: int) -> StudentGamificatio
         achievements=achievements_response,
         recent_logs=activity_response,
     )
+
+
+LEVEL_TITLES = {
+    1: "Novice Learner",
+    2: "Curious Explorer",
+    3: "Active Student",
+    4: "Dedicated Scholar",
+    5: "Master Scholar",
+    6: "Knowledge Seeker",
+    7: "Expert Learner",
+    8: "Grand Scholar",
+    9: "Platform Luminary",
+    10: "Grandmaster",
+}
+
+
+def get_streak_details(db: Session, student_id: int) -> StreakDetailsResponse:
+    """Return comprehensive streak metrics and recent daily learning activity."""
+    gam = get_or_create_user_gamification(db, student_id)
+    today = date.today()
+    is_active_today = (gam.last_activity_date == today)
+
+    if is_active_today:
+        today_msg = "Streak active today! Great dedication."
+    elif gam.current_streak > 0:
+        today_msg = "Complete one learning activity today to keep your streak going."
+    else:
+        today_msg = "Complete your first lesson, quiz, or game today to start a streak!"
+
+    fourteen_days_ago = today - timedelta(days=14)
+    fourteen_days_ago_dt = datetime.combine(fourteen_days_ago, datetime.min.time(), tzinfo=timezone.utc)
+
+    # Completed lessons in past 14 days
+    completed_lessons = (
+        db.execute(
+            select(LessonProgress, Lesson, Module, Course)
+            .join(Lesson, LessonProgress.lesson_id == Lesson.id)
+            .join(Module, Lesson.module_id == Module.id)
+            .join(Course, Module.course_id == Course.id)
+            .where(
+                LessonProgress.student_id == student_id,
+                LessonProgress.completed.is_(True),
+                LessonProgress.completed_at >= fourteen_days_ago_dt,
+            )
+            .order_by(LessonProgress.completed_at.desc().nulls_last())
+        )
+        .all()
+    )
+
+    # Completed quizzes in past 14 days
+    completed_quizzes = (
+        db.execute(
+            select(QuizAttempt, Quiz, Course)
+            .join(Quiz, QuizAttempt.quiz_id == Quiz.id)
+            .join(Lesson, Quiz.lesson_id == Lesson.id)
+            .join(Module, Lesson.module_id == Module.id)
+            .join(Course, Module.course_id == Course.id)
+            .where(
+                QuizAttempt.student_id == student_id,
+                QuizAttempt.completed_at.is_not(None),
+                QuizAttempt.completed_at >= fourteen_days_ago_dt,
+            )
+            .order_by(QuizAttempt.completed_at.desc())
+        )
+        .all()
+    )
+
+    # Completed games in past 14 days
+    completed_games = list(
+        db.scalars(
+            select(GameAttempt).where(
+                GameAttempt.user_id == student_id,
+                GameAttempt.completed_at.is_not(None),
+                GameAttempt.completed_at >= fourteen_days_ago_dt,
+            ).order_by(GameAttempt.completed_at.desc())
+        ).all()
+    )
+
+    active_dates: set[date] = set()
+    if is_active_today:
+        active_dates.add(today)
+    if gam.last_activity_date and gam.last_activity_date >= fourteen_days_ago:
+        active_dates.add(gam.last_activity_date)
+
+    recent_activities: list[StreakActivityItem] = []
+
+    for lp, lesson, module, course in completed_lessons:
+        comp_date = lp.completed_at.date() if lp.completed_at else today
+        active_dates.add(comp_date)
+        recent_activities.append(
+            StreakActivityItem(
+                id=f"lesson-{lp.id}",
+                activity_type="LESSON",
+                title=lesson.title,
+                course_title=course.title,
+                completed_at=lp.completed_at or datetime.now(timezone.utc),
+                xp_earned=50,
+            )
+        )
+
+    for qa, quiz, course in completed_quizzes:
+        comp_date = qa.completed_at.date() if qa.completed_at else today
+        active_dates.add(comp_date)
+        recent_activities.append(
+            StreakActivityItem(
+                id=f"quiz-{qa.id}",
+                activity_type="QUIZ",
+                title=quiz.title,
+                course_title=course.title,
+                completed_at=qa.completed_at or datetime.now(timezone.utc),
+                xp_earned=75,
+            )
+        )
+
+    for ga in completed_games:
+        comp_date = ga.completed_at.date() if ga.completed_at else today
+        active_dates.add(comp_date)
+        recent_activities.append(
+            StreakActivityItem(
+                id=f"game-{ga.id}",
+                activity_type="GAME",
+                title=ga.game_id.replace("_", " ").title(),
+                course_title="Play & Learn",
+                completed_at=ga.completed_at or datetime.now(timezone.utc),
+                xp_earned=ga.xp_awarded,
+            )
+        )
+
+    recent_activities.sort(key=lambda x: x.completed_at, reverse=True)
+    sorted_dates = sorted(list(active_dates), reverse=True)
+
+    return StreakDetailsResponse(
+        current_streak=gam.current_streak,
+        longest_streak=gam.longest_streak,
+        last_activity_date=gam.last_activity_date,
+        is_active_today=is_active_today,
+        today_status_message=today_msg,
+        active_dates_past_14=sorted_dates,
+        contributing_lessons_count=len(completed_lessons),
+        contributing_quizzes_count=len(completed_quizzes),
+        recent_activities=recent_activities[:15],
+    )
+
+
+def get_xp_summary(db: Session, student_id: int) -> XpSummaryResponse:
+    """Return detailed XP statistics, weekly/daily breakdown, and gamification log history."""
+    gam = get_or_create_user_gamification(db, student_id)
+    level_info = calculate_level(gam.total_xp)
+
+    today = date.today()
+    today_start = datetime.combine(today, datetime.min.time(), tzinfo=timezone.utc)
+    monday = today - timedelta(days=today.weekday())
+    week_start = datetime.combine(monday, datetime.min.time(), tzinfo=timezone.utc)
+
+    xp_today = db.scalar(
+        select(func.coalesce(func.sum(GamificationLog.xp_earned), 0)).where(
+            GamificationLog.user_id == student_id,
+            GamificationLog.created_at >= today_start,
+        )
+    ) or 0
+
+    xp_this_week = db.scalar(
+        select(func.coalesce(func.sum(GamificationLog.xp_earned), 0)).where(
+            GamificationLog.user_id == student_id,
+            GamificationLog.created_at >= week_start,
+        )
+    ) or 0
+
+    logs = list(
+        db.scalars(
+            select(GamificationLog)
+            .where(GamificationLog.user_id == student_id)
+            .order_by(GamificationLog.created_at.desc())
+            .limit(30)
+        ).all()
+    )
+
+    xp_remaining = max(0, level_info.xp_required_for_next_level - level_info.xp_into_level)
+
+    return XpSummaryResponse(
+        total_xp=gam.total_xp,
+        current_level=level_info.current_level,
+        xp_earned_today=int(xp_today),
+        xp_earned_this_week=int(xp_this_week),
+        xp_into_level=level_info.xp_into_level,
+        xp_required_for_next_level=level_info.xp_required_for_next_level,
+        xp_remaining_to_next_level=xp_remaining,
+        progress_percentage=level_info.progress_percentage,
+        recent_history=[GamificationActivityLogResponse.model_validate(log) for log in logs],
+    )
+
+
+def get_level_details(db: Session, student_id: int) -> LevelDetailsResponse:
+    """Return full level progression roadmap with current standing and thresholds."""
+    gam = get_or_create_user_gamification(db, student_id)
+    level_info = calculate_level(gam.total_xp)
+
+    max_display_level = max(6, level_info.current_level + 2)
+    timeline: list[LevelTierItem] = []
+
+    for lvl in range(1, max_display_level + 1):
+        timeline.append(
+            LevelTierItem(
+                level=lvl,
+                title=LEVEL_TITLES.get(lvl, f"Level {lvl} Scholar"),
+                xp_threshold=_get_level_threshold(lvl),
+                is_unlocked=(lvl <= level_info.current_level),
+                is_current=(lvl == level_info.current_level),
+            )
+        )
+
+    xp_remaining = max(0, level_info.xp_required_for_next_level - level_info.xp_into_level)
+
+    return LevelDetailsResponse(
+        current_level=level_info.current_level,
+        total_xp=gam.total_xp,
+        xp_into_level=level_info.xp_into_level,
+        xp_required_for_next_level=level_info.xp_required_for_next_level,
+        xp_remaining_to_next_level=xp_remaining,
+        progress_percentage=level_info.progress_percentage,
+        next_level=level_info.current_level + 1,
+        levels_timeline=timeline,
+    )
+
+
+def get_monthly_activity(
+    db: Session,
+    student_id: int,
+    year: int | None = None,
+    month: int | None = None,
+) -> MonthlyActivityResponse:
+    """Return calendar activity for a specific student, year, and month."""
+    today = date.today()
+    if year is None:
+        year = today.year
+    if month is None:
+        month = today.month
+
+    # Clamp/validate month
+    month = max(1, min(12, int(month)))
+    year = int(year)
+
+    num_days = calendar.monthrange(year, month)[1]
+    start_date = date(year, month, 1)
+    end_date = date(year, month, num_days)
+    start_dt = datetime.combine(start_date, time.min, tzinfo=timezone.utc)
+    end_dt = datetime.combine(end_date, time.max, tzinfo=timezone.utc)
+
+    # 1. Completed lessons
+    completed_lessons = (
+        db.execute(
+            select(LessonProgress, Lesson, Module, Course)
+            .join(Lesson, LessonProgress.lesson_id == Lesson.id)
+            .join(Module, Lesson.module_id == Module.id)
+            .join(Course, Module.course_id == Course.id)
+            .where(
+                LessonProgress.student_id == student_id,
+                LessonProgress.completed.is_(True),
+                LessonProgress.completed_at >= start_dt,
+                LessonProgress.completed_at <= end_dt,
+            )
+        )
+        .all()
+    )
+
+    # 2. Completed quizzes
+    completed_quizzes = (
+        db.execute(
+            select(QuizAttempt, Quiz, Course)
+            .join(Quiz, QuizAttempt.quiz_id == Quiz.id)
+            .join(Lesson, Quiz.lesson_id == Lesson.id)
+            .join(Module, Lesson.module_id == Module.id)
+            .join(Course, Module.course_id == Course.id)
+            .where(
+                QuizAttempt.student_id == student_id,
+                QuizAttempt.completed_at.is_not(None),
+                QuizAttempt.completed_at >= start_dt,
+                QuizAttempt.completed_at <= end_dt,
+            )
+        )
+        .all()
+    )
+
+    # 3. Completed minigames
+    completed_games = list(
+        db.scalars(
+            select(GameAttempt).where(
+                GameAttempt.user_id == student_id,
+                GameAttempt.completed_at.is_not(None),
+                GameAttempt.completed_at >= start_dt,
+                GameAttempt.completed_at <= end_dt,
+            )
+        ).all()
+    )
+
+    # 4. XP logs
+    xp_logs = list(
+        db.scalars(
+            select(GamificationLog).where(
+                GamificationLog.user_id == student_id,
+                GamificationLog.created_at >= start_dt,
+                GamificationLog.created_at <= end_dt,
+            )
+        ).all()
+    )
+
+    day_summaries: dict[str, dict] = {}
+
+    def _get_day(d: date) -> dict:
+        key = d.strftime("%Y-%m-%d")
+        if key not in day_summaries:
+            day_summaries[key] = {
+                "date": d,
+                "activity_count": 0,
+                "xp_earned": 0,
+                "lessons_completed": 0,
+                "quizzes_completed": 0,
+                "games_completed": 0,
+                "events": [],
+            }
+        return day_summaries[key]
+
+    for lp, lesson, _module, course in completed_lessons:
+        d = lp.completed_at.date() if lp.completed_at else start_date
+        day_dict = _get_day(d)
+        day_dict["activity_count"] += 1
+        day_dict["lessons_completed"] += 1
+        day_dict["events"].append(
+            DayActivityEvent(
+                id=f"lesson-{lp.id}",
+                activity_type="LESSON",
+                title=lesson.title,
+                course_title=course.title,
+                xp_earned=50,
+                completed_at=lp.completed_at,
+            )
+        )
+
+    for qa, quiz, course in completed_quizzes:
+        d = qa.completed_at.date() if qa.completed_at else start_date
+        day_dict = _get_day(d)
+        day_dict["activity_count"] += 1
+        day_dict["quizzes_completed"] += 1
+        day_dict["events"].append(
+            DayActivityEvent(
+                id=f"quiz-{qa.id}",
+                activity_type="QUIZ",
+                title=quiz.title,
+                course_title=course.title,
+                xp_earned=75,
+                completed_at=qa.completed_at,
+            )
+        )
+
+    for ga in completed_games:
+        d = ga.completed_at.date() if ga.completed_at else start_date
+        day_dict = _get_day(d)
+        day_dict["activity_count"] += 1
+        day_dict["games_completed"] += 1
+        day_dict["events"].append(
+            DayActivityEvent(
+                id=f"game-{ga.id}",
+                activity_type="GAME",
+                title=ga.game_id.replace("_", " ").title(),
+                course_title="Play & Learn",
+                xp_earned=ga.xp_awarded or 0,
+                completed_at=ga.completed_at,
+            )
+        )
+
+    for log in xp_logs:
+        d = log.created_at.date() if log.created_at else start_date
+        day_dict = _get_day(d)
+        day_dict["xp_earned"] += log.xp_earned
+        if log.event_type not in ("LESSON_COMPLETED", "QUIZ_PASSED", "GAME_COMPLETED"):
+            day_dict["activity_count"] += 1
+            day_dict["events"].append(
+                DayActivityEvent(
+                    id=f"log-{log.id}",
+                    activity_type="XP",
+                    title=log.description or "XP Earned",
+                    xp_earned=log.xp_earned,
+                    completed_at=log.created_at,
+                )
+            )
+
+    # Also synchronize with user's streak activity if in visible month
+    gam = get_or_create_user_gamification(db, student_id)
+    if gam.last_activity_date and start_date <= gam.last_activity_date <= end_date:
+        d = gam.last_activity_date
+        day_dict = _get_day(d)
+        if day_dict["activity_count"] == 0:
+            day_dict["activity_count"] = 1
+
+    # If user has an active streak spanning into this month
+    if gam.last_activity_date and gam.current_streak > 0:
+        for streak_offset in range(gam.current_streak):
+            streak_d = gam.last_activity_date - timedelta(days=streak_offset)
+            if start_date <= streak_d <= end_date:
+                day_dict = _get_day(streak_d)
+                if day_dict["activity_count"] == 0:
+                    day_dict["activity_count"] = 1
+
+    # Sort active dates
+    active_dates = sorted(
+        [v["date"] for v in day_summaries.values() if v["activity_count"] > 0 or v["xp_earned"] > 0]
+    )
+
+    days_formatted = {
+        k: DayActivitySummary(**v) for k, v in day_summaries.items()
+    }
+
+    return MonthlyActivityResponse(
+        year=year,
+        month=month,
+        active_dates=active_dates,
+        days=days_formatted,
+    )
+

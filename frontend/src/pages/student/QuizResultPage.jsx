@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
+import { CheckCircle2, XCircle, HelpCircle } from 'lucide-react'
 import { getApiErrorMessage } from '../../services/api.js'
 import { getAttemptDetail } from '../../services/quizService.js'
 import StateMessage from '../../components/StateMessage.jsx'
+import NeoMetricCard from '../../components/NeoMetricCard.jsx'
 
 export default function QuizResultPage() {
   const { attemptId } = useParams()
@@ -55,108 +57,129 @@ export default function QuizResultPage() {
   const backToLesson = courseId && lessonId ? `/courses/${courseId}/lessons/${lessonId}` : null
 
   return (
-    <section className="space-y-8">
+    <div className="space-y-5 md:space-y-6 w-full pb-8">
       {backToLesson ? (
         <Link
           to={backToLesson}
-          className="inline-block text-sm font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]"
+          className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase text-[#F16524] hover:text-[#241A16] transition-colors"
         >
           ← Back to lesson
         </Link>
       ) : (
         <Link
           to="/student"
-          className="inline-block text-sm font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]"
+          className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase text-[#F16524] hover:text-[#241A16] transition-colors"
         >
           ← Back to My Learning
         </Link>
       )}
 
-      <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 shadow-xs">
+      {/* Summary Score Card */}
+      <div className="ks-neo-card p-6 sm:p-8">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <span className="ks-eyebrow">Quiz Evaluation</span>
-            <h1 className="ks-card-title">{result.quiz_title}</h1>
-            <p className="mt-1 text-sm text-[var(--ks-text-muted)]">
-              {passed ? 'Quiz passed' : 'Quiz not passed'} —{' '}
-              {result.completed_at ? 'completed' : 'in progress'}
-            </p>
+            <div className="flex items-center gap-2">
+              <span className="ks-page-eyebrow">QUIZ EVALUATION</span>
+              <span className="w-1.5 h-1.5 bg-[#F16524]" />
+            </div>
+            <h1 className="ks-page-title mt-1">{result.quiz_title}</h1>
+            <div className="mt-2 flex items-center gap-2">
+              <span
+                className={`rounded-[4px] border border-[#241A16] px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase ${
+                  passed ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                }`}
+              >
+                {passed ? 'PASSED (≥ 60%)' : 'NEEDS PRACTICE'}
+              </span>
+              <span className="text-xs font-mono text-neutral-500">
+                • {result.completed_at ? 'Completed' : 'In Progress'}
+              </span>
+            </div>
           </div>
           <div className="text-right">
             <p
-              className={`text-4xl font-bold tracking-tight ${
-                passed ? 'text-emerald-600' : 'text-rose-600'
+              className={`ks-metric-number text-4xl sm:text-5xl font-normal tracking-tight ${
+                passed ? 'text-emerald-700' : 'text-rose-700'
               }`}
             >
               {result.percentage}%
             </p>
-            <p className="mt-1 text-sm text-[var(--ks-text-muted)]">
+            <p className="mt-1 text-xs font-mono text-neutral-500">
               {result.score} / {result.total_points} points
             </p>
           </div>
         </div>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          <div className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-bg-soft)] p-4 text-center">
-            <p className="text-2xl font-bold text-emerald-600">{correctCount}</p>
-            <p className="mt-1 text-xs text-[var(--ks-text-muted)]">Correct</p>
-          </div>
-          <div className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-bg-soft)] p-4 text-center">
-            <p className="text-2xl font-bold text-rose-600">{incorrectCount}</p>
-            <p className="mt-1 text-xs text-[var(--ks-text-muted)]">Incorrect</p>
-          </div>
-          <div className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-bg-soft)] p-4 text-center">
-            <p className="text-2xl font-bold text-[var(--ks-text)]">{result.answers.length}</p>
-            <p className="mt-1 text-xs text-[var(--ks-text-muted)]">Total questions</p>
-          </div>
+        <div className="mt-6 grid gap-3 sm:grid-cols-3">
+          <NeoMetricCard
+            label="Correct"
+            value={correctCount}
+            icon={CheckCircle2}
+            iconColor="text-emerald-700"
+            valueColor="text-emerald-700"
+            hint="Accurate answers"
+          />
+          <NeoMetricCard
+            label="Incorrect"
+            value={incorrectCount}
+            icon={XCircle}
+            iconColor="text-rose-700"
+            valueColor="text-rose-700"
+            hint="Missed answers"
+          />
+          <NeoMetricCard
+            label="Total Questions"
+            value={result.answers.length}
+            icon={HelpCircle}
+            valueColor="text-[#241A16]"
+            hint="Quiz length"
+          />
         </div>
       </div>
 
-      <div className="space-y-4">
+      {/* Answer Breakdown */}
+      <div className="space-y-3">
+        <h2 className="ks-section-title">Question Review</h2>
         {result.answers.map((answer, index) => (
           <div
             key={answer.id}
-            className={`rounded-xl border p-5 ${
-              answer.is_correct
-                ? 'border-emerald-500/40 bg-emerald-500/5'
-                : 'border-rose-500/40 bg-rose-500/5'
-            }`}
+            className="rounded-[8px] border-[1.5px] border-[#241A16] bg-white p-5 shadow-[2px_2px_0_#241A16] space-y-2"
           >
             <div className="flex items-start justify-between gap-4">
-              <p className="text-sm font-medium text-[var(--ks-text)]">
-                <span className="text-[var(--ks-text-muted)]">Q{index + 1}.</span> {answer.question_text}
+              <p className="ks-card-title text-sm sm:text-base text-[#241A16]">
+                <span className="text-neutral-400 font-mono text-xs mr-1.5">Q{index + 1}.</span> {answer.question_text}
               </p>
               <span
-                className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                className={`shrink-0 rounded-[4px] border border-[#241A16] px-2 py-0.5 font-mono text-[10px] font-bold uppercase ${
                   answer.is_correct
-                    ? 'bg-emerald-500/15 text-emerald-700'
-                    : 'bg-rose-500/15 text-rose-700'
+                    ? 'bg-emerald-100 text-emerald-800'
+                    : 'bg-rose-100 text-rose-800'
                 }`}
               >
                 {answer.is_correct ? 'Correct' : 'Incorrect'}
               </span>
             </div>
-            <p className="mt-3 text-sm text-[var(--ks-text)]">
+            <p className="text-xs text-neutral-700">
               Your answer:{' '}
-              <span className="font-medium">{answer.selected_option_text ?? 'Not answered'}</span>
+              <span className="font-semibold text-[#241A16]">{answer.selected_option_text ?? 'Not answered'}</span>
             </p>
             {!answer.is_correct && answer.correct_option_text && (
-              <p className="mt-1 text-sm font-medium text-emerald-600">
-                Correct answer: <span className="font-semibold">{answer.correct_option_text}</span>
+              <p className="text-xs font-medium text-emerald-700">
+                Correct answer: <span className="font-bold">{answer.correct_option_text}</span>
               </p>
             )}
-            <p className="mt-1 text-xs text-[var(--ks-text-muted)]">
+            <p className="pt-1 text-[11px] font-mono text-neutral-500 border-t border-[rgba(36,26,22,0.1)]">
               +{answer.points_earned} point{answer.points_earned !== 1 && 's'}
             </p>
           </div>
         ))}
       </div>
 
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3 pt-2">
         {backToLesson && (
           <Link
             to={backToLesson}
-            className="inline-block rounded-lg bg-[var(--ks-orange)] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--ks-orange-light)]"
+            className="ks-neo-btn-primary px-5 py-2.5 text-xs"
           >
             Return to Lesson
           </Link>
@@ -164,12 +187,12 @@ export default function QuizResultPage() {
         {result.quiz_id && (
           <Link
             to={`/student/quiz/${result.quiz_id}?courseId=${courseId || ''}&lessonId=${lessonId || ''}`}
-            className="inline-block rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-5 py-2.5 text-sm font-semibold text-[var(--ks-text)] transition hover:border-[var(--ks-orange)]/50"
+            className="ks-neo-btn-secondary px-5 py-2.5 text-xs"
           >
             Retake Quiz
           </Link>
         )}
       </div>
-    </section>
+    </div>
   )
 }

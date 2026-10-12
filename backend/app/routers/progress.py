@@ -31,6 +31,8 @@ def get_lesson_progress(
 
 
 @router.put("/lessons/{lesson_id}", response_model=LessonProgressResponse)
+@router.patch("/lessons/{lesson_id}", response_model=LessonProgressResponse)
+
 def update_lesson_progress(
     lesson_id: int,
     payload: LessonProgressUpdate,

@@ -8,7 +8,7 @@ import { getApiErrorMessage } from '../services/api.js'
 import examsPreparation from '../assets/exams-preparation.json'
 
 export default function LoginPage() {
-  const { login } = useAuth()
+  const { user, isAuthenticated, login, loginWithGoogle } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -25,18 +25,49 @@ export default function LoginPage() {
     }
   }, [location.state])
 
+  // Redirect automatically when authenticated (including after Google OAuth callback)
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      if (
+        user.approval_status === 'PENDING' ||
+        (user.requested_role === 'INSTRUCTOR' && user.approval_status !== 'APPROVED')
+      ) {
+        navigate('/pending-approval', { replace: true })
+      } else {
+        navigate(roleHomePath(user.role), { replace: true })
+      }
+    }
+  }, [isAuthenticated, user, navigate])
+
   async function handleSubmit(event) {
     event.preventDefault()
     setError('')
     setInfo('')
     setIsSubmitting(true)
     try {
-      const user = await login({ email, password })
-      navigate(roleHomePath(user.role), { replace: true })
+      const loggedUser = await login({ email, password })
+      if (
+        loggedUser?.approval_status === 'PENDING' ||
+        (loggedUser?.requested_role === 'INSTRUCTOR' && loggedUser?.approval_status !== 'APPROVED')
+      ) {
+        navigate('/pending-approval', { replace: true })
+      } else {
+        navigate(roleHomePath(loggedUser?.role), { replace: true })
+      }
     } catch (err) {
       setError(getApiErrorMessage(err))
     } finally {
       setIsSubmitting(false)
+    }
+  }
+
+  async function handleGoogleSignIn() {
+    setError('')
+    setInfo('')
+    try {
+      await loginWithGoogle()
+    } catch (err) {
+      setError(err.message || 'Failed to start Google sign-in.')
     }
   }
 
@@ -142,16 +173,16 @@ export default function LoginPage() {
             </div>
 
             {info && (
-              <div className="ks-alert ks-alert--success mt-4 mb-2" role="status">
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-[var(--ks-success)]" />
-                <span className="text-xs sm:text-sm font-medium">{info}</span>
+              <div className="mt-4 mb-2 flex items-start gap-2.5 rounded-xl border border-[rgba(34,197,94,0.25)] bg-[#F0FDF4] p-3 text-xs sm:text-sm text-[#14532D]" role="status">
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600 mt-0.5" />
+                <span className="font-medium">{info}</span>
               </div>
             )}
 
             {error && (
-              <div className="ks-alert ks-alert--error mt-4 mb-2" role="alert">
-                <AlertCircle className="h-4 w-4 shrink-0 text-[var(--ks-error)]" />
-                <span className="text-xs sm:text-sm font-medium">{error}</span>
+              <div className="mt-4 mb-2 flex items-start gap-2.5 rounded-xl border border-[rgba(184,58,32,0.25)] bg-[#FDF0ED] p-3 text-xs sm:text-sm text-[#B83A20]" role="alert">
+                <AlertCircle className="h-4 w-4 shrink-0 text-[var(--ks-error)] mt-0.5" />
+                <span className="font-medium">{error}</span>
               </div>
             )}
 
@@ -216,7 +247,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3 px-4 rounded-xl bg-[#F16524] hover:bg-[#D95318] text-white font-semibold text-sm transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#F16524] focus:ring-offset-2 flex items-center justify-center"
+                className="w-full py-3 px-4 rounded-xl bg-[#F16524] hover:bg-[#D95318] text-white font-semibold text-sm transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#F16524] focus:ring-offset-2 flex items-center justify-center cursor-pointer disabled:opacity-60"
               >
                 {isSubmitting ? (
                   <>
@@ -258,8 +289,8 @@ export default function LoginPage() {
             {/* Google Sign In Option */}
             <button
               type="button"
-              onClick={() => setInfo('Google authentication is coming soon. Please sign in with your email and password.')}
-              className="w-full py-2.5 px-4 rounded-xl border border-[rgba(90,55,30,0.16)] bg-white hover:bg-[var(--ks-bg-soft)] text-xs sm:text-sm font-medium text-[#241A16] transition-colors flex items-center justify-center gap-2.5 shadow-xs"
+              onClick={handleGoogleSignIn}
+              className="w-full py-2.5 px-4 rounded-xl border border-[rgba(90,55,30,0.16)] bg-white hover:bg-[var(--ks-bg-soft)] text-xs sm:text-sm font-medium text-[#241A16] transition-colors flex items-center justify-center gap-2.5 shadow-xs cursor-pointer"
             >
               <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
                 <path

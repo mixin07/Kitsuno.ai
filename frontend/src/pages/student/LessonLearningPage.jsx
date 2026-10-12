@@ -244,37 +244,37 @@ export default function LessonLearningPage() {
   const ytEmbedUrl = getYouTubeEmbedUrl(currentLesson.video_url)
 
   return (
-    <div className="flex flex-col gap-6 lg:flex-row">
+    <div className="flex flex-col gap-6 lg:flex-row pb-8">
       {/* LEFT COLUMN: COURSE CONTENT SIDEBAR */}
       <aside
         className={`${
           sidebarOpen ? 'block' : 'hidden'
         } w-full lg:block lg:w-80 shrink-0 space-y-4`}
       >
-        <div className="sticky top-20 rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-4 shadow-xs">
+        <div className="sticky top-20 rounded-[8px] border-[1.5px] border-[#241A16] bg-white p-4 shadow-[2.5px_2.5px_0_#241A16]">
           {/* Header & Course Progress */}
-          <div className="border-b border-[var(--ks-border)] pb-4">
+          <div className="border-b border-[rgba(36,26,22,0.12)] pb-4">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--ks-text-subtle)]">
+              <span className="ks-eyebrow text-[10px]">
                 Course Content
               </span>
               <button
                 type="button"
                 onClick={() => setSidebarOpen(false)}
-                className="lg:hidden text-xs text-[var(--ks-text-muted)] hover:text-[var(--ks-text)]"
+                className="lg:hidden text-xs font-mono font-bold text-neutral-500 hover:text-[#241A16]"
               >
                 Hide
               </button>
             </div>
-            <h2 className="mt-1 text-sm font-bold text-[var(--ks-text)] line-clamp-1">
+            <h2 className="mt-1 ks-card-title text-base sm:text-lg text-[#241A16] line-clamp-1">
               {course.title}
             </h2>
             <div className="mt-3 space-y-1.5">
-              <div className="flex items-center justify-between text-xs font-semibold">
-                <span className="text-[var(--ks-text-muted)]">
+              <div className="flex items-center justify-between text-xs font-mono font-semibold">
+                <span className="text-neutral-500">
                   {courseProgress?.completed_lessons || 0} / {courseProgress?.total_lessons || lessonList.length} completed
                 </span>
-                <span className="text-[var(--ks-orange)]">
+                <span className="text-[#F16524] font-bold">
                   {courseProgress?.progress || 0}%
                 </span>
               </div>
@@ -289,11 +289,11 @@ export default function LessonLearningPage() {
 
               return (
                 <div key={module.id} className="space-y-1">
-                  <div className="flex items-center justify-between px-2 py-1 text-xs font-bold text-[var(--ks-text-muted)] uppercase tracking-wider">
+                  <div className="flex items-center justify-between px-2 py-1 text-xs font-mono font-bold text-[#241A16] uppercase tracking-wider">
                     <span className="truncate">
                       {module.order_number}. {module.title}
                     </span>
-                    <span className="text-[10px] font-normal text-[var(--ks-text-subtle)] shrink-0 ml-1">
+                    <span className="text-[10px] font-mono font-bold text-neutral-500 shrink-0 ml-1">
                       {moduleCompletedCount}/{lessons.length}
                     </span>
                   </div>
@@ -307,20 +307,20 @@ export default function LessonLearningPage() {
                           key={lesson.id}
                           type="button"
                           onClick={() => navigate(`/courses/${courseId}/lessons/${lesson.id}`)}
-                          className={`flex w-full items-center justify-between gap-2 rounded-lg px-2.5 py-2 text-left text-xs transition-colors ${
+                          className={`flex w-full items-center justify-between gap-2 rounded px-2.5 py-2 text-left text-xs transition-colors cursor-pointer ${
                             isCurrent
-                              ? 'bg-[rgba(241,101,36,0.12)] text-[var(--ks-orange)] font-semibold border-l-2 border-[var(--ks-orange)]'
-                              : 'text-[var(--ks-text-muted)] hover:bg-[var(--ks-surface-soft)] hover:text-[var(--ks-text)]'
+                              ? 'bg-[#F16524]/10 text-[#F16524] font-bold border-[1.5px] border-[#241A16] shadow-[1px_1px_0_#241A16]'
+                              : 'text-neutral-700 hover:bg-[#FAF8F5] border border-transparent hover:border-[rgba(36,26,22,0.18)]'
                           }`}
                         >
                           <div className="flex items-center gap-2 min-w-0">
                             <span
-                              className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${
+                              className={`flex h-4 w-4 shrink-0 items-center justify-center rounded text-[10px] font-bold ${
                                 isDone
-                                  ? 'bg-emerald-500 text-white'
+                                  ? 'bg-emerald-600 text-white'
                                   : isCurrent
-                                  ? 'bg-[var(--ks-orange)] text-white'
-                                  : 'border border-[var(--ks-border)] text-transparent'
+                                  ? 'bg-[#F16524] text-white'
+                                  : 'border border-[rgba(36,26,22,0.25)] text-transparent'
                               }`}
                             >
                               {isDone ? '✓' : '•'}
@@ -330,7 +330,7 @@ export default function LessonLearningPage() {
                             </span>
                           </div>
                           {lesson.duration_minutes != null && (
-                            <span className="text-[10px] opacity-75 shrink-0">
+                            <span className="text-[10px] font-mono text-neutral-500 shrink-0">
                               {lesson.duration_minutes}m
                             </span>
                           )}
@@ -348,10 +348,10 @@ export default function LessonLearningPage() {
       {/* RIGHT COLUMN: MAIN LESSON WORKSPACE */}
       <main className="flex-1 space-y-6 min-w-0">
         {/* Top Header & Breadcrumb */}
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b-[1.5px] border-[#241A16]">
           <Link
             to={`/courses/${courseId}`}
-            className="inline-flex items-center gap-1 text-sm font-medium text-[var(--ks-orange)] hover:text-[var(--ks-deep)]"
+            className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#F16524] hover:text-[#241A16] transition-colors"
           >
             ← Back to course
           </Link>
@@ -360,7 +360,7 @@ export default function LessonLearningPage() {
             <button
               type="button"
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden text-xs font-semibold text-[var(--ks-orange)] border border-[var(--ks-orange)]/30 bg-[var(--ks-orange)]/10 px-3 py-1 rounded-md"
+              className="lg:hidden text-xs font-mono font-bold uppercase tracking-wider text-[#F16524] border-[1.5px] border-[#241A16] bg-[#F16524]/10 px-3 py-1 rounded-[6px]"
             >
               Show Curriculum Sidebar
             </button>
@@ -373,16 +373,17 @@ export default function LessonLearningPage() {
             <span className="ks-eyebrow">
               {currentModule ? `MODULE ${currentModule.order_number}: ${currentModule.title.toUpperCase()}` : 'LESSON'}
             </span>
-            <span className="text-xs text-[var(--ks-text-muted)]">• Lesson {curIndex + 1} of {lessonList.length}</span>
+            <span className="w-1.5 h-1.5 bg-[#F16524]" />
+            <span className="text-xs font-mono text-neutral-500">Lesson {curIndex + 1} of {lessonList.length}</span>
             {currentLesson.duration_minutes != null && (
-              <span className="rounded-full border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--ks-text-muted)]">
+              <span className="rounded-[4px] border border-[#241A16] bg-white px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-[#241A16]">
                 ⏱ {currentLesson.duration_minutes} min
               </span>
             )}
           </div>
           <h1 className="ks-page-title mt-1.5">{currentLesson.title}</h1>
           {currentLesson.description && (
-            <p className="mt-2 text-sm leading-relaxed text-[var(--ks-text-muted)]">
+            <p className="mt-2 text-sm sm:text-base leading-relaxed text-neutral-700">
               {currentLesson.description}
             </p>
           )}
@@ -393,20 +394,20 @@ export default function LessonLearningPage() {
               type="button"
               onClick={handleToggleComplete}
               disabled={isBusy}
-              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+              className={`inline-flex items-center gap-1.5 rounded-[6px] border-[1.5px] border-[#241A16] px-3.5 py-1.5 text-xs font-mono font-bold uppercase tracking-wider transition shadow-[1.5px_1.5px_0_#241A16] cursor-pointer ${
                 completed
-                  ? 'border border-emerald-500/40 bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20'
-                  : 'border border-[var(--ks-border)] bg-[var(--ks-surface)] text-[var(--ks-text)] hover:border-[var(--ks-orange)]/50 hover:text-[var(--ks-orange)]'
+                  ? 'bg-emerald-50 text-emerald-800'
+                  : 'ks-neo-btn-primary'
               }`}
             >
               {completed ? (
                 <>
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-700" />
                   <span>✓ Completed</span>
                 </>
               ) : (
                 <>
-                  <span className="h-2 w-2 rounded-full bg-[var(--ks-orange)]" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-white" />
                   <span>Start Lesson →</span>
                 </>
               )}
@@ -416,15 +417,15 @@ export default function LessonLearningPage() {
               type="button"
               onClick={handleToggleSaveLesson}
               disabled={isSavingLesson}
-              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+              className={`inline-flex items-center gap-1.5 rounded-[6px] border-[1.5px] border-[#241A16] px-3.5 py-1.5 text-xs font-mono font-bold uppercase tracking-wider transition shadow-[1.5px_1.5px_0_#241A16] cursor-pointer ${
                 isLessonSaved
-                  ? 'border border-[var(--ks-orange)]/40 bg-[rgba(241,101,36,0.1)] text-[var(--ks-orange)] hover:bg-[rgba(241,101,36,0.18)]'
-                  : 'border border-[var(--ks-border)] bg-[var(--ks-surface)] text-[var(--ks-text-muted)] hover:border-[var(--ks-border-focus)] hover:text-[var(--ks-text)]'
+                  ? 'bg-[#FFF2E6] text-[#F16524]'
+                  : 'bg-white text-[#241A16] hover:bg-[#FAF8F5]'
               }`}
             >
               {isLessonSaved ? (
                 <>
-                  <BookmarkCheck className="h-3.5 w-3.5 text-[var(--ks-orange)]" />
+                  <BookmarkCheck className="h-3.5 w-3.5 text-[#F16524]" />
                   <span>✓ Saved</span>
                 </>
               ) : (
@@ -439,7 +440,7 @@ export default function LessonLearningPage() {
 
         {/* Video Player Section */}
         {ytEmbedUrl ? (
-          <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-[var(--ks-border)] bg-black shadow-xs">
+          <div className="relative aspect-video w-full overflow-hidden rounded-[8px] border-[1.5px] border-[#241A16] bg-black shadow-[2.5px_2.5px_0_#241A16]">
             <iframe
               src={ytEmbedUrl}
               title={currentLesson.title}
@@ -454,7 +455,7 @@ export default function LessonLearningPage() {
             controls
             preload="auto"
             src={currentLesson.video_url}
-            className="w-full rounded-xl border border-[var(--ks-border)] bg-black shadow-xs"
+            className="w-full rounded-[8px] border-[1.5px] border-[#241A16] bg-black shadow-[2.5px_2.5px_0_#241A16]"
             onLoadedMetadata={(event) => {
               const position = Number(lessonProgress?.last_position) || 0
               if (position > 0) {
@@ -470,23 +471,23 @@ export default function LessonLearningPage() {
             onEnded={handleVideoEnded}
           />
         ) : (
-          <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 text-center text-sm text-[var(--ks-text-muted)]">
+          <div className="rounded-[8px] border-[1.5px] border-[#241A16] bg-white p-6 text-center text-xs font-mono text-neutral-500 shadow-[2px_2px_0_#241A16]">
             No video playback available for this lesson.
           </div>
         )}
 
         {/* Documentation / External Resource Card */}
         {currentLesson.resource_url && (
-          <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-4 shadow-xs">
+          <div className="ks-neo-card p-4 flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[rgba(241,101,36,0.1)] text-base">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[6px] border-[1.5px] border-[#241A16] bg-[#F16524]/10 text-base shadow-[1px_1px_0_#241A16]">
                 📄
               </span>
               <div>
-                <h4 className="text-sm font-semibold text-[var(--ks-text)]">
+                <h4 className="ks-card-title text-base text-[#241A16]">
                   Lesson Documentation & Reference
                 </h4>
-                <p className="text-xs text-[var(--ks-text-muted)]">
+                <p className="text-xs text-neutral-600">
                   Official MDN Web Docs / Technical Reference Guide
                 </p>
               </div>
@@ -495,7 +496,7 @@ export default function LessonLearningPage() {
               href={currentLesson.resource_url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--ks-orange)]/40 bg-[var(--ks-orange)]/10 px-4 py-2 text-xs font-semibold text-[var(--ks-orange)] transition hover:bg-[var(--ks-orange)] hover:text-white"
+              className="ks-neo-btn-secondary px-3.5 py-1.5 text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center gap-1.5"
             >
               <span>Open Resource</span>
               <span>↗</span>
@@ -505,23 +506,23 @@ export default function LessonLearningPage() {
 
         {/* Lesson Text Content */}
         {currentLesson.content && (
-          <div className="whitespace-pre-wrap rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 text-sm leading-relaxed text-[var(--ks-text)] shadow-xs">
+          <div className="ks-neo-card p-5 whitespace-pre-wrap text-sm sm:text-base leading-relaxed text-neutral-800">
             {currentLesson.content}
           </div>
         )}
 
         {/* Lesson Quiz Banner */}
         {currentLesson.quiz_id && (
-          <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-[var(--ks-orange)]/30 bg-[var(--ks-orange)]/5 p-5">
+          <div className="ks-neo-card p-5 flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h3 className="ks-panel-title">Lesson Quiz</h3>
-              <p className="mt-1 text-sm text-[var(--ks-text-muted)]">
+              <h3 className="ks-card-title text-lg sm:text-xl text-[#241A16]">Lesson Quiz</h3>
+              <p className="mt-1 text-xs sm:text-sm text-neutral-600">
                 Test your understanding of this lesson with a quick quiz.
               </p>
             </div>
             <Link
               to={`/student/quiz/${currentLesson.quiz_id}?courseId=${courseId}&lessonId=${lessonId}`}
-              className="rounded-lg bg-[var(--ks-orange)] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--ks-orange-light)]"
+              className="ks-neo-btn-primary px-5 py-2 text-xs font-mono font-bold uppercase tracking-wider"
             >
               Take Quiz →
             </Link>
@@ -529,51 +530,52 @@ export default function LessonLearningPage() {
         )}
 
         {/* AI STUDY TOOLS TABBED SUITE */}
-        <div className="space-y-4 pt-2 border-t border-[var(--ks-border)]">
+        <div className="space-y-4 pt-2 border-t border-[rgba(36,26,22,0.12)]">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--ks-orange)]">
+              <span className="ks-eyebrow">
                 AI STUDY TOOLS
               </span>
+              <span className="w-1.5 h-1.5 bg-[#F16524]" />
             </div>
 
-            <div className="flex items-center gap-1 rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-1">
+            <div className="flex items-center gap-1 rounded-[6px] border-[1.5px] border-[#241A16] bg-[#FAF8F5] p-1 shadow-[1.5px_1.5px_0_#241A16]">
               <button
                 type="button"
                 onClick={() => setActiveAiTab('summary')}
-                className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition ${
+                className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-mono font-bold uppercase tracking-wider transition cursor-pointer ${
                   activeAiTab === 'summary'
-                    ? 'bg-[var(--ks-surface)] text-[var(--ks-orange)] shadow-xs border border-[var(--ks-border)]'
-                    : 'text-[var(--ks-text-muted)] hover:text-[var(--ks-text)]'
+                    ? 'bg-white text-[#241A16] border-[1.5px] border-[#241A16] shadow-[1px_1px_0_#241A16]'
+                    : 'text-neutral-600 hover:text-[#241A16]'
                 }`}
               >
-                <Sparkles className="h-3.5 w-3.5 text-[var(--ks-orange)]" />
+                <Sparkles className="h-3.5 w-3.5 text-[#F16524]" />
                 <span>Summary</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setActiveAiTab('notes')}
-                className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition ${
+                className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-mono font-bold uppercase tracking-wider transition cursor-pointer ${
                   activeAiTab === 'notes'
-                    ? 'bg-[var(--ks-surface)] text-[var(--ks-orange)] shadow-xs border border-[var(--ks-border)]'
-                    : 'text-[var(--ks-text-muted)] hover:text-[var(--ks-text)]'
+                    ? 'bg-white text-[#241A16] border-[1.5px] border-[#241A16] shadow-[1px_1px_0_#241A16]'
+                    : 'text-neutral-600 hover:text-[#241A16]'
                 }`}
               >
-                <FileText className="h-3.5 w-3.5 text-[var(--ks-orange)]" />
+                <FileText className="h-3.5 w-3.5 text-[#F16524]" />
                 <span>Study Notes</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setActiveAiTab('assistant')}
-                className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition ${
+                className={`flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-mono font-bold uppercase tracking-wider transition cursor-pointer ${
                   activeAiTab === 'assistant'
-                    ? 'bg-[var(--ks-surface)] text-[var(--ks-orange)] shadow-xs border border-[var(--ks-border)]'
-                    : 'text-[var(--ks-text-muted)] hover:text-[var(--ks-text)]'
+                    ? 'bg-white text-[#241A16] border-[1.5px] border-[#241A16] shadow-[1px_1px_0_#241A16]'
+                    : 'text-neutral-600 hover:text-[#241A16]'
                 }`}
               >
-                <Bot className="h-3.5 w-3.5 text-[var(--ks-orange)]" />
+                <Bot className="h-3.5 w-3.5 text-[#F16524]" />
                 <span>Ask AI</span>
               </button>
             </div>
@@ -606,22 +608,22 @@ export default function LessonLearningPage() {
 
         {/* Course Completion Banner */}
         {courseProgress?.completed && (
-          <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-6 text-center shadow-xs space-y-2">
+          <div className="ks-neo-card p-6 text-center space-y-2">
             <span className="text-3xl">🎉</span>
-            <h3 className="text-lg font-bold text-emerald-800">Course Completed!</h3>
-            <p className="text-sm text-[var(--ks-text-muted)] max-w-md mx-auto">
+            <h3 className="ks-card-title text-xl text-emerald-800">Course Completed!</h3>
+            <p className="text-xs sm:text-sm text-neutral-600 max-w-md mx-auto">
               You've completed all {lessonList.length} lessons in {course.title}. Your learning journey is complete!
             </p>
             <div className="pt-2 flex justify-center gap-3">
               <Link
                 to={`/courses/${courseId}`}
-                className="rounded-lg bg-[var(--ks-orange)] px-4 py-2 text-xs font-semibold text-white hover:bg-[var(--ks-orange-light)]"
+                className="ks-neo-btn-primary px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider"
               >
                 Review Course
               </Link>
               <Link
                 to="/courses"
-                className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 py-2 text-xs font-medium text-[var(--ks-text)] hover:border-[var(--ks-orange)]/40"
+                className="ks-neo-btn-secondary px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider"
               >
                 Back to Courses
               </Link>
@@ -631,22 +633,22 @@ export default function LessonLearningPage() {
 
         {/* Lesson Completed — Up Next Recommendation Banner */}
         {completed && nextLesson && !courseProgress?.completed && (
-          <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 flex flex-wrap items-center justify-between gap-3 shadow-xs">
+          <div className="ks-neo-card p-4 flex flex-wrap items-center justify-between gap-3">
             <div className="space-y-0.5">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-700 uppercase tracking-wider">
+              <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold text-emerald-700 uppercase tracking-wider">
                 <span>✓ LESSON COMPLETE</span>
               </div>
-              <p className="text-sm font-semibold text-[var(--ks-text)]">
+              <p className="ks-card-title text-base text-[#241A16]">
                 Up next: {nextLesson.title}
               </p>
-              <p className="text-xs text-[var(--ks-text-muted)]">
+              <p className="text-xs text-neutral-600">
                 Continue your learning path.
               </p>
             </div>
             <button
               type="button"
               onClick={() => navigate(`/courses/${courseId}/lessons/${nextLesson.id}`)}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--ks-orange)] bg-[var(--ks-orange)] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[var(--ks-orange-light)]"
+              className="ks-neo-btn-primary px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center gap-1.5"
             >
               <span>Next Lesson</span>
               <span>→</span>
@@ -655,13 +657,13 @@ export default function LessonLearningPage() {
         )}
 
         {/* Bottom Control Bar (Previous, Next, Mark Complete) */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[var(--ks-border)] pt-6">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[rgba(36,26,22,0.12)] pt-6">
           <div className="flex gap-3">
             <button
               type="button"
               disabled={!prevLesson}
               onClick={() => prevLesson && navigate(`/courses/${courseId}/lessons/${prevLesson.id}`)}
-              className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 py-2.5 text-sm font-medium text-[var(--ks-text)] transition hover:border-[var(--ks-orange)]/50 hover:bg-[var(--ks-bg-soft)] disabled:cursor-not-allowed disabled:opacity-40"
+              className="ks-neo-btn-secondary px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider disabled:cursor-not-allowed disabled:opacity-40"
             >
               ← Previous Lesson
             </button>
@@ -669,7 +671,7 @@ export default function LessonLearningPage() {
               type="button"
               disabled={!nextLesson}
               onClick={() => nextLesson && navigate(`/courses/${courseId}/lessons/${nextLesson.id}`)}
-              className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 py-2.5 text-sm font-medium text-[var(--ks-text)] transition hover:border-[var(--ks-orange)]/50 hover:bg-[var(--ks-bg-soft)] disabled:cursor-not-allowed disabled:opacity-40"
+              className="ks-neo-btn-secondary px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider disabled:cursor-not-allowed disabled:opacity-40"
             >
               Next Lesson →
             </button>
@@ -679,10 +681,10 @@ export default function LessonLearningPage() {
             type="button"
             onClick={handleToggleComplete}
             disabled={isBusy}
-            className={`rounded-lg px-5 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${
+            className={`text-xs font-mono font-bold uppercase tracking-wider transition disabled:cursor-not-allowed disabled:opacity-50 ${
               completed
-                ? 'border border-emerald-500/50 bg-emerald-500/10 text-emerald-600 font-semibold hover:bg-emerald-500/20'
-                : 'bg-[var(--ks-orange)] text-white hover:bg-[var(--ks-orange-light)]'
+                ? 'rounded border border-[#241A16] bg-emerald-50 px-5 py-2.5 text-emerald-800 shadow-[1px_1px_0_#241A16]'
+                : 'ks-neo-btn-primary px-5 py-2.5'
             }`}
           >
             {completed ? '✓ Completed — Mark Incomplete' : 'Mark Complete →'}

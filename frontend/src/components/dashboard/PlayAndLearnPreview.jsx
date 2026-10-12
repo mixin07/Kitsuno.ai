@@ -46,60 +46,72 @@ export default function PlayAndLearnPreview() {
   ]
 
   return (
-    <div className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 space-y-4 shadow-xs">
-      <div className="flex items-center justify-between pb-3 border-b border-[var(--ks-border)]">
-        <div>
-          <div className="flex items-center gap-1.5">
-            <span className="font-bold text-sm">🎮</span>
-            <h2 className="ks-section-title font-serif text-lg">
-              Play &amp; Learn
-            </h2>
+    <div className="ks-neo-card-static p-4 sm:p-5 flex flex-col justify-between space-y-3 h-full">
+      <div>
+        <div className="flex items-start justify-between gap-3 pb-3 border-b-[1.5px] border-[#241A16]">
+          <div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#F16524]">
+                CONCEPT REINFORCEMENT
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#F16524]" />
+            </div>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className="text-base">🎮</span>
+              <h3 className="ks-card-title text-xl md:text-2xl font-serif text-[#241A16] font-normal leading-tight">
+                Play &amp; Learn
+              </h3>
+            </div>
           </div>
-          <p className="text-[11px] text-[var(--ks-text-muted)]">
-            Interactive educational games for concept reinforcement
-          </p>
+          <Link
+            to="/student/play"
+            className="text-xs font-bold text-[#F16524] hover:underline inline-flex items-center gap-1 shrink-0"
+          >
+            <span>All Games</span>
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
-        <Link
-          to="/student/play"
-          className="inline-flex items-center gap-1 text-[11px] font-semibold text-[var(--ks-orange)] hover:text-[var(--ks-orange-hover)] transition-colors"
-        >
-          <span>View All Games</span>
-          <ArrowRight className="h-3 w-3" />
-        </Link>
+
+        <p className="mt-2.5 text-xs text-[var(--ks-text-muted)] leading-relaxed font-normal">
+          Reinforce web development concepts through rapid quiz sprints, memory card pairs, and code syntax challenges.
+        </p>
       </div>
 
-      <div className="flex gap-3 overflow-x-auto pb-2 pt-0.5 scrollbar-thin scroll-smooth -mx-1 px-1">
-        {games.map((game) => {
-          const Icon = game.icon
-          return (
-            <Link
-              key={game.id}
-              to={`/student/play/${game.id}`}
-              className="group relative rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] p-3.5 space-y-2.5 hover:border-[var(--ks-orange)]/60 hover:bg-[var(--ks-surface)] transition-all block min-w-[145px] max-w-[165px] shrink-0 shadow-2xs hover:shadow-xs"
-            >
-              <div className="flex items-center justify-between">
-                <div className={`p-2 rounded-lg ${game.color}`}>
-                  <Icon className="h-4 w-4" />
-                </div>
-                <span className="text-[9.5px] font-bold text-emerald-600 bg-emerald-500/10 px-1.5 py-0.5 rounded-full border border-emerald-500/20">
-                  {game.reward}
-                </span>
-              </div>
+      <div className="space-y-1.5 pt-0.5">
+        <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#8F3215] block">
+          MINIGAME CHALLENGES
+        </span>
 
-              <div>
+        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin scroll-smooth -mx-1 px-1">
+          {games.map((game) => {
+            const Icon = game.icon
+            return (
+              <Link
+                key={game.id}
+                to={`/student/play/${game.id}`}
+                className="p-2.5 rounded-[6px] border-[1.5px] border-[#241A16]/25 bg-white hover:border-[#241A16] hover:bg-[#FFF4EB] transition-all space-y-1.5 block min-w-[130px] max-w-[150px] shrink-0"
+              >
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-xs text-[var(--ks-text)] group-hover:text-[var(--ks-orange)] transition-colors truncate">
-                    {game.title}
-                  </h3>
-                  <ArrowRight className="h-3 w-3 text-[var(--ks-text-subtle)] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all shrink-0 ml-1" />
+                  <div className={`p-1.5 rounded-[4px] border-[1.5px] border-[#241A16] ${game.color}`}>
+                    <Icon className="h-3.5 w-3.5" />
+                  </div>
+                  <span className="text-[9.5px] font-bold text-[#241A16] bg-[#FFF2E6] px-1.5 py-0.5 rounded-[4px] border border-[#241A16]/30">
+                    {game.reward}
+                  </span>
                 </div>
-                <p className="text-[10.5px] text-[var(--ks-text-muted)] leading-tight mt-1 line-clamp-1">
-                  {game.subtitle}
-                </p>
-              </div>
-            </Link>
-          )
-        })}
+
+                <div>
+                  <h4 className="font-semibold text-xs text-[#241A16] line-clamp-1">
+                    {game.title}
+                  </h4>
+                  <p className="text-[10px] text-[var(--ks-text-muted)] mt-0.5 line-clamp-1 font-normal">
+                    {game.subtitle}
+                  </p>
+                </div>
+              </Link>
+            )
+          })}
+        </div>
       </div>
     </div>
   )

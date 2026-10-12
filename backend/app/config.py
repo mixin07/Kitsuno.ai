@@ -10,10 +10,13 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/ai_learning_platform"
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174"
 
-    # JWT Configuration
+    # JWT & Supabase Configuration
     jwt_secret_key: str = "change-this-in-development"
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
+    supabase_url: str = "https://kqmjjgupsjspivqnpron.supabase.co"
+    supabase_jwt_secret: str = ""
+    admin_email: str = "jeyavelan68@gmail.com"
 
     # AI Question Generation (backend-only credentials)
     ai_provider: str = "mock"
@@ -32,15 +35,16 @@ class Settings(BaseSettings):
     @property
     def cors_origin_list(self) -> list[str]:
         origins = [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
-        dev_origins = [
-            "http://localhost:5173",
-            "http://127.0.0.1:5173",
-            "http://localhost:5174",
-            "http://127.0.0.1:5174",
-        ]
-        for dev in dev_origins:
-            if dev not in origins:
-                origins.append(dev)
+        if self.environment.lower() != "production":
+            dev_origins = [
+                "http://localhost:5173",
+                "http://127.0.0.1:5173",
+                "http://localhost:5174",
+                "http://127.0.0.1:5174",
+            ]
+            for dev in dev_origins:
+                if dev not in origins:
+                    origins.append(dev)
         return origins
 
 

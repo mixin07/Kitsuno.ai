@@ -11,6 +11,17 @@ import {
 } from 'recharts'
 import ProgressBar from '../../components/learning/ProgressBar.jsx'
 import StateMessage from '../../components/StateMessage.jsx'
+import NeoMetricCard from '../../components/NeoMetricCard.jsx'
+import {
+  Users,
+  CheckCircle2,
+  TrendingUp,
+  Award,
+  BookOpen,
+  Sparkles,
+  Activity,
+  ShieldCheck,
+} from 'lucide-react'
 import { getApiErrorMessage } from '../../services/api.js'
 import {
   getInstructorCourseAnalytics,
@@ -26,11 +37,13 @@ const ACTIVITY_LABELS = Object.freeze({
 })
 
 const CHART_TOOLTIP_STYLE = {
-  backgroundColor: '#FFFDF9',
-  border: '1px solid rgba(90, 55, 30, 0.16)',
-  borderRadius: '0.75rem',
-  boxShadow: '0 4px 20px -2px rgba(90, 55, 30, 0.08)',
+  backgroundColor: '#FFFFFF',
+  border: '1.5px solid #241A16',
+  borderRadius: '6px',
+  boxShadow: '2px 2px 0 #241A16',
   color: '#241A16',
+  fontSize: '12px',
+  fontWeight: '600',
 }
 
 function formatPercent(value) {
@@ -61,19 +74,22 @@ function formatDateTime(value) {
   return date.toLocaleString()
 }
 
-function StatCard({ label, value, hint }) {
+function StatCard({ label, value, hint, icon, iconColor, valueColor }) {
   return (
-    <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 shadow-xs">
-      <p className="text-xs font-semibold uppercase tracking-wider text-[var(--ks-text-muted)]">{label}</p>
-      <p className="mt-2 text-3xl font-bold text-[var(--ks-text)]">{value}</p>
-      {hint && <p className="mt-1 text-xs text-[var(--ks-text-muted)]">{hint}</p>}
-    </div>
+    <NeoMetricCard
+      label={label}
+      value={value}
+      hint={hint}
+      icon={icon}
+      iconColor={iconColor}
+      valueColor={valueColor}
+    />
   )
 }
 
 function SectionCard({ children, className = '' }) {
   return (
-    <div className={`rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] shadow-xs ${className}`}>
+    <div className={`ks-neo-card rounded-[8px] border-2 border-[#241A16] bg-white shadow-[3px_3px_0_#241A16] md:shadow-[4px_4px_0_#241A16] ${className}`}>
       {children}
     </div>
   )
@@ -83,7 +99,7 @@ function SectionHeading({ title, subtitle }) {
   return (
     <div>
       <h2 className="ks-section-title">{title}</h2>
-      {subtitle && <p className="mt-1 text-sm text-[var(--ks-text-muted)]">{subtitle}</p>}
+      {subtitle && <p className="ks-muted mt-1">{subtitle}</p>}
     </div>
   )
 }
@@ -124,7 +140,13 @@ function CourseProgressSection({ progress }) {
           </div>
         </SectionCard>
         <div className="flex flex-col gap-4">
-          <StatCard label="Average Progress" value={formatPercent(progress.average_progress)} />
+          <StatCard
+            label="Average Progress"
+            value={formatPercent(progress.average_progress)}
+            icon={TrendingUp}
+            iconColor="text-[#F16524]"
+            valueColor="text-[#F16524]"
+          />
           <SectionCard className="flex flex-1 flex-col justify-center gap-2 p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-[var(--ks-text-muted)]">
               Range &amp; Completion
@@ -166,9 +188,9 @@ function LessonAnalyticsSection({ lessons }) {
         title="Lesson Analytics"
         subtitle="Which lessons students start and complete."
       />
-      <div className="overflow-x-auto rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] shadow-xs">
+      <div className="overflow-x-auto rounded-[8px] border-2 border-[#241A16] bg-white shadow-[3px_3px_0_#241A16] md:shadow-[4px_4px_0_#241A16]">
         <table className="w-full text-left text-sm">
-          <thead className="border-b border-[var(--ks-border)] bg-[var(--ks-bg-soft)] text-xs uppercase tracking-wider text-[var(--ks-text-muted)]">
+          <thead className="border-b-2 border-[#241A16] bg-[#FAF8F5] text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500">
             <tr>
               <th className="px-5 py-3 font-semibold">Lesson</th>
               <th className="px-5 py-3 font-semibold">Started</th>
@@ -176,9 +198,9 @@ function LessonAnalyticsSection({ lessons }) {
               <th className="px-5 py-3 font-semibold">Completion %</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[var(--ks-border)]">
+          <tbody className="divide-y divide-[rgba(36,26,22,0.12)]">
             {lessons.map((lesson) => (
-              <tr key={lesson.lesson_id} className="text-[var(--ks-text)] hover:bg-[var(--ks-bg-soft)]/50 transition-colors">
+              <tr key={lesson.lesson_id} className="text-[#241A16] hover:bg-[#FAF8F5]/80 transition-colors">
                 <td className="px-5 py-3">
                   <span className="font-semibold text-[var(--ks-text)]">{lesson.lesson_title}</span>
                   <span className="ml-2 text-xs text-[var(--ks-text-muted)]">{lesson.module_title}</span>
@@ -246,9 +268,9 @@ function QuizAnalyticsSection({ quizzes }) {
           </ResponsiveContainer>
         </div>
       </SectionCard>
-      <div className="overflow-x-auto rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] shadow-xs">
+      <div className="overflow-x-auto rounded-[8px] border-2 border-[#241A16] bg-white shadow-[3px_3px_0_#241A16] md:shadow-[4px_4px_0_#241A16]">
         <table className="w-full text-left text-sm">
-          <thead className="border-b border-[var(--ks-border)] bg-[var(--ks-bg-soft)] text-xs uppercase tracking-wider text-[var(--ks-text-muted)]">
+          <thead className="border-b-2 border-[#241A16] bg-[#FAF8F5] text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500">
             <tr>
               <th className="px-5 py-3 font-semibold">Quiz</th>
               <th className="px-5 py-3 font-semibold">Attempts</th>
@@ -259,9 +281,9 @@ function QuizAnalyticsSection({ quizzes }) {
               <th className="px-5 py-3 font-semibold">Completion Rate</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[var(--ks-border)]">
+          <tbody className="divide-y divide-[rgba(36,26,22,0.12)]">
             {quizzes.map((quiz) => (
-              <tr key={quiz.quiz_id} className="text-[var(--ks-text)] hover:bg-[var(--ks-bg-soft)]/50 transition-colors">
+              <tr key={quiz.quiz_id} className="text-[#241A16] hover:bg-[#FAF8F5]/80 transition-colors">
                 <td className="px-5 py-3 font-semibold text-[var(--ks-text)]">{quiz.quiz_title}</td>
                 <td className="px-5 py-3">{quiz.total_attempts}</td>
                 <td className="px-5 py-3">{quiz.unique_students}</td>
@@ -321,9 +343,9 @@ function StudentPerformanceSection({ students }) {
         title="Student Performance"
         subtitle="Progress and quiz results for enrolled students."
       />
-      <div className="overflow-x-auto rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] shadow-xs">
+      <div className="overflow-x-auto rounded-[8px] border-2 border-[#241A16] bg-white shadow-[3px_3px_0_#241A16] md:shadow-[4px_4px_0_#241A16]">
         <table className="w-full text-left text-sm">
-          <thead className="border-b border-[var(--ks-border)] bg-[var(--ks-bg-soft)] text-xs uppercase tracking-wider text-[var(--ks-text-muted)]">
+          <thead className="border-b-2 border-[#241A16] bg-[#FAF8F5] text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500">
             <tr>
               <th className={`px-5 py-3 font-semibold ${sortableHeaderClass}`} onClick={() => toggleSort('student_name')}>
                 Student
@@ -340,38 +362,38 @@ function StudentPerformanceSection({ students }) {
               <th className="px-5 py-3 font-semibold">Last Activity</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[var(--ks-border)]">
+          <tbody className="divide-y divide-[rgba(36,26,22,0.12)]">
             {sorted.map((student) => (
-              <tr key={student.student_id} className="text-[var(--ks-text)] hover:bg-[var(--ks-bg-soft)]/50 transition-colors">
+              <tr key={student.student_id} className="text-[#241A16] hover:bg-[#FAF8F5]/80 transition-colors">
                 <td className="px-5 py-3">
-                  <span className="font-semibold text-[var(--ks-text)]">{student.student_name}</span>
-                  <span className="block text-xs text-[var(--ks-text-muted)]">{student.student_email}</span>
+                  <span className="font-semibold text-[#241A16]">{student.student_name}</span>
+                  <span className="block text-xs font-mono text-neutral-500">{student.student_email}</span>
                 </td>
                 <td className="px-5 py-3">
                   <div className="flex items-center gap-3">
                     <div className="w-20">
                       <ProgressBar value={student.course_progress} />
                     </div>
-                    <span className="text-xs">{formatPercent(student.course_progress)}</span>
+                    <span className="text-xs font-mono">{formatPercent(student.course_progress)}</span>
                   </div>
                 </td>
-                <td className="px-5 py-3">
+                <td className="px-5 py-3 font-mono">
                   {student.lessons_completed}/{student.total_lessons}
                 </td>
-                <td className="px-5 py-3">{student.quiz_attempts}</td>
-                <td className="px-5 py-3">{formatScore(student.average_quiz_score)}</td>
+                <td className="px-5 py-3 font-mono">{student.quiz_attempts}</td>
+                <td className="px-5 py-3 font-mono font-semibold">{formatScore(student.average_quiz_score)}</td>
                 <td className="px-5 py-3">
                   {student.completed ? (
-                    <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-semibold text-emerald-600">
+                    <span className="rounded-[4px] border border-[#241A16] bg-emerald-50 px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase text-emerald-800">
                       Completed
                     </span>
                   ) : (
-                    <span className="rounded-full border border-[var(--ks-border)] bg-[var(--ks-bg-soft)] px-2.5 py-0.5 text-xs font-medium text-[var(--ks-text-muted)]">
+                    <span className="rounded-[4px] border border-[#241A16] bg-[#FAF8F5] px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase text-neutral-600">
                       In progress
                     </span>
                   )}
                 </td>
-                <td className="px-5 py-3 text-[var(--ks-text-muted)]">{formatDate(student.last_activity)}</td>
+                <td className="px-5 py-3 text-xs font-mono text-neutral-500">{formatDate(student.last_activity)}</td>
               </tr>
             ))}
           </tbody>
@@ -396,18 +418,18 @@ function RecentActivitySection({ activity }) {
         title="Recent Activity"
         subtitle="Latest events from students in this course."
       />
-      <div className="divide-y divide-[var(--ks-border)] rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] shadow-xs">
+      <div className="divide-y divide-[rgba(36,26,22,0.12)] rounded-[8px] border-2 border-[#241A16] bg-white shadow-[3px_3px_0_#241A16] md:shadow-[4px_4px_0_#241A16]">
         {activity.map((event, index) => (
           <div key={`${event.event_type}-${event.timestamp}-${index}`} className="flex flex-wrap items-center justify-between gap-3 px-5 py-3.5">
             <div className="flex min-w-0 flex-wrap items-center gap-3">
-              <span className="shrink-0 rounded-full border border-[var(--ks-orange)]/30 bg-[var(--ks-orange)]/10 px-2.5 py-0.5 text-xs font-semibold text-[var(--ks-orange)]">
+              <span className="shrink-0 rounded-[4px] border border-[#241A16] bg-[#FFF2E6] px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase text-[#F16524]">
                 {ACTIVITY_LABELS[event.event_type] || event.event_type}
               </span>
-              <span className="min-w-0 truncate text-sm text-[var(--ks-text)]">{event.description}</span>
+              <span className="min-w-0 truncate text-xs sm:text-sm font-medium text-[#241A16]">{event.description}</span>
             </div>
             <div className="flex shrink-0 items-center gap-4">
-              <span className="text-sm font-semibold text-[var(--ks-text)]">{event.student_name}</span>
-              <span className="text-xs text-[var(--ks-text-muted)]">{formatDateTime(event.timestamp)}</span>
+              <span className="text-xs font-semibold text-[#241A16]">{event.student_name}</span>
+              <span className="text-xs font-mono text-neutral-500">{formatDateTime(event.timestamp)}</span>
             </div>
           </div>
         ))}
@@ -519,26 +541,26 @@ export default function InstructorAnalyticsPage() {
   const activity = analytics?.recent_activity || []
 
   return (
-    <section className="space-y-8">
-      <div>
-        <p className="ks-eyebrow mb-2 text-[var(--ks-orange)]">
-          Instructor
-        </p>
-        <h1 className="ks-page-title">Instructor Analytics</h1>
-        <p className="mt-2 text-[var(--ks-text-muted)]">
+    <section className="space-y-5 md:space-y-6 w-full pb-8">
+      <div className="pb-4 border-b-2 border-[#241A16]">
+        <span className="ks-eyebrow block">
+          INSTRUCTOR STUDIO
+        </span>
+        <h1 className="ks-page-title mt-0.5">Instructor Analytics</h1>
+        <p className="ks-muted mt-1">
           Track enrollment, engagement, and performance across your courses.
         </p>
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <label htmlFor="course-select" className="text-sm font-medium text-[var(--ks-text-muted)]">
+        <label htmlFor="course-select" className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-500">
           Select Course
         </label>
         <select
           id="course-select"
           value={selectedCourseId ?? ''}
           onChange={(event) => setSelectedCourseId(Number(event.target.value))}
-          className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 py-2 text-sm text-[var(--ks-text)] shadow-xs focus:border-[var(--ks-orange)] focus:outline-none"
+          className="rounded-[6px] border-2 border-[#241A16] bg-white px-3.5 py-2 text-xs font-semibold text-[#241A16] shadow-[2px_2px_0_#241A16] focus:border-[#F16524] outline-none"
         >
           {summaries.map((course) => (
             <option key={course.course_id} value={course.course_id}>
@@ -568,20 +590,15 @@ export default function InstructorAnalyticsPage() {
               Enroll students to start seeing enrollment, progress, and quiz analytics.
             </StateMessage>
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <StatCard label="Enrolled Students" value={summary?.total_enrolled ?? 0} />
-              <StatCard label="Completed Students" value={summary?.completed_students ?? 0} />
-              <StatCard label="Average Progress" value={formatPercent(summary?.average_progress)} />
-              <StatCard label="Completion Rate" value={formatPercent(summary?.completion_rate)} />
-              <StatCard label="Total Lessons" value={summary?.total_lessons ?? 0} />
-              <StatCard label="Quiz Attempts" value={summary?.total_quiz_attempts ?? 0} />
-              <StatCard label="Average Quiz Score" value={formatScore(summary?.average_quiz_score)} />
-              <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 shadow-xs">
-                <p className="text-xs font-semibold uppercase tracking-wider text-[var(--ks-text-muted)]">
-                  Active Students
-                </p>
-                <p className="mt-2 text-3xl font-bold text-[var(--ks-text)]">{summary?.active_students ?? 0}</p>
-              </div>
+            <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <StatCard label="Enrolled Students" value={summary?.total_enrolled ?? 0} icon={Users} />
+              <StatCard label="Completed Students" value={summary?.completed_students ?? 0} icon={CheckCircle2} iconColor="text-emerald-700" valueColor="text-emerald-700" />
+              <StatCard label="Average Progress" value={formatPercent(summary?.average_progress)} icon={TrendingUp} />
+              <StatCard label="Completion Rate" value={formatPercent(summary?.completion_rate)} icon={Award} iconColor="text-emerald-700" valueColor="text-emerald-700" />
+              <StatCard label="Total Lessons" value={summary?.total_lessons ?? 0} icon={BookOpen} />
+              <StatCard label="Quiz Attempts" value={summary?.total_quiz_attempts ?? 0} icon={Sparkles} iconColor="text-[#F16524]" valueColor="text-[#F16524]" />
+              <StatCard label="Average Quiz Score" value={formatScore(summary?.average_quiz_score)} icon={ShieldCheck} />
+              <StatCard label="Active Students" value={summary?.active_students ?? 0} icon={Activity} />
             </div>
           )}
 

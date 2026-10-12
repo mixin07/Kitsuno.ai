@@ -10,6 +10,19 @@ import {
 } from 'recharts'
 import ProgressBar from '../../components/learning/ProgressBar.jsx'
 import StateMessage from '../../components/StateMessage.jsx'
+import NeoMetricCard from '../../components/NeoMetricCard.jsx'
+import {
+  Users,
+  GraduationCap,
+  UserCheck,
+  ShieldCheck,
+  BookOpen,
+  Layers,
+  CheckCircle2,
+  Sparkles,
+  TrendingUp,
+  Award,
+} from 'lucide-react'
 import { getApiErrorMessage } from '../../services/api.js'
 import { getAdminAnalytics } from '../../services/adminAnalyticsService.js'
 
@@ -22,11 +35,13 @@ const ACTIVITY_LABELS = Object.freeze({
 })
 
 const CHART_TOOLTIP_STYLE = {
-  backgroundColor: '#FFFDF9',
-  border: '1px solid rgba(90, 55, 30, 0.16)',
-  borderRadius: '0.75rem',
-  boxShadow: '0 4px 20px -2px rgba(90, 55, 30, 0.08)',
+  backgroundColor: '#FFFFFF',
+  border: '1.5px solid #241A16',
+  borderRadius: '6px',
+  boxShadow: '2px 2px 0 #241A16',
   color: '#241A16',
+  fontSize: '12px',
+  fontWeight: '600',
 }
 
 function formatPercent(value) {
@@ -46,19 +61,24 @@ function formatDateTime(value) {
   return date.toLocaleString()
 }
 
-function StatCard({ label, value, hint }) {
+function StatCard({ label, value, hint, icon, iconColor, valueColor, children }) {
   return (
-    <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 shadow-xs">
-      <p className="text-xs font-semibold uppercase tracking-wider text-[var(--ks-text-muted)]">{label}</p>
-      <p className="mt-2 text-3xl font-bold text-[var(--ks-text)]">{value}</p>
-      {hint && <p className="mt-1 text-xs text-[var(--ks-text-muted)]">{hint}</p>}
-    </div>
+    <NeoMetricCard
+      label={label}
+      value={value}
+      hint={hint}
+      icon={icon}
+      iconColor={iconColor}
+      valueColor={valueColor}
+    >
+      {children}
+    </NeoMetricCard>
   )
 }
 
 function SectionCard({ children, className = '' }) {
   return (
-    <div className={`rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] shadow-xs ${className}`}>
+    <div className={`ks-neo-card bg-white rounded-[8px] border-2 border-[#241A16] shadow-[3px_3px_0_#241A16] md:shadow-[4px_4px_0_#241A16] ${className}`}>
       {children}
     </div>
   )
@@ -68,7 +88,7 @@ function SectionHeading({ title, subtitle }) {
   return (
     <div>
       <h2 className="ks-section-title">{title}</h2>
-      {subtitle && <p className="mt-1 text-sm text-[var(--ks-text-muted)]">{subtitle}</p>}
+      {subtitle && <p className="ks-muted mt-1">{subtitle}</p>}
     </div>
   )
 }
@@ -174,72 +194,72 @@ function CourseTableSection({ courses }) {
         title="Course Overview"
         subtitle="Enrollment, progress, and quiz performance for every course."
       />
-      <div className="overflow-x-auto rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] shadow-xs">
-        <table className="w-full text-left text-sm">
-          <thead className="border-b border-[var(--ks-border)] bg-[var(--ks-bg-soft)] text-xs uppercase tracking-wider text-[var(--ks-text-muted)]">
+      <div className="overflow-x-auto rounded-[8px] border-2 border-[#241A16] bg-white shadow-[3px_3px_0_#241A16] md:shadow-[4px_4px_0_#241A16]">
+        <table className="w-full text-left text-xs">
+          <thead className="border-b-2 border-[#241A16] bg-[#FAF8F5] text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500">
             <tr>
-              <th className={`px-5 py-3 font-semibold ${sortableHeaderClass}`} onClick={() => toggleSort('course_title')}>
+              <th className={`px-4 py-3 ${sortableHeaderClass}`} onClick={() => toggleSort('course_title')}>
                 Course
               </th>
-              <th className={`px-5 py-3 font-semibold ${sortableHeaderClass}`} onClick={() => toggleSort('instructor_name')}>
+              <th className={`px-4 py-3 ${sortableHeaderClass}`} onClick={() => toggleSort('instructor_name')}>
                 Instructor
               </th>
-              <th className={`px-5 py-3 font-semibold ${sortableHeaderClass}`} onClick={() => toggleSort('published')}>
+              <th className={`px-4 py-3 ${sortableHeaderClass}`} onClick={() => toggleSort('published')}>
                 Status
               </th>
-              <th className={`px-5 py-3 font-semibold ${sortableHeaderClass}`} onClick={() => toggleSort('enrollment_count')}>
+              <th className={`px-4 py-3 ${sortableHeaderClass}`} onClick={() => toggleSort('enrollment_count')}>
                 Enrollments
               </th>
-              <th className={`px-5 py-3 font-semibold ${sortableHeaderClass}`} onClick={() => toggleSort('completion_count')}>
+              <th className={`px-4 py-3 ${sortableHeaderClass}`} onClick={() => toggleSort('completion_count')}>
                 Completed
               </th>
-              <th className={`px-5 py-3 font-semibold ${sortableHeaderClass}`} onClick={() => toggleSort('average_progress')}>
+              <th className={`px-4 py-3 ${sortableHeaderClass}`} onClick={() => toggleSort('average_progress')}>
                 Avg Progress
               </th>
-              <th className={`px-5 py-3 font-semibold ${sortableHeaderClass}`} onClick={() => toggleSort('lesson_count')}>
+              <th className={`px-4 py-3 ${sortableHeaderClass}`} onClick={() => toggleSort('lesson_count')}>
                 Lessons
               </th>
-              <th className={`px-5 py-3 font-semibold ${sortableHeaderClass}`} onClick={() => toggleSort('quiz_count')}>
+              <th className={`px-4 py-3 ${sortableHeaderClass}`} onClick={() => toggleSort('quiz_count')}>
                 Quizzes
               </th>
-              <th className={`px-5 py-3 font-semibold ${sortableHeaderClass}`} onClick={() => toggleSort('quiz_attempts')}>
+              <th className={`px-4 py-3 ${sortableHeaderClass}`} onClick={() => toggleSort('quiz_attempts')}>
                 Quiz Attempts
               </th>
-              <th className={`px-5 py-3 font-semibold ${sortableHeaderClass}`} onClick={() => toggleSort('average_quiz_score')}>
+              <th className={`px-4 py-3 ${sortableHeaderClass}`} onClick={() => toggleSort('average_quiz_score')}>
                 Avg Quiz Score
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[var(--ks-border)]">
+          <tbody className="divide-y divide-[#241A16]/15">
             {sorted.map((course) => (
-              <tr key={course.course_id} className="text-[var(--ks-text)] hover:bg-[var(--ks-bg-soft)]/50 transition-colors">
-                <td className="px-5 py-3 font-semibold text-[var(--ks-text)]">{course.course_title}</td>
-                <td className="px-5 py-3">{course.instructor_name}</td>
-                <td className="px-5 py-3">
+              <tr key={course.course_id} className="text-[#241A16] hover:bg-[#FAF8F5] transition-colors">
+                <td className="px-4 py-3 font-bold text-[#241A16]">{course.course_title}</td>
+                <td className="px-4 py-3 text-neutral-700">{course.instructor_name}</td>
+                <td className="px-4 py-3">
                   {course.published ? (
-                    <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-semibold text-emerald-600">
+                    <span className="inline-flex rounded-[4px] border-[1px] border-[#241A16] bg-emerald-100 px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-800">
                       Published
                     </span>
                   ) : (
-                    <span className="rounded-full border border-[var(--ks-border)] bg-[var(--ks-bg-soft)] px-2.5 py-0.5 text-xs font-medium text-[var(--ks-text-muted)]">
-                      Unpublished
+                    <span className="inline-flex rounded-[4px] border-[1px] border-[#241A16] bg-amber-100 px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-amber-800">
+                      Draft
                     </span>
                   )}
                 </td>
-                <td className="px-5 py-3">{course.enrollment_count}</td>
-                <td className="px-5 py-3">{course.completion_count}</td>
-                <td className="px-5 py-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-20">
+                <td className="px-4 py-3 font-mono font-semibold">{course.enrollment_count}</td>
+                <td className="px-4 py-3 font-mono font-semibold">{course.completion_count}</td>
+                <td className="px-4 py-3">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-16">
                       <ProgressBar value={course.average_progress} />
                     </div>
-                    <span className="text-xs">{formatPercent(course.average_progress)}</span>
+                    <span className="text-[11px] font-mono font-semibold">{formatPercent(course.average_progress)}</span>
                   </div>
                 </td>
-                <td className="px-5 py-3">{course.lesson_count}</td>
-                <td className="px-5 py-3">{course.quiz_count}</td>
-                <td className="px-5 py-3">{course.quiz_attempts}</td>
-                <td className="px-5 py-3">{formatScore(course.average_quiz_score)}</td>
+                <td className="px-4 py-3 font-mono font-semibold">{course.lesson_count}</td>
+                <td className="px-4 py-3 font-mono font-semibold">{course.quiz_count}</td>
+                <td className="px-4 py-3 font-mono font-semibold">{course.quiz_attempts}</td>
+                <td className="px-4 py-3 font-mono font-semibold">{formatScore(course.average_quiz_score)}</td>
               </tr>
             ))}
           </tbody>
@@ -264,21 +284,21 @@ function RecentActivitySection({ activity }) {
         title="Recent Activity"
         subtitle="Latest events from students across all courses."
       />
-      <div className="divide-y divide-[var(--ks-border)] rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] shadow-xs">
+      <div className="divide-y divide-[#241A16]/15 rounded-[8px] border-2 border-[#241A16] bg-white shadow-[3px_3px_0_#241A16] md:shadow-[4px_4px_0_#241A16]">
         {activity.map((event, index) => (
           <div
             key={`${event.event_type}-${event.timestamp}-${index}`}
-            className="flex flex-wrap items-center justify-between gap-3 px-5 py-3.5"
+            className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 hover:bg-[#FAF8F5] transition-colors"
           >
             <div className="flex min-w-0 flex-wrap items-center gap-3">
-              <span className="shrink-0 rounded-full border border-[var(--ks-orange)]/30 bg-[var(--ks-orange)]/10 px-2.5 py-0.5 text-xs font-semibold text-[var(--ks-orange)]">
+              <span className="shrink-0 rounded-[4px] border-[1px] border-[#241A16] bg-[#FFF4E6] px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-[#E8590C]">
                 {ACTIVITY_LABELS[event.event_type] || event.event_type}
               </span>
-              <span className="min-w-0 truncate text-sm text-[var(--ks-text)]">{event.description}</span>
+              <span className="min-w-0 truncate text-xs font-medium text-[#241A16]">{event.description}</span>
             </div>
             <div className="flex shrink-0 items-center gap-4">
-              <span className="text-sm font-semibold text-[var(--ks-text)]">{event.student_name}</span>
-              <span className="text-xs text-[var(--ks-text-muted)]">{formatDateTime(event.timestamp)}</span>
+              <span className="text-xs font-bold text-[#241A16]">{event.student_name}</span>
+              <span className="text-[10px] font-mono text-neutral-500">{formatDateTime(event.timestamp)}</span>
             </div>
           </div>
         ))}
@@ -346,48 +366,60 @@ export default function AdminAnalyticsPage() {
     summary?.total_quiz_attempts > 0
 
   return (
-    <section className="space-y-8">
-      <div>
-        <p className="ks-eyebrow mb-2 text-[var(--ks-orange)]">
-          Admin
-        </p>
-        <h1 className="ks-page-title">Platform Analytics</h1>
-        <p className="mt-2 text-[var(--ks-text-muted)]">
+    <section className="space-y-6 md:space-y-8 w-full pb-8">
+      <div className="pb-4 border-b-2 border-[#241A16]">
+        <span className="ks-eyebrow block">ADMINISTRATION CONTROL</span>
+        <h1 className="ks-page-title mt-0.5">Platform Analytics</h1>
+        <p className="ks-muted mt-1">
           A platform-wide view of users, courses, enrollments, and performance.
         </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Total Users" value={summary?.total_users ?? 0} />
-        <StatCard label="Students" value={summary?.total_students ?? 0} />
-        <StatCard label="Instructors" value={summary?.total_instructors ?? 0} />
-        <StatCard label="Admins" value={summary?.total_admins ?? 0} />
+        <StatCard label="Total Users" value={summary?.total_users ?? 0} icon={Users} />
+        <StatCard label="Students" value={summary?.total_students ?? 0} icon={GraduationCap} />
+        <StatCard label="Instructors" value={summary?.total_instructors ?? 0} icon={UserCheck} />
+        <StatCard label="Admins" value={summary?.total_admins ?? 0} icon={ShieldCheck} />
         <StatCard
           label="Courses"
           value={summary?.total_courses ?? 0}
+          icon={BookOpen}
           hint={`${summary?.published_courses ?? 0} published · ${summary?.unpublished_courses ?? 0} unpublished`}
         />
         <StatCard
           label="Enrollments"
           value={summary?.total_enrollments ?? 0}
+          icon={Layers}
           hint={`${summary?.completed_enrollments ?? 0} completed`}
         />
-        <StatCard label="Lessons" value={summary?.total_lessons ?? 0} hint={`${summary?.completed_lessons ?? 0} completed`} />
+        <StatCard
+          label="Lessons"
+          value={summary?.total_lessons ?? 0}
+          icon={CheckCircle2}
+          hint={`${summary?.completed_lessons ?? 0} completed`}
+        />
         <StatCard
           label="Quiz Attempts"
           value={summary?.total_quiz_attempts ?? 0}
+          icon={Sparkles}
+          iconColor="text-[#F16524]"
+          valueColor="text-[#F16524]"
           hint={`${summary?.completed_quiz_attempts ?? 0} completed`}
         />
-        <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 shadow-xs">
-          <p className="text-xs font-semibold uppercase tracking-wider text-[var(--ks-text-muted)]">
-            Overall Course Progress
-          </p>
-          <p className="mt-2 text-3xl font-bold text-[var(--ks-text)]">
-            {formatPercent(summary?.overall_course_progress)}
-          </p>
+        <StatCard
+          label="Overall Course Progress"
+          value={formatPercent(summary?.overall_course_progress)}
+          icon={TrendingUp}
+        >
           <ProgressBar value={summary?.overall_course_progress} className="mt-3" />
-        </div>
-        <StatCard label="Average Quiz Score" value={formatScore(summary?.average_quiz_score)} />
+        </StatCard>
+        <StatCard
+          label="Average Quiz Score"
+          value={formatScore(summary?.average_quiz_score)}
+          icon={Award}
+          iconColor="text-emerald-700"
+          valueColor="text-emerald-700"
+        />
       </div>
 
       {!hasPlatformActivity && courseCountZeroAndEnrollmentsZero(summary) ? (

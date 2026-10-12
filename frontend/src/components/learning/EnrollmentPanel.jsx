@@ -9,11 +9,11 @@ export default function EnrollmentPanel({
 }) {
   if (!enrollment) {
     return (
-      <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 shadow-xs">
+      <div className="ks-neo-card p-5 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 className="ks-panel-title">Access this course</h2>
-            <p className="mt-1 text-sm text-[var(--ks-text-muted)]">
+            <h2 className="ks-card-title text-lg sm:text-xl text-[#241A16]">Access this course</h2>
+            <p className="mt-1 text-xs sm:text-sm text-neutral-600">
               Enroll to track your progress and unlock guided learning.
             </p>
           </div>
@@ -21,7 +21,7 @@ export default function EnrollmentPanel({
             type="button"
             onClick={onEnroll}
             disabled={isBusy}
-            className="rounded-lg bg-[var(--ks-orange)] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--ks-orange-light)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="ks-neo-btn-primary px-5 py-2.5 text-xs font-mono font-bold uppercase tracking-wider disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isBusy ? 'Enrolling…' : 'Start Learning →'}
           </button>
@@ -34,17 +34,17 @@ export default function EnrollmentPanel({
   const isCompleted = progress >= 100
 
   return (
-    <div className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-5 shadow-xs">
+    <div className="ks-neo-card p-5 sm:p-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="min-w-52 flex-1">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <h2 className="ks-panel-title">Your progress</h2>
-            <span className="text-sm font-medium text-[var(--ks-orange)]">
+            <h2 className="ks-card-title text-lg sm:text-xl text-[#241A16]">Your progress</h2>
+            <span className="text-sm font-mono font-bold text-[#F16524]">
               {progress}%
             </span>
           </div>
           <ProgressBar value={progress} className="mt-3" />
-          <p className="mt-2 text-sm text-[var(--ks-text-muted)]">
+          <p className="mt-2 text-xs font-mono text-neutral-600">
             {enrollment.completed_lessons} of {enrollment.total_lessons} lessons completed
           </p>
         </div>
@@ -53,27 +53,27 @@ export default function EnrollmentPanel({
             <button
               type="button"
               onClick={() => onContinue(enrollment.next_lesson.id)}
-              className="rounded-lg bg-[var(--ks-orange)] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--ks-orange-light)]"
+              className="ks-neo-btn-primary px-5 py-2.5 text-xs font-mono font-bold uppercase tracking-wider text-center"
             >
               {progress > 0 ? 'Continue Learning →' : 'Start Learning →'}
             </button>
           ) : isCompleted ? (
             <div className="flex flex-col gap-1.5">
-              <span className="rounded-lg border border-emerald-500/50 bg-emerald-500/10 px-5 py-2 text-center text-sm font-semibold text-emerald-600">
+              <span className="rounded border border-[#241A16] bg-emerald-50 px-5 py-2 text-center text-xs font-mono font-bold uppercase tracking-wider text-emerald-800">
                 Course completed ✓
               </span>
               {enrollment.first_lesson_id && (
                 <button
                   type="button"
                   onClick={() => onContinue(enrollment.first_lesson_id)}
-                  className="rounded-lg border border-[var(--ks-orange)] px-4 py-1.5 text-xs font-semibold text-[var(--ks-orange)] hover:bg-[rgba(241,101,36,0.08)]"
+                  className="ks-neo-btn-secondary px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider"
                 >
                   Review Course →
                 </button>
               )}
             </div>
           ) : (
-            <span className="rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] px-5 py-2.5 text-center text-sm text-[var(--ks-text-muted)]">
+            <span className="rounded border border-[rgba(36,26,22,0.18)] bg-[#FAF8F5] px-5 py-2.5 text-center text-xs font-mono text-neutral-600">
               No lessons available
             </span>
           )}
@@ -82,7 +82,7 @@ export default function EnrollmentPanel({
             type="button"
             onClick={onUnenroll}
             disabled={isBusy}
-            className="text-xs text-[var(--ks-text-muted)] transition hover:text-rose-600 disabled:cursor-not-allowed disabled:opacity-50"
+            className="text-[11px] font-mono text-neutral-500 transition hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50 text-center font-medium"
           >
             Unenroll
           </button>

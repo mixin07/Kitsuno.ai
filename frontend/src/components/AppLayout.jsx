@@ -15,27 +15,41 @@ import {
   Search,
   PanelLeftClose,
   PanelLeftOpen,
-  Target,
   ClipboardCheck,
-  Layers,
-  Trophy,
-  Medal,
-  Award,
-  Flame,
+  CalendarCheck,
+  Bookmark,
   Gamepad2,
   User,
   HelpCircle,
   LogOut,
+  Flame,
+  Zap,
+  Award,
+  UserCheck,
 } from 'lucide-react'
 import { ROLES, roleHomePath } from '../constants/roles.js'
 import { useAuth } from '../hooks/useAuth.js'
 import { getGamificationMe } from '../services/gamificationService.js'
+import StreakDetailsModal from './modals/StreakDetailsModal.jsx'
+import XpRewardsModal from './modals/XpRewardsModal.jsx'
+import LevelProgressModal from './modals/LevelProgressModal.jsx'
+import NotificationsPanel from './modals/NotificationsPanel.jsx'
 
-function isRouteActive(to, pathname) {
+function isRouteActive(to, pathname, currentSearch = '') {
   if (!to || !pathname) return false
 
+  const [toPath, toQuery] = to.split('?')
   const normPath = pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname
-  const normTo = to.length > 1 && to.endsWith('/') ? to.slice(0, -1) : to
+  const normTo = toPath.length > 1 && toPath.endsWith('/') ? toPath.slice(0, -1) : toPath
+
+  // Query parameter match (e.g. /student/learning?tab=saved)
+  if (toQuery) {
+    return normPath === normTo && currentSearch.includes(toQuery)
+  }
+  // If `to` has no query param, but we're on /student/learning?tab=saved, don't mark regular My Learning active
+  if (normTo === '/student/learning' && normPath === '/student/learning' && currentSearch.includes('tab=saved')) {
+    return false
+  }
 
   if (normPath === normTo) return true
   if ((normTo === '/ai-chat' || normTo === '/ai/chat') && (normPath === '/ai-chat' || normPath === '/ai/chat')) return true
@@ -53,8 +67,8 @@ function isRouteActive(to, pathname) {
     return normPath.startsWith('/instructor/courses/') && normPath !== '/instructor/courses/new'
   }
 
-  // 3. /student owns student quiz execution pages /student/quiz/...
-  if (normTo === '/student') {
+  // 3. /student/quizzes owns student quiz execution pages /student/quiz/...
+  if (normTo === '/student/quizzes') {
     return normPath.startsWith('/student/quiz')
   }
 
@@ -63,18 +77,34 @@ function isRouteActive(to, pathname) {
     return normPath.startsWith('/student/play')
   }
 
+  // 5. /student/study-plan owns study plan routes
+  if (normTo === '/student/study-plan') {
+    return normPath.startsWith('/student/study-plan')
+  }
+
+  // 6. Practice & Search routes
+  if (normTo === '/student/mock-exams') {
+    return normPath.startsWith('/student/mock-exams')
+  }
+  if (normTo === '/student/question-bank') {
+    return normPath.startsWith('/student/question-bank')
+  }
+  if (normTo === '/student/ai-search') {
+    return normPath.startsWith('/student/ai-search')
+  }
+
   return false
 }
 
-function SidebarNavItem({ to, icon: Icon, label, currentPath, onClick, badge, collapsed, disabled }) {
-  const active = !disabled && isRouteActive(to, currentPath)
+function SidebarNavItem({ to, icon: Icon, label, currentPath, currentSearch = '', onClick, badge, collapsed, disabled }) {
+  const active = !disabled && isRouteActive(to, currentPath, currentSearch)
 
   if (disabled) {
     return (
       <div className="group relative">
         <div
           className={`relative flex items-center ${
-            collapsed ? 'justify-center px-2 py-1.5' : 'justify-between px-2.5 py-1.5'
+            collapsed ? 'justify-center h-9 w-9 mx-auto' : 'justify-between px-2.5 py-1.5'
           } rounded-lg text-sm font-medium opacity-60 cursor-not-allowed select-none`}
         >
           <div className={`flex items-center ${collapsed ? 'justify-center' : 'gap-2.5 min-w-0'}`}>
@@ -88,7 +118,7 @@ function SidebarNavItem({ to, icon: Icon, label, currentPath, onClick, badge, co
           )}
         </div>
         {collapsed && (
-          <span className="absolute left-full top-1/2 -translate-y-1/2 ml-2.5 rounded-md bg-[#24150F] px-2.5 py-1 text-[11px] font-medium text-white shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap">
+          <span className="absolute left-full top-1/2 -translate-y-1/2 ml-2.5 rounded-[5px] border-[1.5px] border-[#241A16] bg-white px-2.5 py-1 text-[11px] font-semibold text-[#241A16] shadow-[2px_2px_0_#241A16] opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap">
             {label} (Soon)
           </span>
         )}
@@ -102,25 +132,26 @@ function SidebarNavItem({ to, icon: Icon, label, currentPath, onClick, badge, co
         to={to}
         onClick={onClick}
         aria-current={active ? 'page' : undefined}
+        title={collapsed ? label : undefined}
         className={`relative flex items-center ${
-          collapsed ? 'justify-center px-2 py-1.5' : 'justify-between px-2.5 py-1.5'
-        } rounded-lg text-sm transition-all duration-150 ${
+          collapsed ? 'justify-center h-9 w-9 mx-auto' : 'justify-between px-2.5 py-1.5'
+        } rounded-[6px] text-sm transition-all duration-150 ${
           active
-            ? 'bg-white text-[#24150F] font-semibold shadow-xs border border-[#EAD8C7]'
-            : 'text-[#6F625B] hover:bg-black/[0.04] hover:text-[#24150F] font-medium'
+            ? 'bg-white text-[#241A16] font-semibold shadow-[2px_2px_0_#241A16] border-[1.5px] border-[#241A16]'
+            : 'text-[#6F625B] hover:bg-black/[0.04] hover:text-[#241A16] font-medium border border-transparent'
         }`}
       >
         <div className={`flex items-center ${collapsed ? 'justify-center' : 'gap-2.5 min-w-0'}`}>
           {/* Active Indicator: 3px orange vertical pill on left edge */}
           {active && (
             <span
-              className="absolute left-1 top-1/2 -translate-y-1/2 h-3.5 w-1 rounded-full bg-[#F06424]"
+              className="absolute left-1 top-1/2 -translate-y-1/2 h-3.5 w-1 rounded-full bg-[#F16524]"
               aria-hidden="true"
             />
           )}
           <Icon
             className={`h-4 w-4 shrink-0 transition-colors ${
-              active ? 'text-[#F06424]' : 'text-[#8F8177] group-hover:text-[#24150F]'
+              active ? 'text-[#F16524]' : 'text-[#8F8177] group-hover:text-[#241A16]'
             }`}
             strokeWidth={active ? 2.2 : 1.7}
           />
@@ -130,7 +161,7 @@ function SidebarNavItem({ to, icon: Icon, label, currentPath, onClick, badge, co
           <span
             className={`rounded px-1.5 py-0.5 text-[8px] font-bold tracking-wider uppercase ${
               active
-                ? 'bg-[#F06424]/10 text-[#F06424]'
+                ? 'bg-[#F16524]/10 text-[#F16524]'
                 : 'bg-[#EAD8C7]/70 text-[#6F625B]'
             }`}
           >
@@ -141,7 +172,7 @@ function SidebarNavItem({ to, icon: Icon, label, currentPath, onClick, badge, co
 
       {/* Tooltip when collapsed */}
       {collapsed && (
-        <span className="absolute left-full top-1/2 -translate-y-1/2 ml-2.5 rounded-md bg-[#24150F] px-2.5 py-1 text-[11px] font-medium text-white shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap">
+        <span className="absolute left-full top-1/2 -translate-y-1/2 ml-2.5 rounded-[5px] border-[1.5px] border-[#241A16] bg-white px-2.5 py-1 text-[11px] font-semibold text-[#241A16] shadow-[2px_2px_0_#241A16] opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap">
           {label}
         </span>
       )}
@@ -155,7 +186,10 @@ export default function AppLayout({ children }) {
   const location = useLocation()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [notificationsOpen, setNotificationsOpen] = useState(false)
-  const [unreadNotifications, _setUnreadNotifications] = useState(0)
+  const [unreadNotifications, setUnreadNotifications] = useState(0)
+  const [streakModalOpen, setStreakModalOpen] = useState(false)
+  const [xpModalOpen, setXpModalOpen] = useState(false)
+  const [levelModalOpen, setLevelModalOpen] = useState(false)
   const [helpOpen, setHelpOpen] = useState(false)
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false)
   const [leaveModalOpen, setLeaveModalOpen] = useState(false)
@@ -163,6 +197,39 @@ export default function AppLayout({ children }) {
   const profileMenuRef = useRef(null)
   const profileHoverTimeoutRef = useRef(null)
   const [searchQuery, setSearchQuery] = useState('')
+  const searchInputRef = useRef(null)
+
+  // Global listeners for opening detail modals from dashboard cards
+  useEffect(() => {
+    function handleOpenStreak() { setStreakModalOpen(true) }
+    function handleOpenXp() { setXpModalOpen(true) }
+    function handleOpenLevel() { setLevelModalOpen(true) }
+
+    window.addEventListener('open-streak-modal', handleOpenStreak)
+    window.addEventListener('open-xp-modal', handleOpenXp)
+    window.addEventListener('open-level-modal', handleOpenLevel)
+
+    return () => {
+      window.removeEventListener('open-streak-modal', handleOpenStreak)
+      window.removeEventListener('open-xp-modal', handleOpenXp)
+      window.removeEventListener('open-level-modal', handleOpenLevel)
+    }
+  }, [])
+
+  // Cmd+K or Ctrl+K focus search bar shortcut
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault()
+        if (searchInputRef.current) {
+          searchInputRef.current.focus()
+          searchInputRef.current.select()
+        }
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   // Live gamification data for student topbar indicators
   const [gamification, setGamification] = useState(null)
@@ -374,15 +441,15 @@ export default function AppLayout({ children }) {
     )
   }
 
-  const renderSidebar = (isCollapsed) => (
+  const renderSidebar = (isCollapsed, isMobile = false) => (
     <div className="relative z-10 flex h-full flex-col justify-between text-[#24150F]">
       {/* ZONE 1: BRAND HEADER (~56px matching topbar) */}
       {!isCollapsed ? (
-        <div className="flex h-14 shrink-0 items-center px-4 border-b border-[#EAD8C7]">
+        <div className="flex h-14 shrink-0 items-center justify-between px-3.5 border-b-[1.5px] border-[#241A16]">
           <button
             type="button"
             onClick={() => setLeaveModalOpen(true)}
-            className="flex items-center gap-2.5 transition-transform hover:scale-[1.01] focus-visible:outline-none cursor-pointer select-none text-left"
+            className="flex items-center gap-2.5 min-w-0 transition-transform hover:scale-[1.01] focus-visible:outline-none cursor-pointer select-none text-left"
             title="Kitsuno.ai"
           >
             <img
@@ -391,29 +458,47 @@ export default function AppLayout({ children }) {
               className="h-8 w-8 rounded-md object-contain shrink-0"
               draggable="false"
             />
-            <div className="flex items-center leading-none">
-              <span
-                className="font-display text-2xl font-normal tracking-tight text-[#241A16]"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                Kitsuno
-              </span>
-              <span
-                className="font-display text-2xl font-normal tracking-tight text-[#F16524]"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                .ai
+            <div className="flex flex-col justify-center min-w-0 leading-none">
+              <div className="flex items-center leading-none">
+                <span
+                  className="font-display text-[21px] font-normal tracking-tight text-[#241A16]"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  Kitsuno
+                </span>
+                <span
+                  className="font-display text-[21px] font-normal tracking-tight text-[#F16524]"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  .ai
+                </span>
+              </div>
+              <span className="text-[8.5px] font-bold tracking-widest uppercase text-[#8F8177] leading-none mt-1">
+                {isStudent ? 'STUDENT SPACE' : isInstructor ? 'INSTRUCTOR STUDIO' : 'ADMIN CONTROL'}
               </span>
             </div>
           </button>
+
+          {!isMobile && (
+            <button
+              type="button"
+              onClick={toggleSidebarCollapse}
+              className="h-[28px] w-[28px] shrink-0 flex items-center justify-center rounded-[5px] border-[1.5px] border-[#241A16] bg-white text-[#241A16] shadow-[1.5px_1.5px_0_#241A16] hover:bg-[#FFF2E6] hover:text-[#F16524] hover:border-[#F16524] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
+              title="Collapse sidebar"
+              aria-label="Collapse sidebar"
+            >
+              <PanelLeftClose className="h-3.5 w-3.5 stroke-[2]" />
+            </button>
+          )}
         </div>
       ) : (
-        <div className="flex h-14 shrink-0 items-center justify-center px-2.5 border-b border-[#EAD8C7]">
+        <div className="flex h-14 shrink-0 items-center justify-between px-2 border-b-[1.5px] border-[#241A16]">
           <button
             type="button"
             onClick={() => setLeaveModalOpen(true)}
-            className="flex h-8 w-8 items-center justify-center shrink-0 transition-transform hover:scale-105 cursor-pointer"
+            className="flex h-7 w-7 items-center justify-center shrink-0 transition-transform hover:scale-105 cursor-pointer"
             title="Kitsuno.ai"
+            aria-label="Kitsuno.ai"
           >
             <img
               src="/logo1.png"
@@ -421,6 +506,16 @@ export default function AppLayout({ children }) {
               className="h-full w-full object-contain rounded-md"
               draggable="false"
             />
+          </button>
+
+          <button
+            type="button"
+            onClick={toggleSidebarCollapse}
+            className="h-[28px] w-[28px] shrink-0 flex items-center justify-center rounded-[5px] border-[1.5px] border-[#241A16] bg-white text-[#241A16] shadow-[1.5px_1.5px_0_#241A16] hover:bg-[#FFF2E6] hover:text-[#F16524] hover:border-[#F16524] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
+            title="Expand sidebar"
+            aria-label="Expand sidebar"
+          >
+            <PanelLeftOpen className="h-3.5 w-3.5 stroke-[2]" />
           </button>
         </div>
       )}
@@ -430,7 +525,7 @@ export default function AppLayout({ children }) {
         {/* SECTION 1: OVERVIEW */}
         <div className="space-y-0.5">
           {!isCollapsed && (
-            <p className="px-2 text-[9px] font-bold uppercase tracking-[0.18em] text-[#A2958D] mb-1">
+            <p className="ks-eyebrow text-[9px] px-2 mb-1.5">
               Overview
             </p>
           )}
@@ -439,27 +534,32 @@ export default function AppLayout({ children }) {
             icon={LayoutDashboard}
             label="Dashboard"
             currentPath={location.pathname}
+            currentSearch={location.search}
             onClick={handleNavClick}
             collapsed={isCollapsed}
           />
           {isStudent && (
             <SidebarNavItem
-              to="/student/learning"
-              icon={GraduationCap}
-              label="My Learning"
+              to="/student/study-plan"
+              icon={CalendarCheck}
+              label="Study Plan"
               currentPath={location.pathname}
+              currentSearch={location.search}
               onClick={handleNavClick}
               collapsed={isCollapsed}
             />
           )}
-          <SidebarNavItem
-            to={analyticsPath}
-            icon={BarChart3}
-            label={isInstructor ? 'Course Analytics' : isAdmin ? 'Global Analytics' : 'Analytics'}
-            currentPath={location.pathname}
-            onClick={handleNavClick}
-            collapsed={isCollapsed}
-          />
+          {!isStudent && (
+            <SidebarNavItem
+              to={analyticsPath}
+              icon={BarChart3}
+              label={isInstructor ? 'Course Analytics' : 'Global Analytics'}
+              currentPath={location.pathname}
+              currentSearch={location.search}
+              onClick={handleNavClick}
+              collapsed={isCollapsed}
+            />
+          )}
         </div>
 
         {/* Divider */}
@@ -468,7 +568,7 @@ export default function AppLayout({ children }) {
         {/* SECTION 2: LEARN / STUDIO MANAGEMENT / ADMINISTRATION */}
         <div className="space-y-0.5">
           {!isCollapsed && (
-            <p className="px-2 text-[9px] font-bold uppercase tracking-[0.18em] text-[#A2958D] mb-1">
+            <p className="ks-eyebrow text-[9px] px-2 mb-1.5">
               {isStudent ? 'Learn' : isInstructor ? 'Studio Management' : 'Administration'}
             </p>
           )}
@@ -476,19 +576,39 @@ export default function AppLayout({ children }) {
           {isStudent && (
             <>
               <SidebarNavItem
+                to="/student/learning"
+                icon={GraduationCap}
+                label="My Learning"
+                currentPath={location.pathname}
+                currentSearch={location.search}
+                onClick={handleNavClick}
+                collapsed={isCollapsed}
+              />
+              <SidebarNavItem
                 to="/courses"
                 icon={BookOpen}
-                label="Course Catalog"
+                label="Explore Courses"
                 currentPath={location.pathname}
+                currentSearch={location.search}
                 onClick={handleNavClick}
                 collapsed={isCollapsed}
               />
               <SidebarNavItem
                 to="/ai-chat"
                 icon={Sparkles}
-                label="Ask Kitsuno"
+                label="Ask Kitsuno AI"
                 badge="AI"
                 currentPath={location.pathname}
+                currentSearch={location.search}
+                onClick={handleNavClick}
+                collapsed={isCollapsed}
+              />
+              <SidebarNavItem
+                to="/student/ai-search"
+                icon={Search}
+                label="AI Search"
+                currentPath={location.pathname}
+                currentSearch={location.search}
                 onClick={handleNavClick}
                 collapsed={isCollapsed}
               />
@@ -497,22 +617,9 @@ export default function AppLayout({ children }) {
                 icon={Gamepad2}
                 label="Play & Learn"
                 currentPath={location.pathname}
+                currentSearch={location.search}
                 onClick={handleNavClick}
                 collapsed={isCollapsed}
-              />
-              <SidebarNavItem
-                to="#"
-                icon={Target}
-                label="Study Plan"
-                collapsed={isCollapsed}
-                disabled
-              />
-              <SidebarNavItem
-                to="#"
-                icon={Search}
-                label="AI Search"
-                collapsed={isCollapsed}
-                disabled
               />
             </>
           )}
@@ -524,6 +631,7 @@ export default function AppLayout({ children }) {
                 icon={GraduationCap}
                 label="My Courses"
                 currentPath={location.pathname}
+                currentSearch={location.search}
                 onClick={handleNavClick}
                 collapsed={isCollapsed}
               />
@@ -532,6 +640,7 @@ export default function AppLayout({ children }) {
                 icon={PlusCircle}
                 label="Create Course"
                 currentPath={location.pathname}
+                currentSearch={location.search}
                 onClick={handleNavClick}
                 collapsed={isCollapsed}
               />
@@ -540,6 +649,7 @@ export default function AppLayout({ children }) {
                 icon={BookOpen}
                 label="Explore Catalog"
                 currentPath={location.pathname}
+                currentSearch={location.search}
                 onClick={handleNavClick}
                 collapsed={isCollapsed}
               />
@@ -553,6 +663,7 @@ export default function AppLayout({ children }) {
                 icon={GraduationCap}
                 label="All Courses"
                 currentPath={location.pathname}
+                currentSearch={location.search}
                 onClick={handleNavClick}
                 collapsed={isCollapsed}
               />
@@ -561,6 +672,16 @@ export default function AppLayout({ children }) {
                 icon={PlusCircle}
                 label="Create Course"
                 currentPath={location.pathname}
+                currentSearch={location.search}
+                onClick={handleNavClick}
+                collapsed={isCollapsed}
+              />
+              <SidebarNavItem
+                to="/admin/instructor-requests"
+                icon={UserCheck}
+                label="Instructor Requests"
+                currentPath={location.pathname}
+                currentSearch={location.search}
                 onClick={handleNavClick}
                 collapsed={isCollapsed}
               />
@@ -569,6 +690,7 @@ export default function AppLayout({ children }) {
                 icon={BookOpen}
                 label="Explore Catalog"
                 currentPath={location.pathname}
+                currentSearch={location.search}
                 onClick={handleNavClick}
                 collapsed={isCollapsed}
               />
@@ -582,37 +704,36 @@ export default function AppLayout({ children }) {
             <div className="border-t border-[#EAD8C7] my-2" />
             <div className="space-y-0.5">
               {!isCollapsed && (
-                <p className="px-2 text-[9px] font-bold uppercase tracking-[0.18em] text-[#A2958D] mb-1">
+                <p className="ks-eyebrow text-[9px] px-2 mb-1.5">
                   Practice
                 </p>
               )}
               <SidebarNavItem
-                to="#"
+                to="/student/quizzes"
                 icon={ClipboardCheck}
                 label="Quizzes"
+                currentPath={location.pathname}
+                currentSearch={location.search}
+                onClick={handleNavClick}
                 collapsed={isCollapsed}
-                disabled
               />
               <SidebarNavItem
-                to="#"
-                icon={GraduationCap}
-                label="Mock Exams"
-                collapsed={isCollapsed}
-                disabled
-              />
-              <SidebarNavItem
-                to="#"
-                icon={Layers}
-                label="Flashcards"
-                collapsed={isCollapsed}
-                disabled
-              />
-              <SidebarNavItem
-                to="#"
+                to="/student/question-bank"
                 icon={BrainCircuit}
                 label="Question Bank"
+                currentPath={location.pathname}
+                currentSearch={location.search}
+                onClick={handleNavClick}
                 collapsed={isCollapsed}
-                disabled
+              />
+              <SidebarNavItem
+                to="/student/mock-exams"
+                icon={GraduationCap}
+                label="Mock Exams"
+                currentPath={location.pathname}
+                currentSearch={location.search}
+                onClick={handleNavClick}
+                collapsed={isCollapsed}
               />
             </div>
           </>
@@ -624,37 +745,27 @@ export default function AppLayout({ children }) {
             <div className="border-t border-[#EAD8C7] my-2" />
             <div className="space-y-0.5">
               {!isCollapsed && (
-                <p className="px-2 text-[9px] font-bold uppercase tracking-[0.18em] text-[#A2958D] mb-1">
+                <p className="ks-eyebrow text-[9px] px-2 mb-1.5">
                   Progress
                 </p>
               )}
               <SidebarNavItem
-                to="#"
-                icon={Trophy}
-                label="Achievements"
+                to="/student/analytics"
+                icon={BarChart3}
+                label="Analytics"
+                currentPath={location.pathname}
+                currentSearch={location.search}
+                onClick={handleNavClick}
                 collapsed={isCollapsed}
-                disabled
               />
               <SidebarNavItem
-                to="#"
-                icon={Medal}
-                label="Leaderboard"
+                to="/student/saved-content"
+                icon={Bookmark}
+                label="Saved Content"
+                currentPath={location.pathname}
+                currentSearch={location.search}
+                onClick={handleNavClick}
                 collapsed={isCollapsed}
-                disabled
-              />
-              <SidebarNavItem
-                to="#"
-                icon={Flame}
-                label="Study Streak"
-                collapsed={isCollapsed}
-                disabled
-              />
-              <SidebarNavItem
-                to="#"
-                icon={Award}
-                label="Certificates"
-                collapsed={isCollapsed}
-                disabled
               />
             </div>
           </>
@@ -662,7 +773,7 @@ export default function AppLayout({ children }) {
       </div>
 
       {/* ZONE 3: PINNED ACCOUNT SECTION */}
-      <div className="shrink-0 border-t border-[#EAD8C7] px-2 py-2 bg-black/[0.02]">
+      <div className="shrink-0 border-t-[1.5px] border-[#241A16] px-2 py-2 bg-black/[0.02]">
         {!isCollapsed ? (
           <div className="space-y-1">
             <SidebarNavItem
@@ -681,11 +792,11 @@ export default function AppLayout({ children }) {
               onClick={handleNavClick}
               collapsed={isCollapsed}
             />
-            <div className="pt-1.5 mt-1 border-t border-[#EAD8C7] flex items-center justify-between px-2 py-1.5 rounded-lg bg-white/70 border border-[#EAD8C7] shadow-2xs">
+            <div className="pt-1.5 mt-1 border-t border-[#EAD8C7] flex items-center justify-between px-2 py-1.5 rounded-[6px] bg-white border-[1.5px] border-[#241A16] shadow-[2px_2px_0_#241A16]">
               <Link to="/profile" className="flex items-center gap-2 min-w-0 flex-1 hover:opacity-90">
                 {renderAvatar('h-7 w-7 text-xs')}
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold text-[#24150F] truncate leading-tight">
+                  <p className="text-xs font-semibold text-[#241A16] truncate leading-tight">
                     {user?.name || user?.email?.split('@')[0] || 'Student'}
                   </p>
                   <p className="text-[10px] text-[#6F625B] capitalize truncate leading-none mt-0.5">
@@ -696,7 +807,7 @@ export default function AppLayout({ children }) {
               <button
                 type="button"
                 onClick={openLogoutModal}
-                className="p-1.5 text-[#6F625B] hover:text-[#24150F] hover:bg-black/[0.04] rounded-md transition-colors cursor-pointer"
+                className="p-1.5 text-[#6F625B] hover:text-[#241A16] hover:bg-black/[0.04] rounded-md transition-colors cursor-pointer"
                 title="Sign out"
                 aria-label="Sign out"
               >
@@ -723,15 +834,20 @@ export default function AppLayout({ children }) {
               collapsed={true}
             />
             <div className="w-6 border-t border-[#EAD8C7] my-0.5" />
-            <button
-              type="button"
-              onClick={openLogoutModal}
-              className="p-1.5 text-[#6F625B] hover:text-[#24150F] hover:bg-black/[0.04] rounded-md transition-colors cursor-pointer"
-              title="Sign out"
-              aria-label="Sign out"
-            >
-              <LogOut className="h-4 w-4" />
-            </button>
+            <div className="group relative">
+              <button
+                type="button"
+                onClick={openLogoutModal}
+                className="flex items-center justify-center h-9 w-9 text-[#6F625B] hover:text-[#24150F] hover:bg-black/[0.04] rounded-[6px] transition-colors cursor-pointer"
+                title="Sign out"
+                aria-label="Sign out"
+              >
+                <LogOut className="h-4 w-4" />
+              </button>
+              <span className="absolute left-full top-1/2 -translate-y-1/2 ml-2.5 rounded-[5px] border-[1.5px] border-[#241A16] bg-white px-2.5 py-1 text-[11px] font-semibold text-[#241A16] shadow-[2px_2px_0_#241A16] opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 whitespace-nowrap">
+                Sign out
+              </span>
+            </div>
           </div>
         )}
       </div>
@@ -740,13 +856,13 @@ export default function AppLayout({ children }) {
 
   return (
     <div className="min-h-screen bg-[var(--ks-bg)] text-[var(--ks-text)] font-sans flex flex-col lg:flex-row relative">
-      {/* Desktop Sticky Collapsible Sidebar (250px expanded, 70px collapsed) */}
+      {/* Desktop Sticky Collapsible Sidebar (250px expanded, 74px collapsed) */}
       <aside
-        className={`hidden lg:flex flex-col sticky top-0 h-screen z-30 shrink-0 border-r border-[#EAD8C7] ks-sidebar-grain transition-[width] duration-200 ease-in-out shadow-xs ${
-          sidebarCollapsed ? 'w-[70px]' : 'w-[250px]'
+        className={`hidden lg:flex flex-col sticky top-0 h-screen z-30 shrink-0 border-r-[1.5px] border-[#241A16] ks-sidebar-grain transition-[width] duration-200 ease-in-out shadow-xs ${
+          sidebarCollapsed ? 'w-[74px]' : 'w-[250px]'
         }`}
       >
-        {renderSidebar(sidebarCollapsed)}
+        {renderSidebar(sidebarCollapsed, false)}
       </aside>
 
       {/* Mobile Drawer (260px overlay drawer with backdrop blur) */}
@@ -757,7 +873,7 @@ export default function AppLayout({ children }) {
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden="true"
           />
-          <div className="fixed inset-y-0 left-0 w-[260px] ks-sidebar-grain border-r border-[#EAD8C7] z-50 shadow-2xl flex flex-col h-full">
+          <div className="fixed inset-y-0 left-0 w-[260px] ks-sidebar-grain border-r-[1.5px] border-[#241A16] z-50 shadow-2xl flex flex-col h-full">
             <div className="absolute top-3.5 right-3 z-20">
               <button
                 type="button"
@@ -768,7 +884,7 @@ export default function AppLayout({ children }) {
                 <X className="h-5 w-5" />
               </button>
             </div>
-            {renderSidebar(false)}
+            {renderSidebar(false, true)}
           </div>
         </div>
       )}
@@ -776,119 +892,114 @@ export default function AppLayout({ children }) {
       {/* Main Content Column */}
       <div className="flex-1 min-w-0 flex flex-col w-full">
         {/* Top Editorial Navbar */}
-        <header className="sticky top-0 z-20 flex h-14 items-center justify-between border-b border-[var(--ks-border)] bg-[var(--ks-surface)] px-4 sm:px-6 lg:px-8 w-full">
-          {/* Left: Mobile menu toggle, Desktop Sidebar toggle & Prominent Search Input */}
-          <div className="flex items-center gap-2 sm:gap-3 flex-1">
+        <header className="sticky top-0 z-20 flex h-16 sm:h-[68px] items-center justify-between border-b-[1.5px] border-[#241A16] bg-white px-3 sm:px-6 lg:px-8 w-full shadow-[0_2px_0_rgba(36,26,22,0.06)]">
+          {/* Left: Mobile menu toggle & Prominent Search Input */}
+          <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0 mr-2 sm:mr-4">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden p-1.5 text-[var(--ks-text-muted)] hover:text-[var(--ks-text)] rounded-md hover:bg-black/[0.04]"
+              className="lg:hidden h-10 w-10 shrink-0 flex items-center justify-center rounded-[6px] border-[1.5px] border-[#241A16] bg-white text-[#241A16] shadow-[2px_2px_0_#241A16] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_#241A16] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
               aria-label="Open sidebar"
             >
               <Menu className="h-5 w-5" />
             </button>
 
-            {/* Desktop Sidebar Collapse Toggle */}
-            <button
-              type="button"
-              onClick={toggleSidebarCollapse}
-              className="hidden lg:flex items-center justify-center p-1.5 text-[#6F625B] hover:text-[#24150F] hover:bg-black/[0.04] rounded-md transition-colors cursor-pointer"
-              title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-              aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            >
-              {sidebarCollapsed ? (
-                <PanelLeftOpen className="h-4 w-4" />
-              ) : (
-                <PanelLeftClose className="h-4 w-4" />
-              )}
-            </button>
-
             {/* Prominent Search Bar (460px desktop width) */}
             <div className="relative w-full max-w-[460px]">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--ks-text-subtle)]" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#6F625B] pointer-events-none" />
               <input
+                ref={searchInputRef}
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search courses, quizzes, analytics..."
-                className="w-full h-9 rounded-md border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] pl-9 pr-12 text-xs text-[var(--ks-text)] placeholder-[var(--ks-text-subtle)] outline-none transition-colors focus:border-[var(--ks-orange)] focus:bg-[var(--ks-surface)]"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && searchQuery.trim()) {
+                    navigate(`/student/ai-search?q=${encodeURIComponent(searchQuery.trim())}`)
+                  }
+                }}
+                placeholder="Search courses, lessons, quizzes, or concepts..."
+                className="w-full h-10 rounded-[6px] border-[1.5px] border-[#241A16] bg-white pl-9 sm:pl-10 pr-10 sm:pr-14 text-xs font-medium text-[#241A16] placeholder-[#6F625B]/70 shadow-[2px_2px_0_#241A16] outline-none transition-all focus:border-[#F16524]"
               />
-              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center gap-0.5 rounded border border-[var(--ks-border)] bg-[var(--ks-surface)] px-1.5 py-0.5 text-[10px] font-mono text-[var(--ks-text-subtle)]">
+              <kbd className="absolute right-2.5 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center gap-0.5 rounded-[4px] border border-[#241A16]/30 bg-[#FFF8F3] px-1.5 py-0.5 text-[10px] font-mono font-semibold text-[#241A16]">
                 ⌘K
               </kbd>
             </div>
           </div>
 
           {/* Right: Streak, XP, Notifications, Separator & Profile Info */}
-          <div className="flex items-center gap-3">
-            {/* Gamification Streak & Level Badges (Student only) */}
+          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+            {/* Gamification Streak, XP & Level Badges (Student only) */}
             {isStudent && (
               <div className="hidden sm:flex items-center gap-2">
-                <span
-                  title={`${streak} consecutive study days`}
-                  className="inline-flex items-center gap-1.5 rounded-md border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] px-2.5 py-1 text-xs font-semibold text-[var(--ks-text)]"
+                {/* Streak Badge Button */}
+                <button
+                  type="button"
+                  onClick={() => setStreakModalOpen(true)}
+                  title={`${streak} consecutive study days · Click for Streak Details`}
+                  className="inline-flex items-center gap-1.5 h-10 px-2.5 sm:px-3 rounded-[6px] border-[1.5px] border-[#241A16] bg-white text-xs font-semibold text-[#241A16] shadow-[2px_2px_0_#241A16] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_#241A16] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer group select-none"
                 >
-                  <span>🔥</span>
+                  <Flame className="h-4 w-4 text-[#F16524] fill-[#F16524]/20 group-hover:scale-110 transition-transform" />
                   <span>{streak} {streak === 1 ? 'day' : 'days'}</span>
-                </span>
-                <span
-                  title={`Level ${level} · ${xp} total XP`}
-                  className="inline-flex items-center gap-1.5 rounded-md border border-[var(--ks-orange)]/25 bg-[rgba(241,101,36,0.08)] px-2.5 py-1 text-xs font-bold text-[var(--ks-orange)]"
+                </button>
+
+                {/* XP Badge Button */}
+                <button
+                  type="button"
+                  onClick={() => setXpModalOpen(true)}
+                  title={`Level ${level} · ${xp} total XP · Click for XP & Rewards`}
+                  className="inline-flex items-center gap-1.5 h-10 px-2.5 sm:px-3 rounded-[6px] border-[1.5px] border-[#241A16] bg-white text-xs font-bold text-[#F16524] shadow-[2px_2px_0_#241A16] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_#241A16] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer group select-none"
                 >
-                  <span>⚡</span>
+                  <Zap className="h-4 w-4 text-[#F16524] fill-[#F16524] group-hover:scale-110 transition-transform" />
                   <span>{xp} XP</span>
-                </span>
+                </button>
+
+                {/* Level Badge Button */}
+                <button
+                  type="button"
+                  onClick={() => setLevelModalOpen(true)}
+                  title={`Level ${level} · Click for Level Progression Roadmap`}
+                  className="inline-flex items-center gap-1.5 h-10 px-2.5 sm:px-3 rounded-[6px] border-[1.5px] border-[#241A16] bg-white text-xs font-semibold text-[#241A16] shadow-[2px_2px_0_#241A16] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_#241A16] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer group select-none"
+                >
+                  <Award className="h-4 w-4 text-[#241A16] group-hover:scale-110 transition-transform" />
+                  <span>Lv {level}</span>
+                </button>
               </div>
             )}
 
             {/* Role / Workspace Context Badge (Instructor & Admin) */}
             {!isStudent && (
               <div className="hidden sm:flex items-center">
-                <span className="inline-flex items-center gap-1.5 rounded-md border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-[var(--ks-text-muted)]">
+                <span className="inline-flex items-center h-10 px-3 rounded-[6px] border-[1.5px] border-[#241A16] bg-white text-[11px] font-mono font-bold uppercase tracking-wider text-[#241A16] shadow-[2px_2px_0_#241A16]">
                   {isInstructor ? 'Instructor Studio' : 'Admin Workspace'}
                 </span>
               </div>
             )}
 
-            {/* Notification bell */}
+            {/* Notification bell & In-App Notification Center */}
             <div className="relative">
               <button
                 type="button"
-                onClick={() => setNotificationsOpen(!notificationsOpen)}
-                className="relative p-1.5 text-[var(--ks-text-muted)] transition-colors hover:text-[var(--ks-text)]"
+                onClick={() => setNotificationsOpen((prev) => !prev)}
+                className="relative h-10 w-10 flex items-center justify-center shrink-0 rounded-[6px] border-[1.5px] border-[#241A16] bg-white text-[#241A16] shadow-[2px_2px_0_#241A16] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_#241A16] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
                 aria-label="Notifications"
                 aria-expanded={notificationsOpen}
+                title="Notifications"
               >
                 <Bell className="h-4 w-4" />
                 {unreadNotifications > 0 && (
-                  <span className="absolute top-1 right-1 h-1.5 w-1.5 rounded-full bg-[var(--ks-orange)]" />
+                  <span className="absolute top-2 right-2 h-2.5 w-2.5 rounded-full bg-[#F16524] border border-[#241A16]" />
                 )}
               </button>
 
-              {notificationsOpen && (
-                <>
-                  <div
-                    className="fixed inset-0 z-40"
-                    onClick={() => setNotificationsOpen(false)}
-                    aria-hidden="true"
-                  />
-                  <div className="absolute right-0 top-full mt-2 w-72 rounded-md border border-[var(--ks-border)] bg-[var(--ks-surface)] p-3 shadow-md z-50">
-                    <div className="flex items-center justify-between pb-2 border-b border-[var(--ks-border)]">
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--ks-text)]">
-                        Notifications
-                      </span>
-                      <span className="text-[10px] text-[var(--ks-text-subtle)]">Live</span>
-                    </div>
-                    <div className="py-4 text-center">
-                      <p className="text-xs text-[var(--ks-text-muted)]">No new notifications</p>
-                    </div>
-                  </div>
-                </>
-              )}
+              <NotificationsPanel
+                isOpen={notificationsOpen}
+                onClose={() => setNotificationsOpen(false)}
+                onUnreadCountChange={setUnreadNotifications}
+              />
             </div>
 
             {/* Vertical separator */}
-            <div className="h-4 w-px bg-[var(--ks-border)]" />
+            <div className="hidden sm:block h-6 w-[1.5px] bg-[#241A16]/20 mx-0.5" />
 
             {/* Profile User Info & Dropdown */}
             <div
@@ -904,14 +1015,14 @@ export default function AppLayout({ children }) {
                 aria-expanded={profileDropdownOpen}
                 aria-haspopup="menu"
                 aria-label="User profile menu"
-                className="flex items-center gap-2.5 rounded-md p-1 transition-colors hover:bg-[var(--ks-surface-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ks-orange)] cursor-pointer text-left select-none"
+                className="flex items-center gap-2 sm:gap-2.5 h-10 px-2 sm:px-2.5 rounded-[6px] border-[1.5px] border-[#241A16] bg-white text-[#241A16] shadow-[2px_2px_0_#241A16] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_#241A16] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer text-left select-none shrink-0"
               >
                 {renderAvatar('h-7 w-7 text-xs')}
-                <div className="hidden sm:flex flex-col text-left">
-                  <span className="text-xs font-semibold text-[var(--ks-text)] leading-tight">
+                <div className="hidden sm:flex flex-col text-left leading-none">
+                  <span className="text-xs font-semibold text-[#241A16] leading-tight truncate max-w-[100px]">
                     {user?.name || 'User'}
                   </span>
-                  <span className="text-[9px] font-semibold uppercase tracking-wider text-[var(--ks-text-subtle)]">
+                  <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-[#6F625B] mt-0.5">
                     {role}
                   </span>
                 </div>
@@ -922,7 +1033,7 @@ export default function AppLayout({ children }) {
                 <div
                   role="menu"
                   aria-orientation="vertical"
-                  className="absolute right-0 top-full mt-2 w-64 rounded-md border border-[var(--ks-border)] bg-[var(--ks-surface)] p-2 shadow-lg z-50 before:absolute before:-top-2 before:left-0 before:right-0 before:h-2 before:content-['']"
+                  className="absolute right-0 top-full mt-2 w-64 rounded-md border-[1.5px] border-[#241A16] bg-white p-2 shadow-[3px_4px_0_#241A16] z-50 before:absolute before:-top-2 before:left-0 before:right-0 before:h-2 before:content-['']"
                 >
                   {/* Identity Header */}
                   <div className="px-2.5 py-2">
@@ -1040,13 +1151,13 @@ export default function AppLayout({ children }) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="leave-modal-title"
-            className="relative w-full max-w-sm rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 shadow-2xl z-50 space-y-4"
+            className="relative w-full max-w-sm rounded-lg border-[2px] border-[#241A16] bg-white p-6 shadow-[4px_5px_0_#241A16] z-50 space-y-4 text-[#241A16]"
           >
             <div className="space-y-2">
-              <h3 id="leave-modal-title" className="font-serif text-lg font-bold text-[var(--ks-text)]">
+              <h3 id="leave-modal-title" className="font-serif text-2xl font-normal text-[#241A16]">
                 Leave Student Dashboard?
               </h3>
-              <p className="text-xs text-[var(--ks-text-muted)] leading-relaxed">
+              <p className="text-xs text-neutral-600 leading-relaxed">
                 Do you want to go back to the Kitsuno home page?
               </p>
             </div>
@@ -1054,7 +1165,7 @@ export default function AppLayout({ children }) {
               <button
                 type="button"
                 onClick={() => setLeaveModalOpen(false)}
-                className="px-3.5 py-1.5 rounded-lg border border-[var(--ks-border)] text-xs font-semibold text-[var(--ks-text)] hover:bg-[var(--ks-surface-soft)] transition-colors cursor-pointer"
+                className="ks-neo-btn-secondary px-3.5 py-1.5 text-xs"
               >
                 Cancel
               </button>
@@ -1064,7 +1175,7 @@ export default function AppLayout({ children }) {
                   setLeaveModalOpen(false)
                   navigate('/')
                 }}
-                className="px-3.5 py-1.5 rounded-lg bg-[var(--ks-orange)] text-white text-xs font-semibold hover:bg-[var(--ks-orange-hover)] transition-colors shadow-xs cursor-pointer"
+                className="ks-neo-btn-primary px-3.5 py-1.5 text-xs"
               >
                 Go Home
               </button>
@@ -1077,7 +1188,7 @@ export default function AppLayout({ children }) {
       {logoutModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
-            className="fixed inset-0 bg-[#241A16]/40 backdrop-blur-xs transition-opacity"
+            className="fixed inset-0 bg-[#241A16]/50 backdrop-blur-xs transition-opacity"
             onClick={() => setLogoutModalOpen(false)}
             aria-hidden="true"
           />
@@ -1085,13 +1196,13 @@ export default function AppLayout({ children }) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="logout-modal-title"
-            className="relative w-full max-w-sm rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 shadow-2xl z-50 space-y-4"
+            className="relative w-full max-w-sm rounded-lg border-[2px] border-[#241A16] bg-white p-6 shadow-[4px_5px_0_#241A16] z-50 space-y-4 text-[#241A16]"
           >
             <div className="space-y-2">
-              <h3 id="logout-modal-title" className="font-serif text-lg font-bold text-[var(--ks-text)]">
+              <h3 id="logout-modal-title" className="font-serif text-2xl font-normal text-[#241A16]">
                 Log out?
               </h3>
-              <p className="text-xs text-[var(--ks-text-muted)] leading-relaxed">
+              <p className="text-xs text-neutral-600 leading-relaxed">
                 Are you sure you want to log out of Kitsuno.ai?
               </p>
             </div>
@@ -1099,14 +1210,14 @@ export default function AppLayout({ children }) {
               <button
                 type="button"
                 onClick={() => setLogoutModalOpen(false)}
-                className="px-3.5 py-1.5 rounded-lg border border-[var(--ks-border)] text-xs font-semibold text-[var(--ks-text)] hover:bg-[var(--ks-surface-soft)] transition-colors cursor-pointer"
+                className="ks-neo-btn-secondary px-3.5 py-1.5 text-xs"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={confirmLogout}
-                className="px-3.5 py-1.5 rounded-lg bg-[var(--ks-orange)] text-white text-xs font-semibold hover:bg-[var(--ks-orange-hover)] transition-colors shadow-xs cursor-pointer"
+                className="ks-neo-btn-primary px-3.5 py-1.5 text-xs"
               >
                 Log out
               </button>
@@ -1123,33 +1234,33 @@ export default function AppLayout({ children }) {
             onClick={() => setHelpOpen(false)}
             aria-hidden="true"
           />
-          <div className="relative w-full max-w-md rounded-md border border-[var(--ks-border)] bg-[var(--ks-surface)] p-6 shadow-xl z-50">
-            <div className="flex items-center justify-between pb-3 border-b border-[var(--ks-border)]">
-              <h3 className="font-display text-lg text-[var(--ks-text)]">Help & Documentation</h3>
+          <div className="relative w-full max-w-md rounded-[8px] border-[2px] border-[#241A16] bg-white p-6 shadow-[4px_5px_0_#241A16] z-50 text-[#241A16]">
+            <div className="flex items-center justify-between pb-3 border-b-[1.5px] border-[#241A16]">
+              <h3 className="font-serif text-xl font-normal text-[#241A16]">Help & Documentation</h3>
               <button
                 type="button"
                 onClick={() => setHelpOpen(false)}
-                className="p-1 text-[var(--ks-text-muted)] hover:text-[var(--ks-text)]"
+                className="p-1 text-neutral-500 hover:text-[#241A16] cursor-pointer"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
-            <div className="mt-4 space-y-3 text-xs text-[var(--ks-text-muted)] leading-relaxed">
+            <div className="mt-4 space-y-3 text-xs text-neutral-600 leading-relaxed">
               <p>
-                <strong className="text-[var(--ks-text)]">Curriculum & Courses:</strong> Manage your enrolled or authored modules and lessons.
+                <strong className="text-[#241A16]">Curriculum & Courses:</strong> Manage your enrolled or authored modules and lessons.
               </p>
               <p>
-                <strong className="text-[var(--ks-text)]">AI Quiz Generator:</strong> Instructors can synthesize calibrated quizzes from syllabus notes.
+                <strong className="text-[#241A16]">AI Quiz Generator:</strong> Instructors can synthesize calibrated quizzes from syllabus notes.
               </p>
               <p>
-                Support email: <a href="mailto:contact@kitsuno.ai" className="text-[var(--ks-orange)] font-semibold hover:underline">contact@kitsuno.ai</a>
+                Support email: <a href="mailto:contact@kitsuno.ai" className="text-[#F16524] font-semibold hover:underline">contact@kitsuno.ai</a>
               </p>
             </div>
-            <div className="mt-5 pt-3 border-t border-[var(--ks-border)] text-right">
+            <div className="mt-5 pt-3 border-t-[1.5px] border-[#241A16] text-right">
               <button
                 type="button"
                 onClick={() => setHelpOpen(false)}
-                className="rounded-md bg-[var(--ks-orange)] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[var(--ks-orange-light)]"
+                className="ks-neo-btn-primary px-3.5 py-1.5 text-xs"
               >
                 Close
               </button>
@@ -1157,6 +1268,20 @@ export default function AppLayout({ children }) {
           </div>
         </div>
       )}
+
+      {/* Interactive Header & Dashboard Modals */}
+      <StreakDetailsModal
+        isOpen={streakModalOpen}
+        onClose={() => setStreakModalOpen(false)}
+      />
+      <XpRewardsModal
+        isOpen={xpModalOpen}
+        onClose={() => setXpModalOpen(false)}
+      />
+      <LevelProgressModal
+        isOpen={levelModalOpen}
+        onClose={() => setLevelModalOpen(false)}
+      />
     </div>
   )
 }

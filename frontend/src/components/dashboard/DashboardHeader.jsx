@@ -16,54 +16,76 @@ export default function DashboardHeader({ user, gamification }) {
   const xpRequired = levelInfo?.xp_required_for_next_level ?? 100
   const progressPct = Math.min(100, Math.max(0, Math.round(levelInfo?.progress_percentage ?? 0)))
 
+  // Segmented XP calculation (10 blocks)
+  const totalSegments = 10
+  const filledSegments = Math.min(
+    totalSegments,
+    Math.max(0, Math.round((progressPct / 100) * totalSegments))
+  )
+
   return (
-    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-[var(--ks-border)]">
-      <div>
-        <div className="mb-1">
-          <span className="ks-eyebrow">STUDENT DASHBOARD</span>
+    <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-4 border-b-[1.5px] border-[#241A16]">
+      {/* 1. EDITORIAL GREETING & CLEAN LABELED EYEBROW */}
+      <div className="space-y-1">
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-[#F16524]">
+            STUDENT DASHBOARD
+          </span>
+          <span className="w-1.5 h-1.5 bg-[#F16524]" />
         </div>
-        <h1 className="ks-page-title text-2xl md:text-3xl font-serif">
+
+        <h1 className="ks-page-title text-2xl sm:text-3xl font-serif text-[#241A16] font-normal tracking-tight leading-tight">
           {getGreeting(user?.name)}
         </h1>
-        <p className="mt-1 text-xs md:text-sm text-[var(--ks-text-muted)] max-w-xl">
+
+        <p className="text-xs text-[var(--ks-text-muted)] font-normal">
           Continue where you left off.
         </p>
       </div>
 
-      <div className="flex flex-wrap items-center gap-2.5">
-        {/* Level & Next-Level XP Progress */}
-        <div
-          className="inline-flex items-center gap-2 sm:gap-2.5 rounded-lg border border-[var(--ks-border)] bg-[var(--ks-surface)] px-3 py-1.5 text-xs shadow-2xs"
-          title={`Level ${level}: ${xpIntoLevel} / ${xpRequired} XP to Level ${level + 1}`}
+      {/* 2. NEO-BRUTALIST LEVEL / XP PANEL + BROWSE CATALOG CTA */}
+      <div className="flex flex-wrap items-center gap-3">
+        {/* Compact Brutalist Level / XP Panel: White surface, 1.5px dark border, 2.5px hard shadow */}
+        <button
+          type="button"
+          onClick={() => window.dispatchEvent(new CustomEvent('open-level-modal'))}
+          className="rounded-[8px] border-[1.5px] border-[#241A16] bg-white px-3 py-2 shadow-[2.5px_2.5px_0_#241A16] hover:translate-x-[-0.5px] hover:translate-y-[-0.5px] hover:shadow-[3px_3px_0_#241A16] active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-none transition-all cursor-pointer text-left w-56 space-y-1.5"
+          title={`Click to inspect Level details (Level ${level}: ${xpIntoLevel} / ${xpRequired} XP)`}
         >
-          <div className="flex items-center gap-1.5 font-semibold text-[var(--ks-text)]">
-            <span className="flex h-5 w-5 items-center justify-center rounded-md bg-[rgba(241,101,36,0.12)] text-[var(--ks-orange)]">
-              <Zap className="h-3.5 w-3.5 fill-[var(--ks-orange)]" />
-            </span>
-            <span>Level {level}</span>
-          </div>
-
-          <span className="text-[var(--ks-border)]" aria-hidden="true">|</span>
-
-          <div className="flex items-center gap-2">
-            <div className="w-16 h-1.5 rounded-full bg-[var(--ks-surface-soft)] border border-[var(--ks-border)] overflow-hidden">
-              <div
-                className="h-full rounded-full bg-[var(--ks-orange)] transition-all duration-300"
-                style={{ width: `${progressPct}%` }}
-              />
+          <div className="flex items-center justify-between text-xs font-bold text-[#241A16]">
+            <div className="flex items-center gap-1.5">
+              <Zap className="h-3.5 w-3.5 text-[#F16524] fill-[#F16524]" />
+              <span className="tracking-wide">LEVEL {level}</span>
             </div>
-            <span className="text-[11px] text-[var(--ks-text-muted)] whitespace-nowrap">
-              {xpIntoLevel}/{xpRequired} XP to Lv {level + 1}
+            <span className="text-[11px] font-mono font-bold text-[#F16524]">
+              {progressPct}%
             </span>
           </div>
-        </div>
 
-        {/* Browse Catalog CTA */}
+          {/* 10-Segment Progress Bar */}
+          <div className="ks-xp-bar">
+            {Array.from({ length: totalSegments }).map((_, i) => (
+              <div
+                key={i}
+                className={`ks-xp-bar-segment ${
+                  i < filledSegments ? 'filled' : ''
+                }`}
+              />
+            ))}
+          </div>
+
+          <div className="flex items-center justify-between text-[10.5px] text-[#241A16] font-medium font-mono leading-none">
+            <span>{xpIntoLevel} / {xpRequired} XP</span>
+            <span className="text-[#8F3215] font-bold">→ Lv {level + 1}</span>
+          </div>
+        </button>
+
+        {/* Browse Catalog CTA in Tactile Button */}
         <Link
           to="/courses"
-          className="inline-flex items-center gap-1.5 rounded-md bg-[var(--ks-orange)] px-4 py-1.5 text-xs font-semibold text-white transition hover:bg-[#E0520D] shadow-2xs"
+          className="ks-neo-btn-primary"
         >
-          <BookOpen className="h-3.5 w-3.5 text-white" />
+          <BookOpen className="h-3.5 w-3.5" />
           <span>Browse Catalog →</span>
         </Link>
       </div>

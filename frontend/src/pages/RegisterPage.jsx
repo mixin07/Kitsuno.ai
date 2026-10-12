@@ -36,12 +36,26 @@ export default function RegisterPage() {
     setIsSubmitting(true)
     try {
       await register({ name, email, password, role })
-      navigate('/login', {
-        replace: true,
-        state: { message: 'Account created successfully. Please sign in.' },
-      })
+      if (role === 'INSTRUCTOR') {
+        navigate('/login', {
+          replace: true,
+          state: {
+            message:
+              'Your instructor account request has been submitted. An administrator must approve your account before you can access Instructor Studio.',
+            variant: 'info',
+          },
+        })
+      } else {
+        navigate('/login', {
+          replace: true,
+          state: {
+            message: 'Account created successfully. Please sign in.',
+            variant: 'success',
+          },
+        })
+      }
     } catch (err) {
-      setError(getApiErrorMessage(err))
+      setError(err.message || getApiErrorMessage(err))
     } finally {
       setIsSubmitting(false)
     }
@@ -153,7 +167,7 @@ export default function RegisterPage() {
               {/* Student / Instructor Segmented Control */}
               <div className="mt-5">
                 <div
-                  className="inline-flex w-full rounded-xl bg-[#FDF1E6] p-1 border border-[rgba(36,26,22,0.08)]"
+                  className="inline-flex w-full rounded-xl bg-[#F2EDE8] p-1 border border-[rgba(36,26,22,0.06)]"
                   role="tablist"
                   aria-label="Account role"
                 >
@@ -162,7 +176,7 @@ export default function RegisterPage() {
                     role="tab"
                     aria-selected={isStudent}
                     onClick={() => setRole('STUDENT')}
-                    className={`flex flex-1 items-center justify-center gap-2 rounded-lg py-2 px-3 text-xs font-semibold transition-all duration-200 ${
+                    className={`flex flex-1 items-center justify-center gap-2 rounded-lg py-2 px-3 text-xs font-semibold transition-all duration-200 cursor-pointer ${
                       isStudent
                         ? 'bg-[#F16524] text-white shadow-sm'
                         : 'text-[#6E5A4E] hover:text-[#241A16]'
@@ -176,7 +190,7 @@ export default function RegisterPage() {
                     role="tab"
                     aria-selected={!isStudent}
                     onClick={() => setRole('INSTRUCTOR')}
-                    className={`flex flex-1 items-center justify-center gap-2 rounded-lg py-2 px-3 text-xs font-semibold transition-all duration-200 ${
+                    className={`flex flex-1 items-center justify-center gap-2 rounded-lg py-2 px-3 text-xs font-semibold transition-all duration-200 cursor-pointer ${
                       !isStudent
                         ? 'bg-[#F16524] text-white shadow-sm'
                         : 'text-[#6E5A4E] hover:text-[#241A16]'
@@ -268,7 +282,7 @@ export default function RegisterPage() {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9C8577] transition-colors hover:text-[#241A16]"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9C8577] transition-colors hover:text-[#241A16] cursor-pointer"
                       aria-label={showPassword ? 'Hide password' : 'Show password'}
                     >
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -298,7 +312,7 @@ export default function RegisterPage() {
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9C8577] transition-colors hover:text-[#241A16]"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9C8577] transition-colors hover:text-[#241A16] cursor-pointer"
                       aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
                     >
                       {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -309,7 +323,7 @@ export default function RegisterPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#F16524] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_2px_12px_rgba(241,101,36,0.25)] transition-all hover:bg-[#FF8A4C] hover:shadow-[0_4px_16px_rgba(241,101,36,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F16524] disabled:opacity-60"
+                  className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#F16524] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_2px_12px_rgba(241,101,36,0.25)] transition-all hover:bg-[#FF8A4C] hover:shadow-[0_4px_16px_rgba(241,101,36,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F16524] disabled:opacity-60 cursor-pointer"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">

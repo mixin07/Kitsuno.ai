@@ -23,10 +23,18 @@ import QuizResultPage from './pages/student/QuizResultPage.jsx'
 import StudentAnalyticsPage from './pages/student/StudentAnalyticsPage.jsx'
 import InstructorAnalyticsPage from './pages/instructor/InstructorAnalyticsPage.jsx'
 import AdminAnalyticsPage from './pages/admin/AdminAnalyticsPage.jsx'
+import InstructorRequestsPage from './pages/admin/InstructorRequestsPage.jsx'
+import PendingApprovalPage from './pages/PendingApprovalPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
 import AIChatPage from './pages/student/AIChatPage.jsx'
 import PlayAndLearnHubPage from './pages/student/PlayAndLearnHubPage.jsx'
 import GameRouterPage from './pages/student/games/GameRouterPage.jsx'
+import StudyPlanPage from './pages/student/study-plan/StudyPlanPage.jsx'
+import QuizHubPage from './pages/student/QuizHubPage.jsx'
+import QuestionBankPage from './pages/student/QuestionBankPage.jsx'
+import MockExamsPage from './pages/student/MockExamsPage.jsx'
+import AISearchPage from './pages/student/AISearchPage.jsx'
+import SavedContentPage from './pages/student/SavedContentPage.jsx'
 
 function App() {
   return (
@@ -186,12 +194,37 @@ function App() {
         }
       />
       <Route
+        path="/student/saved-content"
+        element={
+          <ProtectedRoute>
+            <RequireRole roles={[ROLES.STUDENT]}>
+              <AppLayout>
+                <SavedContentPage />
+              </AppLayout>
+            </RequireRole>
+          </ProtectedRoute>
+        }
+      />
+      <Route path="/student/saved" element={<Navigate to="/student/saved-content" replace />} />
+      <Route
         path="/student/analytics"
         element={
           <ProtectedRoute>
             <RequireRole roles={[ROLES.STUDENT]}>
               <AppLayout>
                 <StudentAnalyticsPage />
+              </AppLayout>
+            </RequireRole>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/study-plan"
+        element={
+          <ProtectedRoute>
+            <RequireRole roles={[ROLES.STUDENT]}>
+              <AppLayout>
+                <StudyPlanPage />
               </AppLayout>
             </RequireRole>
           </ProtectedRoute>
@@ -246,6 +279,56 @@ function App() {
         }
       />
       <Route
+        path="/student/quizzes"
+        element={
+          <ProtectedRoute>
+            <RequireRole roles={[ROLES.STUDENT]}>
+              <AppLayout>
+                <QuizHubPage />
+              </AppLayout>
+            </RequireRole>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/question-bank"
+        element={
+          <ProtectedRoute>
+            <RequireRole roles={[ROLES.STUDENT]}>
+              <AppLayout>
+                <QuestionBankPage />
+              </AppLayout>
+            </RequireRole>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/mock-exams"
+        element={
+          <ProtectedRoute>
+            <RequireRole roles={[ROLES.STUDENT]}>
+              <AppLayout>
+                <MockExamsPage />
+              </AppLayout>
+            </RequireRole>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student/ai-search"
+        element={
+          <ProtectedRoute>
+            <RequireRole roles={[ROLES.STUDENT]}>
+              <AppLayout>
+                <AISearchPage />
+              </AppLayout>
+            </RequireRole>
+          </ProtectedRoute>
+        }
+      />
+      <Route path="/student/search" element={<Navigate to="/student/ai-search" replace />} />
+      <Route path="/quizzes" element={<Navigate to="/student/quizzes" replace />} />
+      <Route
         path="/instructor/analytics"
         element={
           <ProtectedRoute>
@@ -290,6 +373,27 @@ function App() {
                 <AdminAnalyticsPage />
               </AppLayout>
             </RequireRole>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/instructor-requests"
+        element={
+          <ProtectedRoute>
+            <RequireRole roles={[ROLES.ADMIN]}>
+              <AppLayout>
+                <InstructorRequestsPage />
+              </AppLayout>
+            </RequireRole>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/pending-approval"
+        element={
+          <ProtectedRoute>
+            <PendingApprovalPage />
           </ProtectedRoute>
         }
       />

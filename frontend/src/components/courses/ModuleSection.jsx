@@ -16,27 +16,27 @@ export default function ModuleSection({
   const isExpanded = expanded || hasChildren
 
   return (
-    <section className="rounded-xl border border-[var(--ks-border)] bg-[var(--ks-surface)] shadow-xs">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--ks-border)] px-5 py-4">
+    <section className="ks-neo-card rounded-[8px] border-2 border-[#241A16] bg-white shadow-[3px_3px_0_#241A16] md:shadow-[4px_4px_0_#241A16] overflow-hidden">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-[#241A16] px-4 sm:px-5 py-3.5 bg-white">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <h3 className="ks-panel-title text-[var(--ks-text)]">
-              <span className="mr-2 text-[var(--ks-text-muted)]">{module.order_number}.</span>
+            <h3 className="font-serif text-lg text-[#241A16]">
+              <span className="mr-2 text-neutral-400 font-mono text-sm">{module.order_number}.</span>
               {module.title}
             </h3>
-            <span className="rounded-full bg-[var(--ks-surface-soft)] px-2 py-0.5 text-xs text-[var(--ks-text-muted)]">
+            <span className="rounded-[4px] border border-[#241A16] bg-[#FFF2E6] px-2 py-0.5 text-[10px] font-mono font-bold text-[#F16524]">
               {lessons.length} {lessons.length === 1 ? 'lesson' : 'lessons'}
             </span>
           </div>
           {isExpanded && module.description && (
-            <p className="mt-1 text-sm text-[var(--ks-text-muted)]">{module.description}</p>
+            <p className="mt-1 text-xs text-neutral-600">{module.description}</p>
           )}
         </div>
-        <div className="flex shrink-0 flex-wrap items-center gap-2">
+        <div className="flex shrink-0 flex-wrap items-center gap-1.5">
           <button
             type="button"
             onClick={() => setExpanded((v) => !v)}
-            className="rounded-md border border-[var(--ks-border)] bg-[var(--ks-surface-soft)] px-3 py-1.5 text-xs font-medium text-[var(--ks-text-muted)] transition hover:border-[var(--ks-orange)]/40 hover:text-[var(--ks-orange)]"
+            className="ks-neo-btn-secondary px-2.5 py-1 text-xs font-bold"
             aria-expanded={isExpanded}
           >
             {isExpanded ? 'Collapse' : 'Expand'}
@@ -44,14 +44,14 @@ export default function ModuleSection({
           <button
             type="button"
             onClick={onEditModule}
-            className="rounded-md border border-[var(--ks-border)] bg-[var(--ks-surface)] px-3 py-1.5 text-xs font-medium text-[var(--ks-text)] transition hover:bg-[var(--ks-bg-soft)]"
+            className="ks-neo-btn-secondary px-2.5 py-1 text-xs font-bold"
           >
             Edit
           </button>
           <button
             type="button"
             onClick={onDeleteModule}
-            className="rounded-md border border-rose-500/50 px-3 py-1.5 text-xs font-semibold text-rose-600 transition hover:bg-rose-500/10"
+            className="ks-neo-btn-secondary px-2.5 py-1 text-xs font-bold text-rose-600 hover:text-rose-700"
           >
             Delete
           </button>
@@ -63,7 +63,7 @@ export default function ModuleSection({
           {children}
 
           {lessons.length > 0 ? (
-            <ul className="space-y-2 px-5 py-4">
+            <ul className="space-y-2 px-4 sm:px-5 py-4 bg-[#FAF8F5]/30">
               {lessons.map((lesson) => (
                 <LessonItem
                   key={lesson.id}
@@ -75,20 +75,20 @@ export default function ModuleSection({
             </ul>
           ) : (
             !hasChildren && (
-              <div className="px-5 py-6 text-center">
-                <p className="text-sm text-[var(--ks-text-muted)]">No lessons yet.</p>
-                <p className="mt-1 text-xs text-[var(--ks-text-muted)]">
+              <div className="px-5 py-6 text-center bg-[#FAF8F5]/30">
+                <p className="text-sm text-neutral-600 font-medium">No lessons yet.</p>
+                <p className="mt-1 text-xs text-neutral-500">
                   Add lessons to start building this module.
                 </p>
               </div>
             )
           )}
 
-          <div className="border-t border-[var(--ks-border)] px-5 py-3">
+          <div className="border-t-2 border-[#241A16] px-4 sm:px-5 py-2.5 bg-[#FAF8F5]">
             <button
               type="button"
               onClick={onAddLesson}
-              className="rounded-md border border-[var(--ks-orange)]/40 px-3 py-1.5 text-xs font-semibold text-[var(--ks-orange)] transition hover:bg-[var(--ks-orange)]/10"
+              className="ks-neo-btn-primary px-3 py-1.5 text-xs font-bold"
             >
               + Add Lesson
             </button>
